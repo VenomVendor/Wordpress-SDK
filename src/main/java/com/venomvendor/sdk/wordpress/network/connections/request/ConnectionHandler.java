@@ -5,7 +5,7 @@
  * Copyright(c):	2017 - Present, VenomVendor.
  * License		:	Apache License Version 2.0
  */
-package com.venomvendor.sdk.wordpress.network.connections;
+package com.venomvendor.sdk.wordpress.network.connections.request;
 
 import android.util.Log;
 
@@ -54,7 +54,7 @@ public final class ConnectionHandler {
         return mRetrofit;
     }
 
-    private static WPRestClient getRestClient() {
+    static WPRestClient getRestClient() {
         if (mRestClient == null) {
             mRestClient = getRetrofit().create(WPRestClient.class);
         }

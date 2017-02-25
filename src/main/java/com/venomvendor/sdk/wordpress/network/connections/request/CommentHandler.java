@@ -1,14 +1,14 @@
 /*
  * Author		:	VenomVendor
- * Dated		:	25-Feb'17 11:44:41 PM
+ * Dated		:	25-Feb'17 11:48:35 PM
  * URL			:	https://www.google.co.in/search?q=VenomVendor
  * Copyright(c):	2017 - Present, VenomVendor.
  * License		:	Apache License Version 2.0
  */
-package com.venomvendor.sdk.wordpress.network.connections;
+package com.venomvendor.sdk.wordpress.network.connections.request;
 
-class PostsHandler extends CommentsHandler {
-    PostsHandler() {
+class CommentHandler extends APIHandler {
+    CommentHandler() {
         super();
     }
 }

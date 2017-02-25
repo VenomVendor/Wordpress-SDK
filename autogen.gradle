@@ -1,4 +1,14 @@
+import org.apache.commons.codec.binary.Base64
+
 defaultTasks 'configGen'
+buildscript {
+    repositories {
+        jcenter()
+    }
+    dependencies {
+        classpath 'commons-codec:commons-codec:1.10'
+    }
+}
 
 task configGen {
     String gitChanged = 'git status --porcelain'.execute([], project.rootDir).text.trim();
@@ -42,7 +52,7 @@ task configGen {
             sb.append(sCurrentLine.trim());
         }
 
-        String json = sb.toString();
+        String json = encode(sb.toString());
         sb.setLength(0);
         String data = sb.append(headerComment)
                 .append(declaration)
@@ -63,6 +73,12 @@ task configGen {
     }
 }
 
+def static encode(json) {
+    def byte[] encodedString = new Base64().encode(json as byte[])
+    return new String(encodedString)
+}
+
+@SuppressWarnings("GroovyUnusedDeclaration")
 def static computeVersionName() {
     def format = 'YYMMddHHmm'
     def date = new Date()

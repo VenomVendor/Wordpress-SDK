@@ -5,7 +5,7 @@
  * Copyright(c):	2017 - Present, VenomVendor.
  * License		:	Apache License Version 2.0
  */
-package com.venomvendor.sdk.wordpress.network;
+package com.venomvendor.sdk.wordpress.network.connections;
 
 public class NetworkHandler extends PostsHandler {
     private static final NetworkHandler mInstance = new NetworkHandler();

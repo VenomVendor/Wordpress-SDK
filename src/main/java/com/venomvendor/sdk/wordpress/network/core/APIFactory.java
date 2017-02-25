@@ -5,8 +5,9 @@
  * Copyright(c):	2017 - Present, VenomVendor.
  * License		:	Apache License Version 2.0
  */
-package com.venomvendor.sdk.wordpress.network;
+package com.venomvendor.sdk.wordpress.network.core;
 
+import com.venomvendor.sdk.wordpress.network.Endpoints;
 import com.venomvendor.sdk.wordpress.network.exceptions.WordpressException;
 
 public class APIFactory {
@@ -35,5 +36,14 @@ public class APIFactory {
             throw new WordpressException("API Already configured.");
         }
         this.mEndpoint = endpoints;
+    }
+
+    public String getBaseUrl() {
+        return getWPLocation() + mEndpoint.getPath();
+    }
+
+    private String getWPLocation() {
+        return mEndpoint.isSecure() ? mEndpoint.getProtocolSecure() :
+                mEndpoint.getProtocolDefault() + "www." + mEndpoint.getDomain();
     }
 }

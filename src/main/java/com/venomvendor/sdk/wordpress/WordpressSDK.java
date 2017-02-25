@@ -10,9 +10,14 @@ package com.venomvendor.sdk.wordpress;
 import android.util.Base64;
 import android.util.Log;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.databind.DeserializationFeature;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.venomvendor.sdk.wordpress.network.APIFactory;
+import com.venomvendor.sdk.wordpress.network.Endpoints;
 import com.venomvendor.sdk.wordpress.network.exceptions.WordpressException;
 
-import java.io.UnsupportedEncodingException;
+import java.io.IOException;
 
 import okhttp3.internal.Util;
 
@@ -23,27 +28,54 @@ public final class WordpressSDK {
     private WordpressSDK() {
     }
 
-    public static void initialize() throws WordpressException {
+    public static void initialize(String domain, boolean isHttps) throws WordpressException {
+        if (domain == null || domain.startsWith("www")
+                || domain.startsWith("http:") || domain.startsWith("https:")) {
+            throw new WordpressException("Wrong domain name, set your domain where wordpress " +
+                    "is hosted.\nExample \"VenomVendor.com\" or \"wp.VenomVendor.com\"  or " +
+                    "\"VenomVendor.com\\wp \nDo not prefix \"www, http, https\" \"");
+        }
         if (initialized) {
             throw new WordpressException("SDK already initialized");
         }
         try {
-            init();
+            init(domain, isHttps);
             initialized = true;
-        } catch (UnsupportedEncodingException ex) {
+        } catch (IOException ex) {
             throw new WordpressException("Error decoding encrypted json. " + ex.getMessage());
         }
     }
 
-    private static void init() throws UnsupportedEncodingException {
+    private static void init(String domain, boolean isSecure) throws IOException {
         System.loadLibrary("wordpress-android");
 
         byte[] decodedBytes = Base64.decode(endPoints(), Base64.DEFAULT);
-        String endpointsJson = new String(decodedBytes, Util.UTF_8.name());
+        String endpointJson = new String(decodedBytes, Util.UTF_8.name());
+
+        Endpoints endpoints;
+        try {
+            endpoints = getObjectMapper().readValue(endpointJson, Endpoints.class);
+            endpoints.setDomain(domain);
+            endpoints.setSecure(isSecure);
+        } catch (IOException ex) {
+            throw new IOException("Invalid json " + endpointJson + "\n" + ex.getMessage());
+        }
+
+        APIFactory.getInstance().setEndpoint(endpoints);
+
         if (BuildConfig.DEBUG) {
-            Log.d(TAG, endpointsJson);
+            Log.d(TAG, endpointJson);
             Log.d(TAG, cpu());
         }
+    }
+
+    private static ObjectMapper getObjectMapper() {
+        ObjectMapper objectMapper = new ObjectMapper();
+        objectMapper.setSerializationInclusion(JsonInclude.Include.NON_NULL);
+        objectMapper.enable(DeserializationFeature.ACCEPT_SINGLE_VALUE_AS_ARRAY);
+        objectMapper.enable(DeserializationFeature.ACCEPT_EMPTY_STRING_AS_NULL_OBJECT);
+        objectMapper.disable(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES);
+        return objectMapper;
     }
 
     private static native String endPoints();

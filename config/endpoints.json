@@ -1,6 +1,8 @@
 {
   "protocolDefault": "http://",
   "protocolSecure": "https://",
+  "secure": true,
+  "domain": "VenomVendor.com",
   "path": "/wp-json/wp/v2/",
   "token": "token/",
   "dateError": "GMT+05:30",
@@ -9,14 +11,12 @@
   "posts": {
     "path": "posts/",
     "filter": {
+      "id": "include",
+      "slug": "slug",
       "category": "categories",
       "publishedAfter": "after",
       "publishedBefore": "before",
       "search": "search",
-      "single": {
-        "id": "include",
-        "slug": "slug"
-      },
       "resultSize": "per_page",
       "page": "page",
       "offset": "offset"

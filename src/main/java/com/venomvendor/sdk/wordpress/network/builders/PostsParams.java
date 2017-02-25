@@ -25,6 +25,11 @@ public class PostsParams extends BaseParams {
         createNonNull(filter.getSlug(), builder.slug);
     }
 
+    @Override
+    public boolean equals(Object params) {
+        return params instanceof PostsParams && super.equals(params);
+    }
+
     public static class Builder {
         private String resultSize = String.valueOf(20);
         private String id;

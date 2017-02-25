@@ -38,12 +38,16 @@ public class APIFactory {
         this.mEndpoint = endpoints;
     }
 
+    private String getWPLocation() {
+        return mEndpoint.isSecure() ? mEndpoint.getProtocolSecure() :
+                mEndpoint.getProtocolDefault() + "www." + mEndpoint.getDomain();
+    }
+
     public String getBaseUrl() {
         return getWPLocation() + mEndpoint.getPath();
     }
 
-    private String getWPLocation() {
-        return mEndpoint.isSecure() ? mEndpoint.getProtocolSecure() :
-                mEndpoint.getProtocolDefault() + "www." + mEndpoint.getDomain();
+    public String getPostsUrl() {
+        return getBaseUrl() + mEndpoint.getPosts().getPath();
     }
 }

@@ -1,3 +1,68 @@
+defaultTasks 'configGen'
+
+task configGen {
+    String gitChanged = 'git status --porcelain'.execute([], project.rootDir).text.trim();
+    gitChanged += 'git ls-files --others --exclude-standard'.execute([], project.rootDir).text.trim();
+    List<String> allLines = gitChanged.readLines();
+
+    String sdkDir = "$projectDir".replace("$project.rootDir/", "");
+    String endPoint = "$sdkDir/config/endpoints.json";
+    String apiLoc = "$sdkDir/src/main/jni/api.h";
+
+    boolean enableAutoGen = false;
+    for (String eachLine : allLines) {
+        if (eachLine.contains(endPoint) || eachLine.contains(apiLoc)) {
+            enableAutoGen = true;
+            break;
+        }
+    }
+    if (enableAutoGen) {
+        File endPointFile = new File(endPoint);
+        File apiFile = new File(apiLoc);
+
+        if (!endPointFile.exists()) {
+            throw new IOException("Couldn't find config file");
+        }
+        if (apiFile.exists()) {
+            apiFile.delete();
+        }
+        if (!apiFile.createNewFile()) {
+            throw new IOException("Couldn't create config file");
+        }
+
+        String headerComment = "/* \n * Auto generated on " + new Date().toString() +
+                " do not edit\n */\n";
+
+        String declaration = "extern char *config;\nchar *config = (char *) ";
+
+        StringBuilder sb = new StringBuilder();
+        BufferedReader br = new BufferedReader(new FileReader(endPointFile));
+        String sCurrentLine;
+        while ((sCurrentLine = br.readLine()) != null) {
+            sb.append(sCurrentLine.trim());
+        }
+
+        String json = sb.toString();
+        sb.setLength(0);
+        String data = sb.append(headerComment)
+                .append(declaration)
+                .append('"')
+                .append(json.replace('"', '\\"'))
+                .append('";')
+                .toString();
+        try {
+            FileWriter writer = new FileWriter(apiFile);
+            writer.write(data);
+            writer.flush();
+            writer.close();
+        } catch (Exception e) {
+            throw new IOException("Couldn't write config file " + e);
+        }
+    } else {
+        println 'No changes in config'
+    }
+}
+
 def static computeVersionName() {
     def format = 'YYMMddHHmm'
     def date = new Date()

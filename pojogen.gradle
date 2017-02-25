@@ -10,12 +10,12 @@ ext {
  * https://goo.gl/690KyF
  */
 jsonSchema2Pojo {
-    source = files("$projectDir/config")
+    source = files("$projectDir/config/")
     targetDirectory = file("$projectDir/src/main/java")
     targetPackage = 'com.venomvendor.sdk.wordpress.network'
     generateBuilders = false
     usePrimitives = true
-    propertyWordDelimiters = [] as char[]
+    propertyWordDelimiters = ['-', ' ', '_'] as char[]
     useLongIntegers = false
     useDoubleNumbers = false
     includeHashcodeAndEquals = false
@@ -23,7 +23,7 @@ jsonSchema2Pojo {
     annotationStyle = 'jackson'
     includeJsr303Annotations = false
     sourceType = 'json'
-    boolean removeOldOutput = false
+    boolean removeOldOutput = true
     String outputEncoding = 'UTF-8'
     boolean useJodaDates = false
     boolean useCommonsLang3 = false

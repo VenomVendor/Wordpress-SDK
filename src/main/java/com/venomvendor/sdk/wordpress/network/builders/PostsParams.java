@@ -11,8 +11,8 @@ import android.support.annotation.IntRange;
 
 import com.venomvendor.sdk.wordpress.network.Filter;
 
-public class PostsBuilder extends ParamsBuilder {
-    private PostsBuilder(Builder builder) {
+public class PostsParams extends BaseParams {
+    private PostsParams(Builder builder) {
         Filter filter = ENDPOINT.getPosts().getFilter();
         createNonNull(filter.getCategory(), builder.category);
         createNonNull(filter.getPublishedAfter(), builder.publishedAfter);
@@ -81,8 +81,8 @@ public class PostsBuilder extends ParamsBuilder {
             return this;
         }
 
-        public PostsBuilder build() {
-            return new PostsBuilder(this);
+        public PostsParams build() {
+            return new PostsParams(this);
         }
     }
 }

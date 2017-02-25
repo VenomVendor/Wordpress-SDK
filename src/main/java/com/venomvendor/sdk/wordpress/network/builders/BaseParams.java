@@ -12,7 +12,7 @@ import com.venomvendor.sdk.wordpress.network.Endpoints;
 
 import java.util.HashMap;
 
-class ParamsBuilder extends HashMap<String, String> {
+class BaseParams extends HashMap<String, String> {
     static final Endpoints ENDPOINT = APIFactory.getInstance().getEndpoint();
 
     void createNonNull(String key, String value) {

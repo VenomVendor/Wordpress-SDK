@@ -1,0 +1,6 @@
+def static computeVersionName() {
+    def format = 'YYMMddHHmm'
+    def date = new Date()
+    def formattedDate = date.format(format)
+    return Integer.parseInt(formattedDate)
+}

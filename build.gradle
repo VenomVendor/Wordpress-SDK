@@ -1,5 +1,17 @@
 apply from: 'version.gradle'
 apply plugin: 'com.android.library'
+buildscript {
+    repositories {
+        jcenter()
+    }
+    dependencies {
+        classpath 'org.jsonschema2pojo:jsonschema2pojo-gradle-plugin:latest.integration'
+    }
+}
+
+repositories {
+    jcenter()
+}
 
 android {
     compileSdkVersion compileSdk
@@ -73,6 +85,7 @@ dependencies {
     // JSON Parsers
     compile "com.fasterxml.jackson.core:jackson-core:${jackson}"
     compile "com.fasterxml.jackson.core:jackson-annotations:${jackson}"
+    compile "com.fasterxml.jackson.core:jackson-databind:${jackson}"
 
     // Test
     androidTestCompile("com.android.support.test.espresso:espresso-core:${espresso}", {

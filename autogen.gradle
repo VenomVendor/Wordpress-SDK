@@ -1,3 +1,4 @@
+apply from: 'pojogen.gradle'
 import org.apache.commons.codec.binary.Base64
 
 defaultTasks 'configGen'
@@ -15,8 +16,6 @@ task configGen {
     gitChanged += 'git ls-files --others --exclude-standard'.execute([], project.rootDir).text.trim();
     List<String> allLines = gitChanged.readLines();
 
-    String sdkDir = "$projectDir".replace("$project.rootDir/", "");
-    String endPoint = "$sdkDir/config/endpoints.json";
     String apiLoc = "$sdkDir/src/main/jni/api.h";
 
     boolean enableAutoGen = false;

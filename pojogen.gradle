@@ -1,0 +1,34 @@
+apply plugin: 'com.android.library'
+apply plugin: 'jsonschema2pojo'
+
+ext {
+    sdkDir = "$projectDir".replace("$project.rootDir/", "")
+    endPoint = "$sdkDir/config/endpoints.json"
+}
+
+/**
+ * https://goo.gl/690KyF
+ */
+jsonSchema2Pojo {
+    source = files("$projectDir/config")
+    targetDirectory = file("$projectDir/src/main/java")
+    targetPackage = 'com.venomvendor.sdk.wordpress.network'
+    generateBuilders = false
+    usePrimitives = true
+    propertyWordDelimiters = [] as char[]
+    useLongIntegers = false
+    useDoubleNumbers = false
+    includeHashcodeAndEquals = false
+    includeToString = false
+    annotationStyle = 'jackson'
+    includeJsr303Annotations = false
+    sourceType = 'json'
+    boolean removeOldOutput = false
+    String outputEncoding = 'UTF-8'
+    boolean useJodaDates = false
+    boolean useCommonsLang3 = false
+    boolean initializeCollections = true
+    includeAdditionalProperties = false
+    serializable = false
+    parcelable = false
+}

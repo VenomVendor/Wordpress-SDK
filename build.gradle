@@ -15,13 +15,13 @@ repositories {
 
 android {
     compileSdkVersion compileSdk
-    buildToolsVersion "${buildTools}"
+    buildToolsVersion buildTools
 
     defaultConfig {
         minSdkVersion minSdk
         targetSdkVersion targetSdk
-        versionCode versionCode
-        versionName "${versionName}"
+        versionCode project.ext.versionCode
+        versionName project.ext.versionName
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
 
         externalNativeBuild {

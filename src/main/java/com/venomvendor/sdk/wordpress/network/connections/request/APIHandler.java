@@ -9,6 +9,7 @@ package com.venomvendor.sdk.wordpress.network.connections.request;
 
 import android.os.Build.VERSION;
 import android.os.Build.VERSION_CODES;
+import android.support.annotation.NonNull;
 import android.util.ArrayMap;
 import android.util.Base64;
 
@@ -16,6 +17,7 @@ import com.venomvendor.sdk.wordpress.network.connections.response.ResponseHandle
 import com.venomvendor.sdk.wordpress.network.exceptions.WordpressException;
 
 import java.io.UnsupportedEncodingException;
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
@@ -43,10 +45,31 @@ abstract class APIHandler<T> implements WordpressRequests<T> {
         }
     }
 
+    final boolean isNewRequest(Request request, @NonNull ResponseHandler<T> listener) {
+        String listenerKey = getListenerKey(request);
+        List<ResponseHandler<T>> existingListeners = mListenerQueue.get(listenerKey);
+        if (existingListeners == null) {
+            existingListeners = new ArrayList<>(1);
+            existingListeners.add(listener);
+            mListenerQueue.put(listenerKey, existingListeners);
+            return true;
+        }
+        existingListeners.add(listener);
+        return false;
+    }
+
     final String getListenerKey(Request request) {
         return base64Encrypt(request.tag().toString()
                 + request.headers().toString()
                 + String.valueOf(request.body()));
+    }
+
+    final void handlerFailure(Request request, Throwable throwable) {
+        String listenerKey = getListenerKey(request);
+        List<ResponseHandler<T>> existingListeners = mListenerQueue.get(listenerKey);
+        if (existingListeners != null) {
+            handleError(throwable.getLocalizedMessage(), existingListeners);
+        }
     }
 
     private String base64Encrypt(String data) {

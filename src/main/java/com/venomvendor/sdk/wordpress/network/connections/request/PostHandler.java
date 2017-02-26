@@ -9,15 +9,16 @@ package com.venomvendor.sdk.wordpress.network.connections.request;
 
 import android.support.annotation.NonNull;
 
-import com.venomvendor.sdk.wordpress.network.builders.PostsParams;
+import com.venomvendor.sdk.wordpress.network.builders.BaseParams;
+import com.venomvendor.sdk.wordpress.network.builders.PostsParams.Builder;
 import com.venomvendor.sdk.wordpress.network.connections.response.ResponseHandler;
 import com.venomvendor.sdk.wordpress.network.core.APIFactory;
 import com.venomvendor.sdk.wordpress.network.response.GetPost;
 import com.venomvendor.sdk.wordpress.network.util.HttpStatus;
 
-import java.util.ArrayList;
 import java.util.List;
 
+import okhttp3.Request;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -29,41 +30,34 @@ abstract class PostHandler<T> extends CommentHandler<T> {
 
     @Override
     public void getRecentPosts(@NonNull ResponseHandler<T> listener) {
-        getPosts(new PostsParams.Builder().build(), listener);
+        getPosts(new Builder().build(), listener);
     }
 
     @Override
-    public void getPosts(PostsParams params, @NonNull ResponseHandler<T> newListener) {
+    public void getPosts(BaseParams params, @NonNull ResponseHandler<T> listener) {
         Call<GetPost[]> call = ConnectionHandler.getRestClient()
                 .getPosts(APIFactory.getInstance().getPostsUrl(), params);
-
-        String listenerKey = getListenerKey(call.request());
-        List<ResponseHandler<T>> existingListeners = mListenerQueue.get(listenerKey);
-        if (existingListeners == null) {
-            existingListeners = new ArrayList<>(1);
-            mListenerQueue.put(listenerKey, existingListeners);
-            getPostsFromServer(call);
+        if (isNewRequest(call.request(), listener)) {
+            getDataFromServer(call);
         }
-
-        existingListeners.add(newListener);
     }
 
-    private void getPostsFromServer(Call<GetPost[]> call) {
+    private void getDataFromServer(Call<GetPost[]> call) {
         call.enqueue(new Callback<GetPost[]>() {
             @Override
             public void onResponse(Call<GetPost[]> call, Response<GetPost[]> response) {
-                handleResponse(call, response);
+                handleResponse(call.request(), response);
             }
 
             @Override
             public void onFailure(Call<GetPost[]> call, Throwable throwable) {
-                handlerFailure(call, throwable);
+                handlerFailure(call.request(), throwable);
             }
         });
     }
 
-    private void handleResponse(Call<GetPost[]> call, Response<GetPost[]> response) {
-        String listenerKey = getListenerKey(call.request());
+    private void handleResponse(Request request, Response<GetPost[]> response) {
+        String listenerKey = getListenerKey(request);
         List<ResponseHandler<T>> existingListeners = mListenerQueue.get(listenerKey);
         if (existingListeners != null) {
             if (hasNoError(response.body(), existingListeners)) {
@@ -86,13 +80,5 @@ abstract class PostHandler<T> extends CommentHandler<T> {
             }
         }
         return true;
-    }
-
-    private void handlerFailure(Call<GetPost[]> call, Throwable throwable) {
-        String listenerKey = getListenerKey(call.request());
-        List<ResponseHandler<T>> existingListeners = mListenerQueue.get(listenerKey);
-        if (existingListeners != null) {
-            handleError(throwable.getLocalizedMessage(), existingListeners);
-        }
     }
 }

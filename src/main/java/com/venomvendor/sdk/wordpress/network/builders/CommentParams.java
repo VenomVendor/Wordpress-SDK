@@ -7,22 +7,22 @@
  */
 package com.venomvendor.sdk.wordpress.network.builders;
 
-import android.support.annotation.IntRange;
-
-import com.venomvendor.sdk.wordpress.network.request.Filter;
+import com.venomvendor.sdk.wordpress.network.request.FetchComment;
 
 public class CommentParams extends BaseParams {
     private CommentParams(Builder builder) {
-        Filter filter = FACTORY.getPosts().getFilter();
-        createNonNull(filter.getCategory(), builder.category);
-        createNonNull(filter.getPublishedAfter(), builder.publishedAfter);
-        createNonNull(filter.getPublishedBefore(), builder.publishedBefore);
-        createNonNull(filter.getSearch(), builder.search);
+        FetchComment filter = FACTORY.getFilter().getFetchComment();
+        createNonNull(filter.getPostId(), builder.postId);
+        createNonNull(filter.getUserId(), builder.userId);
+        createNonNull(filter.getId(), builder.id);
+        createNonNull(filter.getReplies(), builder.replies);
+        createNonNull(filter.getInReplyTo(), builder.inReplyTo);
         createNonNull(filter.getResultSize(), builder.resultSize);
         createNonNull(filter.getPage(), builder.page);
+        createNonNull(filter.getSearch(), builder.search);
+        createNonNull(filter.getPublishedAfter(), builder.publishedAfter);
+        createNonNull(filter.getPublishedBefore(), builder.publishedBefore);
         createNonNull(filter.getOffset(), builder.offset);
-        createNonNull(filter.getId(), builder.id);
-        createNonNull(filter.getSlug(), builder.slug);
     }
 
     @Override
@@ -30,59 +30,29 @@ public class CommentParams extends BaseParams {
         return params instanceof CommentParams && super.equals(params);
     }
 
-    public static class Builder {
-        private String resultSize = String.valueOf(20);
-        private String id;
-        private String slug;
-        private String category;
-        private String publishedAfter;
-        private String publishedBefore;
-        private String search;
-        private String page;
-        private String offset;
+    public static class Builder extends BaseBuilder {
+        private String userId;
+        private String replies;
+        private String inReplyTo;
+        private String postId;
 
-        public Builder setCategory(String category) {
-            this.category = category;
+        public Builder userId(String userId) {
+            this.userId = userId;
             return this;
         }
 
-        public Builder setPublishedAfter(String publishedAfter) {
-            this.publishedAfter = publishedAfter;
+        public Builder replies(String replies) {
+            this.replies = replies;
             return this;
         }
 
-        public Builder setPublishedBefore(String publishedBefore) {
-            this.publishedBefore = publishedBefore;
+        public Builder inReplyTo(String inReplyTo) {
+            this.inReplyTo = inReplyTo;
             return this;
         }
 
-        public Builder setSearch(String search) {
-            this.search = search;
-            return this;
-        }
-
-        public Builder setResultSize(@IntRange(from = 1, to = 100) int resultSize) {
-            this.resultSize = String.valueOf(resultSize);
-            return this;
-        }
-
-        public Builder setPage(@IntRange(from = 1) int page) {
-            this.page = String.valueOf(page);
-            return this;
-        }
-
-        public Builder setOffset(@IntRange(from = 1) int offset) {
-            this.offset = String.valueOf(offset);
-            return this;
-        }
-
-        public Builder setId(@IntRange(from = 1) int id) {
-            this.id = String.valueOf(id);
-            return this;
-        }
-
-        public Builder setSlug(String slug) {
-            this.slug = slug;
+        public BaseBuilder postId(String postId) {
+            this.postId = postId;
             return this;
         }
 

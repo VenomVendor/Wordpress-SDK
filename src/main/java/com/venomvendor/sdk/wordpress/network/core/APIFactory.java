@@ -44,10 +44,14 @@ public class APIFactory {
     }
 
     public String getBaseUrl() {
-        return getWPLocation() + mFactory.getPath();
+        return getWPLocation() + mFactory.getPath().getRoot();
     }
 
     public String getPostsUrl() {
-        return getBaseUrl() + mFactory.getPosts().getPath();
+        return getBaseUrl() + mFactory.getPath().getPosts();
+    }
+
+    public String getCommentsUrl() {
+        return getBaseUrl() + mFactory.getPath().getComments();
     }
 }

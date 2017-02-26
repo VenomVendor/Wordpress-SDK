@@ -3,29 +3,43 @@
   "protocolSecure": "https://",
   "secure": true,
   "domain": "VenomVendor.com",
-  "path": "/wp-json/wp/v2/",
+  "path": {
+    "root": "/wp-json/wp/v2/",
+    "posts": "posts/",
+    "comments": "comments/"
+  },
   "token": "token/",
   "dateError": "GMT+05:30",
   "perReqNew": 100,
   "perReq": 20,
-  "posts": {
-    "path": "posts/",
-    "filter": {
+  "filter": {
+    "fetchPost": {
       "id": "include",
-      "slug": "slug",
-      "category": "categories",
       "publishedAfter": "after",
       "publishedBefore": "before",
-      "search": "search",
-      "resultSize": "per_page",
       "page": "page",
-      "offset": "offset"
+      "search": "search",
+      "offset": "offset",
+      "resultSize": "per_page",
+      "slug": "slug",
+      "category": "categories"
+    },
+    "fetchComment": {
+      "id": "include",
+      "publishedAfter": "after",
+      "publishedBefore": "before",
+      "page": "page",
+      "search": "search",
+      "offset": "offset",
+      "resultSize": "per_page",
+      "postId": "post",
+      "userId": "author",
+      "replies": "include",
+      "inReplyTo": "parent"
     }
   },
-  "comments": {
-    "path": "comments/",
-    "create": {
-      "requestMethod": "POST",
+  "create": {
+    "newComment": {
       "postId": "post",
       "userId": "author",
       "email": "author_email",
@@ -33,31 +47,19 @@
       "comment": "content",
       "userAgent": "author_user_agent",
       "replyTo": "parent"
-    },
-    "read": {
-      "requestMethod": "GET",
-      "postId": "post",
-      "userId": "author",
-      "id": "include",
-      "replies": "include",
-      "inReplyTo": "parent",
-      "resultSize": "per_page",
-      "page": "page",
-      "search": "search",
-      "publishedAfter": "after",
-      "publishedBefore": "before",
-      "errorTime": "+05:30"
-    },
-    "update": {
-      "requestMethod": "POST",
+    }
+  },
+  "update": {
+    "updateParams": {
       "postId": "post",
       "userId": "author",
       "email": "author_email",
       "name": "author_name",
       "comment": "content"
-    },
-    "delete": {
-      "requestMethod": "DELETE",
+    }
+  },
+  "delete": {
+    "oldComment": {
       "force": "force",
       "password": "password"
     }

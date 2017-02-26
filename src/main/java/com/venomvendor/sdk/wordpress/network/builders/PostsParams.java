@@ -7,13 +7,11 @@
  */
 package com.venomvendor.sdk.wordpress.network.builders;
 
-import android.support.annotation.IntRange;
-
-import com.venomvendor.sdk.wordpress.network.request.Filter;
+import com.venomvendor.sdk.wordpress.network.request.FetchPost;
 
 public class PostsParams extends BaseParams {
     private PostsParams(Builder builder) {
-        Filter filter = FACTORY.getPosts().getFilter();
+        FetchPost filter = FACTORY.getFilter().getFetchPost();
         createNonNull(filter.getCategory(), builder.category);
         createNonNull(filter.getPublishedAfter(), builder.publishedAfter);
         createNonNull(filter.getPublishedBefore(), builder.publishedBefore);
@@ -30,54 +28,12 @@ public class PostsParams extends BaseParams {
         return params instanceof PostsParams && super.equals(params);
     }
 
-    public static class Builder {
-        private String resultSize = String.valueOf(20);
-        private String id;
+    public static class Builder extends BaseBuilder {
         private String slug;
         private String category;
-        private String publishedAfter;
-        private String publishedBefore;
-        private String search;
-        private String page;
-        private String offset;
 
         public Builder setCategory(String category) {
             this.category = category;
-            return this;
-        }
-
-        public Builder setPublishedAfter(String publishedAfter) {
-            this.publishedAfter = publishedAfter;
-            return this;
-        }
-
-        public Builder setPublishedBefore(String publishedBefore) {
-            this.publishedBefore = publishedBefore;
-            return this;
-        }
-
-        public Builder setSearch(String search) {
-            this.search = search;
-            return this;
-        }
-
-        public Builder setResultSize(@IntRange(from = 1, to = 100) int resultSize) {
-            this.resultSize = String.valueOf(resultSize);
-            return this;
-        }
-
-        public Builder setPage(@IntRange(from = 1) int page) {
-            this.page = String.valueOf(page);
-            return this;
-        }
-
-        public Builder setOffset(@IntRange(from = 1) int offset) {
-            this.offset = String.valueOf(offset);
-            return this;
-        }
-
-        public Builder setId(@IntRange(from = 1) int id) {
-            this.id = String.valueOf(id);
             return this;
         }
 

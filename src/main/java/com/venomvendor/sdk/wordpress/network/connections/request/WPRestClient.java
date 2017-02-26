@@ -7,7 +7,8 @@
  */
 package com.venomvendor.sdk.wordpress.network.connections.request;
 
-import com.venomvendor.sdk.wordpress.network.response.GetPost;
+import com.venomvendor.sdk.wordpress.network.response.comments.GetComment;
+import com.venomvendor.sdk.wordpress.network.response.posts.GetPost;
 
 import java.util.Map;
 
@@ -24,4 +25,7 @@ interface WPRestClient {
      */
     @GET
     Call<GetPost[]> getPosts(@Url String url, @QueryMap Map<String, String> filters);
+
+    @GET
+    Call<GetComment[]> getComments(@Url String url, @QueryMap Map<String, String> filters);
 }

@@ -20,6 +20,7 @@ import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
@@ -77,6 +78,24 @@ abstract class APIHandler<T> implements WordpressRequests<T> {
             return Base64.encodeToString(data.getBytes(Util.UTF_8.name()), Base64.DEFAULT);
         } catch (UnsupportedEncodingException e) {
             return data;
+        }
+    }
+
+    @Override
+    public void remove(@NonNull ResponseHandler<T> listener) {
+        for (List<ResponseHandler<T>> responseHandlers : mListenerQueue.values()) {
+            Iterator<ResponseHandler<T>> innerListeners = responseHandlers.iterator();
+            boolean removed = false;
+            while (innerListeners.hasNext()) {
+                if (innerListeners.next() == listener) {
+                    innerListeners.remove();
+                    removed = true;
+                    break;
+                }
+            }
+            if (removed) {
+                break;
+            }
         }
     }
 }

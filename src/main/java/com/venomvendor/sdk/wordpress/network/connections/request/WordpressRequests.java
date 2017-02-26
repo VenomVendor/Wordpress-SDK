@@ -24,4 +24,6 @@ public interface WordpressRequests<T> {
     void getAllCategories(@NonNull ResponseHandler<T> listener);
 
     void getCategories(BaseParams params, @NonNull ResponseHandler<T> listener);
+
+    void remove(@NonNull ResponseHandler<T> listener);
 }

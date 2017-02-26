@@ -15,9 +15,18 @@ import java.util.HashMap;
 public class BaseParams extends HashMap<String, String> {
     static final Endpoints ENDPOINT = APIFactory.getInstance().getEndpoint();
 
-    void createNonNull(String key, String value) {
+    private BaseParams() {
+    }
+
+    final void createNonNull(String key, String value) {
         if (key != null && value != null) {
             put(key, value);
+        }
+    }
+
+    public static class Builder {
+        public BaseParams build() {
+            return new BaseParams();
         }
     }
 }

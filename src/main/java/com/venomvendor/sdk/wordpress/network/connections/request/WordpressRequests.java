@@ -20,4 +20,8 @@ public interface WordpressRequests<T> {
     void getRecentComments(@NonNull ResponseHandler<T> listener);
 
     void getComments(BaseParams params, @NonNull ResponseHandler<T> listener);
+
+    void getAllCategories(@NonNull ResponseHandler<T> listener);
+
+    void getCategories(BaseParams params, @NonNull ResponseHandler<T> listener);
 }

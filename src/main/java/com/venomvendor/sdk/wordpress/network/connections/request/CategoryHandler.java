@@ -10,6 +10,7 @@ package com.venomvendor.sdk.wordpress.network.connections.request;
 import android.support.annotation.NonNull;
 
 import com.venomvendor.sdk.wordpress.network.builders.BaseParams;
+import com.venomvendor.sdk.wordpress.network.builders.CommentParams;
 import com.venomvendor.sdk.wordpress.network.connections.response.ResponseHandler;
 
 abstract class CategoryHandler<T> extends APIHandler<T> {
@@ -19,7 +20,7 @@ abstract class CategoryHandler<T> extends APIHandler<T> {
 
     @Override
     public void getAllCategories(@NonNull ResponseHandler<T> listener) {
-        getCategories(new BaseParams.Builder().build(), listener);
+        getCategories(new CommentParams.Builder().build(), listener);
     }
 
     @Override

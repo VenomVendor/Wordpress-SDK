@@ -10,7 +10,7 @@ package com.venomvendor.sdk.wordpress.network.builders;
 import com.venomvendor.sdk.wordpress.network.request.FetchComment;
 
 public class CommentParams extends BaseParams {
-    private CommentParams(Builder builder) {
+    public CommentParams(Builder builder) {
         FetchComment filter = FACTORY.getFilter().getFetchComment();
         createNonNull(filter.getPostId(), builder.postId);
         createNonNull(filter.getUserId(), builder.userId);

@@ -9,6 +9,8 @@ package com.venomvendor.sdk.wordpress.network.connections.response;
 
 import com.venomvendor.sdk.wordpress.network.exceptions.WordpressException;
 
-public interface ResponseHandler {
-    void onError(WordpressException ex);
+import retrofit2.Response;
+
+public interface ResponseHandler<T> {
+    void onResponse(Response<T> response, WordpressException ex);
 }

@@ -7,8 +7,53 @@
  */
 package com.venomvendor.sdk.wordpress.network.connections.request;
 
-class APIHandler {
-    APIHandler() {
+import android.os.Build.VERSION;
+import android.os.Build.VERSION_CODES;
+import android.util.ArrayMap;
+import android.util.Base64;
 
+import com.venomvendor.sdk.wordpress.network.connections.response.ResponseHandler;
+import com.venomvendor.sdk.wordpress.network.exceptions.WordpressException;
+
+import java.io.UnsupportedEncodingException;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+import okhttp3.Request;
+import okhttp3.internal.Util;
+
+class APIHandler<T> {
+    final Map<String, List<ResponseHandler<T>>> mListenerQueue;
+
+    APIHandler() {
+        if (VERSION.SDK_INT >= VERSION_CODES.KITKAT) {
+            mListenerQueue = Collections.synchronizedMap(new ArrayMap<String,
+                    List<ResponseHandler<T>>>());
+        } else {
+            mListenerQueue = Collections.synchronizedMap(new HashMap<String,
+                    List<ResponseHandler<T>>>());
+        }
+    }
+
+    void handleError(String error, List<ResponseHandler<T>> existingListeners) {
+        for (ResponseHandler<T> listener : existingListeners) {
+            listener.onResponse(null, new WordpressException(error));
+        }
+    }
+
+    String getListenerKey(Request request) {
+        return base64Encrypt(request.tag().toString()
+                + request.headers().toString()
+                + String.valueOf(request.body()));
+    }
+
+    private String base64Encrypt(String data) {
+        try {
+            return Base64.encodeToString(data.getBytes(Util.UTF_8.name()), Base64.DEFAULT);
+        } catch (UnsupportedEncodingException e) {
+            return data;
+        }
     }
 }

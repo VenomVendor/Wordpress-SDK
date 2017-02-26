@@ -7,8 +7,8 @@
  */
 package com.venomvendor.sdk.wordpress.network.builders;
 
-import com.venomvendor.sdk.wordpress.network.core.APIFactory;
 import com.venomvendor.sdk.wordpress.network.Endpoints;
+import com.venomvendor.sdk.wordpress.network.core.APIFactory;
 
 import java.util.HashMap;
 

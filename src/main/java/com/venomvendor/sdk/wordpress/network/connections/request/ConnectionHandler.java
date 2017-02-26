@@ -87,10 +87,8 @@ public final class ConnectionHandler {
 
         @Override
         public Response intercept(Chain chain) throws IOException {
-            Log.i(TAG, "inside intercept callback");
             Request request = chain.request();
-
-            String requestLog = String.format("Sending request to %s with body %n%s and headers %n%s",
+            String requestLog = String.format("Sending request to %s with body %n%s & headers %n%s",
                     request.url(), request.body(), request.headers());
             Log.d(TAG, requestLog);
 
@@ -98,9 +96,9 @@ public final class ConnectionHandler {
             Response response = chain.proceed(request);
             final long t2 = System.nanoTime();
 
-            String bodyString = response.body().string();
-
-            String responseLog = String.format(Locale.ENGLISH, "Received response for %s in %.1fms %n %n %s %n %n %s",
+            String bodyString = response.body().string().trim();
+            String responseLog = String.format(Locale.ENGLISH,
+                    "Received response from %s in %.1fms %n%s %n%s",
                     response.request().url(), (t2 - t1) / 1e6d, bodyString, response.headers());
 
             Log.d(TAG, responseLog);

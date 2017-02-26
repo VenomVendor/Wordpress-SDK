@@ -7,7 +7,7 @@
  */
 package com.venomvendor.sdk.wordpress.network.connections.request;
 
-class CommentHandler extends APIHandler {
+class CommentHandler<T> extends APIHandler<T> {
     CommentHandler() {
         super();
     }

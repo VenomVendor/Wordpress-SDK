@@ -98,4 +98,16 @@ abstract class APIHandler<T> implements WordpressRequests<T> {
             }
         }
     }
+
+    @Override
+    public void removeAll(@NonNull ResponseHandler<T> listener) {
+        for (List<ResponseHandler<T>> responseHandlers : mListenerQueue.values()) {
+            Iterator<ResponseHandler<T>> innerListeners = responseHandlers.iterator();
+            while (innerListeners.hasNext()) {
+                if (innerListeners.next() == listener) {
+                    innerListeners.remove();
+                }
+            }
+        }
+    }
 }

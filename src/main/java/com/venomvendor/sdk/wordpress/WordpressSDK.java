@@ -13,9 +13,9 @@ import android.util.Log;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.venomvendor.sdk.wordpress.network.Endpoints;
 import com.venomvendor.sdk.wordpress.network.core.APIFactory;
 import com.venomvendor.sdk.wordpress.network.exceptions.WordpressException;
+import com.venomvendor.sdk.wordpress.network.request.Factory;
 
 import java.io.IOException;
 
@@ -52,16 +52,16 @@ public final class WordpressSDK {
         byte[] decodedBytes = Base64.decode(endPoints(), Base64.DEFAULT);
         String endpointJson = new String(decodedBytes, Util.UTF_8.name());
 
-        Endpoints endpoints;
+        Factory endpoints;
         try {
-            endpoints = getObjectMapper().readValue(endpointJson, Endpoints.class);
+            endpoints = getObjectMapper().readValue(endpointJson, Factory.class);
             endpoints.setDomain(domain);
             endpoints.setSecure(isSecure);
         } catch (IOException ex) {
             throw new IOException("Invalid json " + endpointJson + "\n" + ex.getMessage());
         }
 
-        APIFactory.getInstance().setEndpoint(endpoints);
+        APIFactory.getInstance().setFactory(endpoints);
 
         if (BuildConfig.DEBUG) {
             Log.d(TAG, endpointJson);

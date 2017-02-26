@@ -3,7 +3,7 @@ apply plugin: 'jsonschema2pojo'
 
 ext {
     sdkDir = "$projectDir".replace("$project.rootDir/", "")
-    endPoint = "$sdkDir/config/endpoints.json"
+    endPoint = "$sdkDir/config/request/Factory.json"
 }
 
 /**
@@ -23,12 +23,14 @@ jsonSchema2Pojo {
     annotationStyle = 'jackson'
     includeJsr303Annotations = false
     sourceType = 'json'
-    boolean removeOldOutput = true
-    String outputEncoding = 'UTF-8'
-    boolean useJodaDates = false
-    boolean useCommonsLang3 = false
-    boolean initializeCollections = true
+    removeOldOutput = true
+    outputEncoding = 'UTF-8'
+    useJodaDates = false
+    useCommonsLang3 = false
+    initializeCollections = true
     includeAdditionalProperties = false
     serializable = false
     parcelable = false
+    targetVersion = 1.7
+    includeAccessors = true
 }

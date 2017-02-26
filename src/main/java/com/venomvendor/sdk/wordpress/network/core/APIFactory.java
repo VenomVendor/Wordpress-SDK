@@ -7,12 +7,12 @@
  */
 package com.venomvendor.sdk.wordpress.network.core;
 
-import com.venomvendor.sdk.wordpress.network.Endpoints;
 import com.venomvendor.sdk.wordpress.network.exceptions.WordpressException;
+import com.venomvendor.sdk.wordpress.network.request.Factory;
 
 public class APIFactory {
     private static final APIFactory mInstance = new APIFactory();
-    private Endpoints mEndpoint;
+    private Factory mFactory;
 
     private APIFactory() {
     }
@@ -21,33 +21,33 @@ public class APIFactory {
         return mInstance;
     }
 
-    public Endpoints getEndpoint() {
-        if (mEndpoint == null) {
+    public Factory getFactory() {
+        if (mFactory == null) {
             throw new WordpressException("API not yet configured.");
         }
-        return mEndpoint;
+        return mFactory;
     }
 
-    public void setEndpoint(Endpoints endpoints) {
+    public void setFactory(Factory endpoints) {
         if (endpoints == null) {
             throw new WordpressException("API Cannot be configured.");
         }
-        if (this.mEndpoint != null) {
+        if (this.mFactory != null) {
             throw new WordpressException("API Already configured.");
         }
-        this.mEndpoint = endpoints;
+        this.mFactory = endpoints;
     }
 
     private String getWPLocation() {
-        return mEndpoint.isSecure() ? mEndpoint.getProtocolSecure() :
-                mEndpoint.getProtocolDefault() + "www." + mEndpoint.getDomain();
+        return mFactory.isSecure() ? mFactory.getProtocolSecure() :
+                mFactory.getProtocolDefault() + "www." + mFactory.getDomain();
     }
 
     public String getBaseUrl() {
-        return getWPLocation() + mEndpoint.getPath();
+        return getWPLocation() + mFactory.getPath();
     }
 
     public String getPostsUrl() {
-        return getBaseUrl() + mEndpoint.getPosts().getPath();
+        return getBaseUrl() + mFactory.getPosts().getPath();
     }
 }

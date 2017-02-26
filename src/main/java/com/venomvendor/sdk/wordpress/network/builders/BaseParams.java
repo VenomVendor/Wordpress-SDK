@@ -7,13 +7,13 @@
  */
 package com.venomvendor.sdk.wordpress.network.builders;
 
-import com.venomvendor.sdk.wordpress.network.Endpoints;
 import com.venomvendor.sdk.wordpress.network.core.APIFactory;
+import com.venomvendor.sdk.wordpress.network.request.Factory;
 
 import java.util.HashMap;
 
 public class BaseParams extends HashMap<String, String> {
-    static final Endpoints ENDPOINT = APIFactory.getInstance().getEndpoint();
+    static final Factory FACTORY = APIFactory.getInstance().getFactory();
 
     public BaseParams() {
     }

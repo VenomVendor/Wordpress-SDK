@@ -9,11 +9,11 @@ package com.venomvendor.sdk.wordpress.network.builders;
 
 import android.support.annotation.IntRange;
 
-import com.venomvendor.sdk.wordpress.network.Filter;
+import com.venomvendor.sdk.wordpress.network.request.Filter;
 
 public class CommentParams extends BaseParams {
     private CommentParams(Builder builder) {
-        Filter filter = ENDPOINT.getPosts().getFilter();
+        Filter filter = FACTORY.getPosts().getFilter();
         createNonNull(filter.getCategory(), builder.category);
         createNonNull(filter.getPublishedAfter(), builder.publishedAfter);
         createNonNull(filter.getPublishedBefore(), builder.publishedBefore);

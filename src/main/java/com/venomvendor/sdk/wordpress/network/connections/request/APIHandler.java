@@ -24,7 +24,7 @@ import java.util.Map;
 import okhttp3.Request;
 import okhttp3.internal.Util;
 
-class APIHandler<T> {
+abstract class APIHandler<T> implements WordpressRequests<T> {
     final Map<String, List<ResponseHandler<T>>> mListenerQueue;
 
     APIHandler() {
@@ -37,13 +37,13 @@ class APIHandler<T> {
         }
     }
 
-    void handleError(String error, List<ResponseHandler<T>> existingListeners) {
+    final void handleError(String error, List<ResponseHandler<T>> existingListeners) {
         for (ResponseHandler<T> listener : existingListeners) {
             listener.onResponse(null, new WordpressException(error));
         }
     }
 
-    String getListenerKey(Request request) {
+    final String getListenerKey(Request request) {
         return base64Encrypt(request.tag().toString()
                 + request.headers().toString()
                 + String.valueOf(request.body()));

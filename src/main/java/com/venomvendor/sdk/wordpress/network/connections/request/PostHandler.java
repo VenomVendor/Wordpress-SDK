@@ -22,16 +22,18 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-class PostHandler<T> extends CommentHandler<T> {
+abstract class PostHandler<T> extends CommentHandler<T> {
     PostHandler() {
         super();
     }
 
+    @Override
     public void getRecentPosts(@NonNull ResponseHandler<T> listener) {
-        getRecentPosts(new PostsParams.Builder().build(), listener);
+        getPosts(new PostsParams.Builder().build(), listener);
     }
 
-    public void getRecentPosts(PostsParams params, @NonNull ResponseHandler<T> newListener) {
+    @Override
+    public void getPosts(PostsParams params, @NonNull ResponseHandler<T> newListener) {
         Call<GetPost[]> call = ConnectionHandler.getRestClient()
                 .getPosts(APIFactory.getInstance().getPostsUrl(), params);
 

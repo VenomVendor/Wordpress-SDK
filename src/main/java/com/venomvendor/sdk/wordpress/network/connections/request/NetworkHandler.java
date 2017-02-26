@@ -14,7 +14,7 @@ public class NetworkHandler extends PostHandler {
         super();
     }
 
-    public static NetworkHandler getInstance() {
+    public static WordpressRequests getInstance() {
         return mInstance;
     }
 }

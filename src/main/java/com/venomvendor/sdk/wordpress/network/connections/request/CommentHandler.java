@@ -7,8 +7,24 @@
  */
 package com.venomvendor.sdk.wordpress.network.connections.request;
 
+import android.support.annotation.NonNull;
+
+import com.venomvendor.sdk.wordpress.network.builders.BaseParams;
+import com.venomvendor.sdk.wordpress.network.builders.CommentParams.Builder;
+import com.venomvendor.sdk.wordpress.network.connections.response.ResponseHandler;
+
 abstract class CommentHandler<T> extends APIHandler<T> {
     CommentHandler() {
         super();
+    }
+
+    @Override
+    public void getRecentComments(@NonNull ResponseHandler<T> listener) {
+        getComments(new Builder().build(), listener);
+    }
+
+    @Override
+    public void getComments(BaseParams params, @NonNull ResponseHandler<T> listener) {
+
     }
 }

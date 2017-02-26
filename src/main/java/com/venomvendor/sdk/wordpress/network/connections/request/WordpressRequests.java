@@ -9,11 +9,15 @@ package com.venomvendor.sdk.wordpress.network.connections.request;
 
 import android.support.annotation.NonNull;
 
-import com.venomvendor.sdk.wordpress.network.builders.PostsParams;
+import com.venomvendor.sdk.wordpress.network.builders.BaseParams;
 import com.venomvendor.sdk.wordpress.network.connections.response.ResponseHandler;
 
 public interface WordpressRequests<T> {
     void getRecentPosts(@NonNull ResponseHandler<T> listener);
 
-    void getPosts(PostsParams params, @NonNull ResponseHandler<T> newListener);
+    void getPosts(BaseParams params, @NonNull ResponseHandler<T> listener);
+
+    void getRecentComments(@NonNull ResponseHandler<T> listener);
+
+    void getComments(BaseParams params, @NonNull ResponseHandler<T> listener);
 }

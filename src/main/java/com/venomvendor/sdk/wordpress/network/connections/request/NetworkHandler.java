@@ -7,6 +7,8 @@
  */
 package com.venomvendor.sdk.wordpress.network.connections.request;
 
+import com.venomvendor.sdk.wordpress.network.connections.request.listener.WordpressRequests;
+
 public class NetworkHandler extends PostHandler {
     private static final NetworkHandler mInstance = new NetworkHandler();
 

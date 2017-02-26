@@ -5,14 +5,14 @@
  * Copyright(c):	2017 - Present, VenomVendor.
  * License		:	Apache License Version 2.0
  */
-package com.venomvendor.sdk.wordpress.network.connections.request;
+package com.venomvendor.sdk.wordpress.network.connections.request.listener;
 
 import android.support.annotation.NonNull;
 
 import com.venomvendor.sdk.wordpress.network.builders.BaseParams;
 import com.venomvendor.sdk.wordpress.network.connections.response.ResponseHandler;
 
-public interface WordpressRequests<T> {
+public interface WordpressRequests<T> extends ListenerHandler<T> {
     void getRecentPosts(@NonNull ResponseHandler<T> listener);
 
     void getPosts(BaseParams params, @NonNull ResponseHandler<T> listener);
@@ -24,8 +24,4 @@ public interface WordpressRequests<T> {
     void getAllCategories(@NonNull ResponseHandler<T> listener);
 
     void getCategories(BaseParams params, @NonNull ResponseHandler<T> listener);
-
-    void remove(@NonNull ResponseHandler<T> listener);
-
-    void removeAll(@NonNull ResponseHandler<T> listener);
 }

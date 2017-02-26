@@ -13,6 +13,7 @@ import android.support.annotation.NonNull;
 import android.util.ArrayMap;
 import android.util.Base64;
 
+import com.venomvendor.sdk.wordpress.network.connections.request.listener.WordpressRequests;
 import com.venomvendor.sdk.wordpress.network.connections.response.ResponseHandler;
 import com.venomvendor.sdk.wordpress.network.exceptions.WordpressException;
 

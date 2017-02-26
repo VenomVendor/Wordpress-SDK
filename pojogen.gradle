@@ -6,6 +6,12 @@ ext {
     endPoint = "$sdkDir/config/request/Factory.json"
 }
 
+task deleteFiles {
+    doLast {
+        println 'find . -name *.DS_Store -exec rm {} +'.execute([], project.rootDir).text.trim();
+    }
+}
+
 /**
  * https://goo.gl/690KyF
  */
@@ -34,3 +40,4 @@ jsonSchema2Pojo {
     targetVersion = 1.7
     includeAccessors = true
 }
+tasks.deleteFiles.execute();

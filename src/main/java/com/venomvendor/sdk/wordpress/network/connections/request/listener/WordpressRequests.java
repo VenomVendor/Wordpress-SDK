@@ -9,8 +9,8 @@ package com.venomvendor.sdk.wordpress.network.connections.request.listener;
 
 import android.support.annotation.NonNull;
 
-import com.venomvendor.sdk.wordpress.network.builders.BaseParams;
 import com.venomvendor.sdk.wordpress.network.connections.response.ResponseHandler;
+import com.venomvendor.sdk.wordpress.network.params.BaseParams;
 
 public interface WordpressRequests<T> extends ListenerHandler<T> {
     void getRecentPosts(@NonNull ResponseHandler<T> listener);

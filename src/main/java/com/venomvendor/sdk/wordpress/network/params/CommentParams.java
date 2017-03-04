@@ -5,7 +5,7 @@
  * Copyright(c):	2017 - Present, VenomVendor.
  * License		:	Apache License Version 2.0
  */
-package com.venomvendor.sdk.wordpress.network.builders;
+package com.venomvendor.sdk.wordpress.network.params;
 
 import com.venomvendor.sdk.wordpress.network.request.FetchComment;
 

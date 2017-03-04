@@ -9,10 +9,10 @@ package com.venomvendor.sdk.wordpress.network.connections.request;
 
 import android.support.annotation.NonNull;
 
-import com.venomvendor.sdk.wordpress.network.builders.BaseParams;
-import com.venomvendor.sdk.wordpress.network.builders.PostsParams.Builder;
 import com.venomvendor.sdk.wordpress.network.connections.response.ResponseHandler;
 import com.venomvendor.sdk.wordpress.network.core.APIFactory;
+import com.venomvendor.sdk.wordpress.network.params.BaseParams;
+import com.venomvendor.sdk.wordpress.network.params.PostsParams.Builder;
 import com.venomvendor.sdk.wordpress.network.response.posts.GetPost;
 import com.venomvendor.sdk.wordpress.network.util.HttpStatus;
 

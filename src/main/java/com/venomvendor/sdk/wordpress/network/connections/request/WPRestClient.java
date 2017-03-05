@@ -7,6 +7,8 @@
  */
 package com.venomvendor.sdk.wordpress.network.connections.request;
 
+import android.support.annotation.NonNull;
+
 import com.venomvendor.sdk.wordpress.network.response.categories.GetCategory;
 import com.venomvendor.sdk.wordpress.network.response.comments.GetComment;
 import com.venomvendor.sdk.wordpress.network.response.posts.GetPost;
@@ -24,12 +26,15 @@ interface WPRestClient {
      * @param filters with filters.
      * @return {@link GetPost}
      */
+    @NonNull
     @GET
     Call<GetPost[]> getPosts(@Url String url, @QueryMap Map<String, String> filters);
 
+    @NonNull
     @GET
     Call<GetComment[]> getComments(@Url String url, @QueryMap Map<String, String> filters);
 
+    @NonNull
     @GET
     Call<GetCategory[]> getCategories(@Url String url, @QueryMap Map<String, String> filters);
 }

@@ -7,6 +7,7 @@
  */
 package com.venomvendor.sdk.wordpress;
 
+import android.support.annotation.NonNull;
 import android.util.Base64;
 import android.util.Log;
 
@@ -28,7 +29,7 @@ public final class WordpressSDK {
     private WordpressSDK() {
     }
 
-    public static void initialize(String domain, boolean isHttps) throws WordpressException {
+    public static void initialize(@NonNull String domain, boolean isHttps) {
         if (domain == null || domain.startsWith("www")
                 || domain.startsWith("http:") || domain.startsWith("https:")) {
             throw new WordpressException("Wrong domain name, set your domain where wordpress " +
@@ -69,6 +70,7 @@ public final class WordpressSDK {
         }
     }
 
+    @NonNull
     private static ObjectMapper getObjectMapper() {
         ObjectMapper objectMapper = new ObjectMapper();
         objectMapper.setSerializationInclusion(JsonInclude.Include.NON_NULL);
@@ -78,7 +80,9 @@ public final class WordpressSDK {
         return objectMapper;
     }
 
+    @NonNull
     private static native String endPoints();
 
+    @NonNull
     private static native String cpu();
 }

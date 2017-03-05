@@ -7,6 +7,8 @@
  */
 package com.venomvendor.sdk.wordpress.network.connections.request;
 
+import android.support.annotation.NonNull;
+
 import com.venomvendor.sdk.wordpress.network.connections.request.listener.WordpressRequests;
 
 public class NetworkHandler extends PostHandler {
@@ -16,6 +18,7 @@ public class NetworkHandler extends PostHandler {
         super();
     }
 
+    @NonNull
     public static WordpressRequests getInstance() {
         return mInstance;
     }

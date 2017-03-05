@@ -42,21 +42,21 @@ abstract class PostHandler<T> extends CommentHandler<T> {
         }
     }
 
-    private void getDataFromServer(Call<GetPost[]> call) {
+    private void getDataFromServer(@NonNull Call<GetPost[]> call) {
         call.enqueue(new Callback<GetPost[]>() {
             @Override
-            public void onResponse(Call<GetPost[]> call, Response<GetPost[]> response) {
+            public void onResponse(@NonNull Call<GetPost[]> call, @NonNull Response<GetPost[]> response) {
                 handleResponse(call.request(), response);
             }
 
             @Override
-            public void onFailure(Call<GetPost[]> call, Throwable throwable) {
+            public void onFailure(@NonNull Call<GetPost[]> call, @NonNull Throwable throwable) {
                 handlerFailure(call.request(), throwable);
             }
         });
     }
 
-    private void handleResponse(Request request, Response<GetPost[]> response) {
+    private void handleResponse(@NonNull Request request, @NonNull Response<GetPost[]> response) {
         String listenerKey = getListenerKey(request);
         List<ResponseHandler<T>> existingListeners = mListenerQueue.get(listenerKey);
         if (existingListeners != null) {
@@ -69,7 +69,7 @@ abstract class PostHandler<T> extends CommentHandler<T> {
         }
     }
 
-    private boolean hasNoError(GetPost[] response, List<ResponseHandler<T>> existingListeners) {
+    private boolean hasNoError(@NonNull GetPost[] response, @NonNull List<ResponseHandler<T>> existingListeners) {
         if (response.length == 1) {
             GetPost res = response[0];
             if (res.getMessage() != null) {

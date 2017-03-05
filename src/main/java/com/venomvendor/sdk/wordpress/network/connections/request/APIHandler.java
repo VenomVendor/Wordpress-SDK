@@ -41,13 +41,13 @@ abstract class APIHandler<T> implements WordpressRequests<T> {
         }
     }
 
-    final void handleError(String error, List<ResponseHandler<T>> existingListeners) {
+    final void handleError(String error, @NonNull List<ResponseHandler<T>> existingListeners) {
         for (ResponseHandler<T> listener : existingListeners) {
             listener.onResponse(null, new WordpressException(error));
         }
     }
 
-    final boolean isNewRequest(Request request, @NonNull ResponseHandler<T> listener) {
+    final boolean isNewRequest(@NonNull Request request, @NonNull ResponseHandler<T> listener) {
         String listenerKey = getListenerKey(request);
         List<ResponseHandler<T>> existingListeners = mListenerQueue.get(listenerKey);
         if (existingListeners == null) {
@@ -60,13 +60,13 @@ abstract class APIHandler<T> implements WordpressRequests<T> {
         return false;
     }
 
-    final String getListenerKey(Request request) {
+    final String getListenerKey(@NonNull Request request) {
         return base64Encrypt(request.tag().toString()
                 + request.headers().toString()
                 + String.valueOf(request.body()));
     }
 
-    final void handlerFailure(Request request, Throwable throwable) {
+    final void handlerFailure(@NonNull Request request, @NonNull Throwable throwable) {
         String listenerKey = getListenerKey(request);
         List<ResponseHandler<T>> existingListeners = mListenerQueue.get(listenerKey);
         if (existingListeners != null) {
@@ -74,7 +74,7 @@ abstract class APIHandler<T> implements WordpressRequests<T> {
         }
     }
 
-    private String base64Encrypt(String data) {
+    private String base64Encrypt(@NonNull String data) {
         try {
             return Base64.encodeToString(data.getBytes(Util.UTF_8.name()), Base64.DEFAULT);
         } catch (UnsupportedEncodingException e) {

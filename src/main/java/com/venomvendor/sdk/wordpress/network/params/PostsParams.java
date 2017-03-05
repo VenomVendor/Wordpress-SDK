@@ -7,10 +7,12 @@
  */
 package com.venomvendor.sdk.wordpress.network.params;
 
+import android.support.annotation.NonNull;
+
 import com.venomvendor.sdk.wordpress.network.request.FetchPost;
 
 public class PostsParams extends BaseParams {
-    private PostsParams(Builder builder) {
+    private PostsParams(@NonNull Builder builder) {
         FetchPost filter = FACTORY.getFilter().getFetchPost();
         createNonNull(filter.getCategory(), builder.category);
         createNonNull(filter.getPublishedAfter(), builder.publishedAfter);
@@ -32,16 +34,19 @@ public class PostsParams extends BaseParams {
         private String slug;
         private String category;
 
+        @NonNull
         public Builder setCategory(String category) {
             this.category = category;
             return this;
         }
 
+        @NonNull
         public Builder setSlug(String slug) {
             this.slug = slug;
             return this;
         }
 
+        @NonNull
         public PostsParams build() {
             return new PostsParams(this);
         }

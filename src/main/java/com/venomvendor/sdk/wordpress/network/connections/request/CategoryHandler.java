@@ -42,21 +42,21 @@ abstract class CategoryHandler<T> extends APIHandler<T> {
         }
     }
 
-    private void getDataFromServer(Call<GetCategory[]> call) {
+    private void getDataFromServer(@NonNull Call<GetCategory[]> call) {
         call.enqueue(new Callback<GetCategory[]>() {
             @Override
-            public void onResponse(Call<GetCategory[]> call, Response<GetCategory[]> response) {
+            public void onResponse(@NonNull Call<GetCategory[]> call, @NonNull Response<GetCategory[]> response) {
                 handleResponse(call.request(), response);
             }
 
             @Override
-            public void onFailure(Call<GetCategory[]> call, Throwable throwable) {
+            public void onFailure(@NonNull Call<GetCategory[]> call, @NonNull Throwable throwable) {
                 handlerFailure(call.request(), throwable);
             }
         });
     }
 
-    private void handleResponse(Request request, Response<GetCategory[]> response) {
+    private void handleResponse(@NonNull Request request, @NonNull Response<GetCategory[]> response) {
         String listenerKey = getListenerKey(request);
         List<ResponseHandler<T>> existingListeners = mListenerQueue.get(listenerKey);
         if (existingListeners != null) {
@@ -69,7 +69,7 @@ abstract class CategoryHandler<T> extends APIHandler<T> {
         }
     }
 
-    private boolean hasNoError(GetCategory[] response, List<ResponseHandler<T>> existingListeners) {
+    private boolean hasNoError(@NonNull GetCategory[] response, @NonNull List<ResponseHandler<T>> existingListeners) {
         if (response.length == 1) {
             GetCategory res = response[0];
             if (res.getMessage() != null) {

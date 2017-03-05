@@ -42,21 +42,21 @@ abstract class CommentHandler<T> extends CategoryHandler<T> {
         }
     }
 
-    private void getDataFromServer(Call<GetComment[]> call) {
+    private void getDataFromServer(@NonNull Call<GetComment[]> call) {
         call.enqueue(new Callback<GetComment[]>() {
             @Override
-            public void onResponse(Call<GetComment[]> call, Response<GetComment[]> response) {
+            public void onResponse(@NonNull Call<GetComment[]> call, @NonNull Response<GetComment[]> response) {
                 handleResponse(call.request(), response);
             }
 
             @Override
-            public void onFailure(Call<GetComment[]> call, Throwable throwable) {
+            public void onFailure(@NonNull Call<GetComment[]> call, @NonNull Throwable throwable) {
                 handlerFailure(call.request(), throwable);
             }
         });
     }
 
-    private void handleResponse(Request request, Response<GetComment[]> response) {
+    private void handleResponse(@NonNull Request request, @NonNull Response<GetComment[]> response) {
         String listenerKey = getListenerKey(request);
         List<ResponseHandler<T>> existingListeners = mListenerQueue.get(listenerKey);
         if (existingListeners != null) {
@@ -69,7 +69,7 @@ abstract class CommentHandler<T> extends CategoryHandler<T> {
         }
     }
 
-    private boolean hasNoError(GetComment[] response, List<ResponseHandler<T>> existingListeners) {
+    private boolean hasNoError(@NonNull GetComment[] response, @NonNull List<ResponseHandler<T>> existingListeners) {
         if (response.length == 1) {
             GetComment res = response[0];
             if (res.getMessage() != null) {

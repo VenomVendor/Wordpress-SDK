@@ -7,6 +7,7 @@
  */
 package com.venomvendor.sdk.wordpress.network.connections.request;
 
+import android.support.annotation.NonNull;
 import android.util.Log;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
@@ -27,7 +28,7 @@ import okhttp3.ResponseBody;
 import retrofit2.Retrofit;
 import retrofit2.converter.jackson.JacksonConverterFactory;
 
-public final class ConnectionHandler {
+final class ConnectionHandler {
     private static Retrofit mRetrofit;
     private static WPRestClient mRestClient;
 
@@ -61,6 +62,7 @@ public final class ConnectionHandler {
         return mRestClient;
     }
 
+    @NonNull
     private static ObjectMapper getObjectMapper() {
         ObjectMapper objectMapper = new ObjectMapper();
         objectMapper.setSerializationInclusion(JsonInclude.Include.NON_NULL);
@@ -72,7 +74,7 @@ public final class ConnectionHandler {
 
     private static class HeaderInterceptor implements Interceptor {
         @Override
-        public Response intercept(Chain chain) throws IOException {
+        public Response intercept(@NonNull Chain chain) throws IOException {
             Request request = chain.request();
             Headers moreHeaders = request.headers().newBuilder()
 //                    .set(API_KEY, getSecret())
@@ -86,7 +88,7 @@ public final class ConnectionHandler {
         private static final String TAG = "LoggingInterceptor";
 
         @Override
-        public Response intercept(Chain chain) throws IOException {
+        public Response intercept(@NonNull Chain chain) throws IOException {
             Request request = chain.request();
             String requestLog = String.format("Sending request to %s with body %n%s & headers %n%s",
                     request.url(), request.body(), request.headers());

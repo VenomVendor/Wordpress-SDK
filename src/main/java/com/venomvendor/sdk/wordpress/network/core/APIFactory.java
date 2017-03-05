@@ -7,20 +7,26 @@
  */
 package com.venomvendor.sdk.wordpress.network.core;
 
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
+
 import com.venomvendor.sdk.wordpress.network.exceptions.WordpressException;
 import com.venomvendor.sdk.wordpress.network.request.Factory;
 
 public class APIFactory {
     private static final APIFactory mInstance = new APIFactory();
+    @Nullable
     private Factory mFactory;
 
     private APIFactory() {
     }
 
+    @NonNull
     public static APIFactory getInstance() {
         return mInstance;
     }
 
+    @NonNull
     public Factory getFactory() {
         if (mFactory == null) {
             throw new WordpressException("API not yet configured.");
@@ -28,34 +34,39 @@ public class APIFactory {
         return mFactory;
     }
 
-    public void setFactory(Factory endpoints) {
-        if (endpoints == null) {
+    public void setFactory(@Nullable Factory factory) {
+        if (factory == null) {
             throw new WordpressException("API Cannot be configured.");
         }
-        if (this.mFactory != null) {
+        if (mFactory != null) {
             throw new WordpressException("API Already configured.");
         }
-        this.mFactory = endpoints;
+        mFactory = factory;
     }
 
+    @NonNull
     private String getWPLocation() {
-        return mFactory.isSecure() ? mFactory.getProtocolSecure() :
-                mFactory.getProtocolDefault() + "www." + mFactory.getDomain();
+        return getFactory().isSecure() ? getFactory().getProtocolSecure() :
+                getFactory().getProtocolDefault() + "www." + getFactory().getDomain();
     }
 
+    @NonNull
     public String getBaseUrl() {
-        return getWPLocation() + mFactory.getPath().getRoot();
+        return getWPLocation() + getFactory().getPath().getRoot();
     }
 
+    @NonNull
     public String getPostsUrl() {
-        return getBaseUrl() + mFactory.getPath().getPosts();
+        return getBaseUrl() + getFactory().getPath().getPosts();
     }
 
+    @NonNull
     public String getCommentsUrl() {
-        return getBaseUrl() + mFactory.getPath().getComments();
+        return getBaseUrl() + getFactory().getPath().getComments();
     }
 
+    @NonNull
     public String getCategoryUrl() {
-        return getBaseUrl() + mFactory.getPath().getCategory();
+        return getBaseUrl() + getFactory().getPath().getCategory();
     }
 }

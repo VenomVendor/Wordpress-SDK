@@ -1,11 +1,14 @@
 apply from: 'version.gradle'
 apply plugin: 'com.android.library'
+
 buildscript {
     repositories {
         jcenter()
     }
     dependencies {
         classpath 'org.jsonschema2pojo:jsonschema2pojo-gradle-plugin:latest.integration'
+        classpath 'com.github.dcendents:android-maven-gradle-plugin:1.5'
+        classpath 'com.jfrog.bintray.gradle:gradle-bintray-plugin:1.7.3'
     }
 }
 
@@ -99,3 +102,5 @@ dependencies {
     })
     testCompile "junit:junit:${junit}"
 }
+
+apply from: 'publish.gradle'

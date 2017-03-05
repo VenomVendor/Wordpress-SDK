@@ -1,0 +1,28 @@
+apply plugin: 'com.github.dcendents.android-maven'
+apply plugin: 'com.jfrog.bintray'
+
+ext {
+    libraryVersion = '1.0.0-alpha'
+
+    bintrayRepo = 'maven'
+    bintrayName = 'Wordpress-SDK'
+    libraryDescription = 'Minimal Wordpress SDK for Android.'
+
+    publishedGroupId = 'com.venomvendor'
+    libraryName = 'Wordpress-SDK'
+    artifact = 'Wordpress-SDK'
+
+    siteUrl = 'https://venomvendor.github.io/Wordpress-SDK'
+    gitUrl = 'https://github.com/VenomVendor/Wordpress-SDK.git'
+
+    developerId = 'VenomVendor'
+    developerName = 'VenomVendor'
+    developerEmail = 'info@VenomVendor.com'
+
+    licenseName = 'The Apache Software License, Version 2.0'
+    licenseUrl = 'http://www.apache.org/licenses/LICENSE-2.0.txt'
+    allLicenses = ["Apache-2.0"]
+}
+
+apply from: 'https://raw.githubusercontent.com/nuuneoi/JCenter/master/installv1.gradle'
+apply from: 'https://raw.githubusercontent.com/nuuneoi/JCenter/master/bintrayv1.gradle'

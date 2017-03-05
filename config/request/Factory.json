@@ -5,10 +5,11 @@
   "domain": "VenomVendor.com",
   "path": {
     "root": "/wp-json/wp/v2/",
+    "token": "token/",
     "posts": "posts/",
-    "comments": "comments/"
+    "comments": "comments/",
+    "category": "categories/"
   },
-  "token": "token/",
   "dateError": "GMT+05:30",
   "perReqNew": 100,
   "perReq": 20,

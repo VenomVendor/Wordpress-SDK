@@ -54,4 +54,8 @@ public class APIFactory {
     public String getCommentsUrl() {
         return getBaseUrl() + mFactory.getPath().getComments();
     }
+
+    public String getCategoryUrl() {
+        return getBaseUrl() + mFactory.getPath().getCategory();
+    }
 }

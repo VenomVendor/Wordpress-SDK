@@ -7,6 +7,7 @@
  */
 package com.venomvendor.sdk.wordpress.network.connections.request;
 
+import com.venomvendor.sdk.wordpress.network.response.categories.GetCategory;
 import com.venomvendor.sdk.wordpress.network.response.comments.GetComment;
 import com.venomvendor.sdk.wordpress.network.response.posts.GetPost;
 
@@ -28,4 +29,7 @@ interface WPRestClient {
 
     @GET
     Call<GetComment[]> getComments(@Url String url, @QueryMap Map<String, String> filters);
+
+    @GET
+    Call<GetCategory[]> getCategories(@Url String url, @QueryMap Map<String, String> filters);
 }

@@ -35,8 +35,8 @@ jsonSchema2Pojo {
     useCommonsLang3 = false
     initializeCollections = true
     includeAdditionalProperties = false
-    serializable = false
-    parcelable = false
+    serializable = true
+    parcelable = true
     targetVersion = 1.7
     includeAccessors = true
 }

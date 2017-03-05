@@ -16,6 +16,8 @@ repositories {
 android {
     compileSdkVersion compileSdk
     buildToolsVersion buildTools
+    defaultPublishConfig 'release'
+    publishNonDefault true
 
     defaultConfig {
         minSdkVersion minSdk
@@ -23,6 +25,7 @@ android {
         versionCode project.ext.versionCode
         versionName project.ext.versionName
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+        consumerProguardFiles 'proguard-rules-sdk.pro'
 
         externalNativeBuild {
             cmake {
@@ -41,9 +44,12 @@ android {
 
     buildTypes {
         release {
-            minifyEnabled false
+            minifyEnabled true
             jniDebuggable false
-            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            proguardFiles 'proguard-android-optimize.txt', 'proguard-rules.pro'
+        }
+        debug {
+            minifyEnabled false
         }
     }
     compileOptions {

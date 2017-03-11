@@ -9,6 +9,10 @@ ext {
 task deleteFiles {
     doLast {
         println 'find . -name *.DS_Store -exec rm {} +'.execute([], project.rootDir).text.trim();
+        copy {
+            from "$projectDir/config/request/Factory.json"
+            into "$projectDir/src/androidTest/assets/"
+        }
     }
 }
 

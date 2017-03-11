@@ -56,6 +56,7 @@ abstract class CategoryHandler<T> extends APIHandler<T> {
         });
     }
 
+    @SuppressWarnings("unchecked")
     private void handleResponse(@NonNull Request request, @NonNull Response<GetCategory[]> response) {
         String listenerKey = getListenerKey(request);
         List<ResponseHandler<T>> existingListeners = mListenerQueue.get(listenerKey);

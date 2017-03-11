@@ -17,11 +17,8 @@ import com.venomvendor.sdk.wordpress.network.request.Factory;
 import java.util.HashMap;
 
 public class BaseParams extends HashMap<String, String> {
-    @Nullable
+    @NonNull
     static final Factory FACTORY = APIFactory.getInstance().getFactory();
-
-    BaseParams() {
-    }
 
     final void createNonNull(@Nullable String key, @Nullable String value) {
         if (key != null && value != null) {
@@ -38,11 +35,6 @@ public class BaseParams extends HashMap<String, String> {
         String offset;
         String id;
         String search;
-
-        @NonNull
-        public BaseParams build() {
-            return new BaseParams();
-        }
 
         @NonNull
         public BaseBuilder setResultSize(@IntRange(from = 1, to = 100) int resultSize) {

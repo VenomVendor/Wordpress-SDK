@@ -56,6 +56,7 @@ abstract class CommentHandler<T> extends CategoryHandler<T> {
         });
     }
 
+    @SuppressWarnings("unchecked")
     private void handleResponse(@NonNull Request request, @NonNull Response<GetComment[]> response) {
         String listenerKey = getListenerKey(request);
         List<ResponseHandler<T>> existingListeners = mListenerQueue.get(listenerKey);

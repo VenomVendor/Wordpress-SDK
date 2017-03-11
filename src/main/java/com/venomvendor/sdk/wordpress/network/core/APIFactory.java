@@ -34,7 +34,8 @@ public class APIFactory {
         return mFactory;
     }
 
-    public void setFactory(@Nullable Factory factory) {
+    @SuppressWarnings("ConstantConditions")
+    public void setFactory(@NonNull Factory factory) {
         if (factory == null) {
             throw new WordpressException("API Cannot be configured.");
         }

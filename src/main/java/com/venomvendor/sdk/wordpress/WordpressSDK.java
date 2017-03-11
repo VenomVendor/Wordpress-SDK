@@ -29,6 +29,7 @@ public final class WordpressSDK {
     private WordpressSDK() {
     }
 
+    @SuppressWarnings("ConstantConditions")
     public static void initialize(@NonNull String domain, boolean isHttps) {
         if (domain == null || domain.startsWith("www")
                 || domain.startsWith("http:") || domain.startsWith("https:")) {

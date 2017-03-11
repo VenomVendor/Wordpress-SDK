@@ -99,6 +99,9 @@ dependencies {
     compile "com.fasterxml.jackson.core:jackson-databind:${jackson}"
 
     // Test
+    androidTestCompile("com.android.support.test.espresso:espresso-core:${espresso}", {
+        exclude group: 'com.android.support', module: 'support-annotations'
+    })
     testCompile "junit:junit:${junit}"
 
     // Hamcrest library

@@ -8,6 +8,7 @@
 package com.venomvendor.sdk.wordpress;
 
 import android.support.annotation.NonNull;
+import android.support.annotation.VisibleForTesting;
 import android.util.Base64;
 import android.util.Log;
 
@@ -24,7 +25,7 @@ import okhttp3.internal.Util;
 
 public final class WordpressSDK {
     private static final String TAG = WordpressSDK.class.getSimpleName();
-    private static boolean initialized;
+    private static boolean mInitialized;
 
     private WordpressSDK() {
     }
@@ -37,12 +38,12 @@ public final class WordpressSDK {
                     "is hosted.\nExample \"VenomVendor.com\" or \"wp.VenomVendor.com\"  or " +
                     "\"VenomVendor.com\\wp \nDo not prefix \"www, http, https\" \"");
         }
-        if (initialized) {
+        if (mInitialized) {
             throw new WordpressException("SDK already initialized");
         }
         try {
             init(domain, isHttps);
-            initialized = true;
+            mInitialized = true;
         } catch (IOException ex) {
             throw new WordpressException("Error decoding encrypted json. " + ex.getMessage());
         }
@@ -71,8 +72,9 @@ public final class WordpressSDK {
         }
     }
 
+    @VisibleForTesting
     @NonNull
-    private static ObjectMapper getObjectMapper() {
+    public static ObjectMapper getObjectMapper() {
         ObjectMapper objectMapper = new ObjectMapper();
         objectMapper.setSerializationInclusion(JsonInclude.Include.NON_NULL);
         objectMapper.enable(DeserializationFeature.ACCEPT_SINGLE_VALUE_AS_ARRAY);
@@ -81,8 +83,9 @@ public final class WordpressSDK {
         return objectMapper;
     }
 
+    @VisibleForTesting
     @NonNull
-    private static native String endPoints();
+    public static native String endPoints();
 
     @NonNull
     private static native String cpu();

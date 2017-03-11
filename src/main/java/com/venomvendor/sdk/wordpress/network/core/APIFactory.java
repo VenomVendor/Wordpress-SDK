@@ -9,6 +9,7 @@ package com.venomvendor.sdk.wordpress.network.core;
 
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.annotation.VisibleForTesting;
 
 import com.venomvendor.sdk.wordpress.network.exceptions.WordpressException;
 import com.venomvendor.sdk.wordpress.network.request.Factory;
@@ -45,8 +46,9 @@ public class APIFactory {
         mFactory = factory;
     }
 
+    @VisibleForTesting
     @NonNull
-    private String getWPLocation() {
+    public String getWPLocation() {
         return getFactory().isSecure() ? getFactory().getProtocolSecure() :
                 getFactory().getProtocolDefault() + "www." + getFactory().getDomain();
     }

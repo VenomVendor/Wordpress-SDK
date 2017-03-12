@@ -20,6 +20,7 @@ notifications:
   email: false
 
 before_install:
+  - echo y | $ANDROID_HOME
   - pip install --user codecov
   # for gradle output style
   - export TERM=dumb

@@ -9,17 +9,10 @@ env:
 android:
   components:
   - tools
-  - platform-tools
   - build-tools-25.0.2
+  - platform-tools
   - android-25
-  - extra-google-m2repository
-  - extra-android-m2repository
   - sys-img-${ANDROID_ABI}-${ANDROID_TARGET}
-
-licenses:
-    - 'android-sdk-preview-license-.+'
-    - 'android-sdk-license-.+'
-    - 'google-gdk-license-.+'
 
 notifications:
   email: false
@@ -32,6 +25,10 @@ before_install:
   # environment info
   - ./gradlew -v
   - uname -a
+
+  # Install NDK
+  - git clone https://github.com/urho3d/android-ndk.git $HOME/android-ndk-root
+  - export ANDROID_NDK_HOME=$HOME/android-ndk-root
 
 branches:
   only:

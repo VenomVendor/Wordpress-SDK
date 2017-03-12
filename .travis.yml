@@ -54,7 +54,6 @@ branches:
 
 before_script:
   - ./gradlew clean
-  - ./gradlew build jacocoTestReport assembleAndroidTest
   - android list targets
   - echo no | android create avd --force -n test -t $ANDROID_TARGET --abi $ANDROID_ABI
   - emulator -avd test -no-skin -no-audio -no-window &
@@ -69,7 +68,7 @@ before_script:
   - sleep 30
 
 script:
-  - ./execute print-delayed &
+  - ./gradlew build jacocoTestReport assembleAndroidTest
   - ./gradlew connectedCheck
 
 # after_success:

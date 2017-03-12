@@ -4,10 +4,9 @@ sudo: required
 
 env:
   global:
-    - ANDROID_TARGET=android-19
+    - ANDROID_TARGET=android-21
     - ANDROID_ABI=armeabi-v7a
     - ADB_INSTALL_TIMEOUT=20
-    - GRADLE_USER_HOME="${TRAVIS_BUILD_DIR}/gradle"
 
 cache:
   directories:
@@ -23,7 +22,7 @@ android:
   - tools
   - tools
   - build-tools-25.0.2
-  - android-19
+  - android-21
   - extra-android-m2repository
   - sys-img-${ANDROID_ABI}-${ANDROID_TARGET}
 
@@ -68,8 +67,7 @@ before_script:
   - sleep 30
 
 script:
-  - ./gradlew build jacocoTestReport assembleAndroidTest
-  - ./gradlew connectedCheck
+  - ./gradlew build jacocoTestReport assembleAndroidTest connectedCheck
 
-# after_success:
-  # - codecov
+ after_success:
+   - codecov

@@ -4,10 +4,11 @@ sudo: required
 
 env:
   global:
-    - ANDROID_TARGET=android-23
+    - ANDROID_TARGET=android-19
     - ANDROID_ABI=armeabi-v7a
     - ADB_INSTALL_TIMEOUT=20
     - GRADLE_USER_HOME="${TRAVIS_BUILD_DIR}/gradle"
+    - GRADLE_OPTS="-Xms2048M -Xmx=2048M"
 
 cache:
   directories:
@@ -23,7 +24,7 @@ android:
   - tools
   - tools
   - build-tools-25.0.2
-  - android-23
+  - android-19
   - extra-android-m2repository
   - sys-img-${ANDROID_ABI}-${ANDROID_TARGET}
 
@@ -69,6 +70,7 @@ before_script:
   - sleep 30
 
 script:
+  - ./execute print-delayed &
   - ./gradlew connectedCheck
 
 # after_success:

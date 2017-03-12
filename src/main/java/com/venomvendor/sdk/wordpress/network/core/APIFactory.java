@@ -49,8 +49,8 @@ public class APIFactory {
     @VisibleForTesting
     @NonNull
     public String getWPLocation() {
-        return getFactory().isSecure() ? getFactory().getProtocolSecure() :
-                getFactory().getProtocolDefault() + "www." + getFactory().getDomain();
+        return (getFactory().isSecure() ? getFactory().getProtocolSecure() :
+                getFactory().getProtocolDefault()) + "www." + getFactory().getDomain();
     }
 
     @NonNull

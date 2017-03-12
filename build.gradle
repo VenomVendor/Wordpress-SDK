@@ -103,10 +103,12 @@ dependencies {
     androidTestCompile("com.android.support.test.espresso:espresso-core:${espresso}", {
         exclude group: 'com.android.support', module: 'support-annotations'
     })
+    androidTestCompile "junit:junit:${junit}"
     testCompile "junit:junit:${junit}"
 
     // Hamcrest library
     androidTestCompile "org.hamcrest:hamcrest-library:${hamcrest}"
+    testCompile "org.hamcrest:hamcrest-library:${hamcrest}"
 }
 
 if (publish) {

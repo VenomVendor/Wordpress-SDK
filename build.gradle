@@ -109,4 +109,7 @@ dependencies {
     androidTestCompile "org.hamcrest:hamcrest-library:${hamcrest}"
 }
 
-apply from: 'publish.gradle'
+if (publish) {
+    apply from: 'publish.gradle'
+}
+

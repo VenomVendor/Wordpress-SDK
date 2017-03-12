@@ -1,11 +1,10 @@
 language: android
 jdk: oraclejdk8
-compiler: gcc
 sudo: required
 
 env:
   global:
-    - ANDROID_TARGET=android-19
+    - ANDROID_TARGET=android-23
     - ANDROID_ABI=armeabi-v7a
     - ADB_INSTALL_TIMEOUT=20
     - GRADLE_USER_HOME="${TRAVIS_BUILD_DIR}/gradle"
@@ -24,8 +23,7 @@ android:
   - tools
   - tools
   - build-tools-25.0.2
-  - android-19
-  - extra-google-m2repository
+  - android-23
   - extra-android-m2repository
   - sys-img-${ANDROID_ABI}-${ANDROID_TARGET}
 
@@ -55,22 +53,22 @@ branches:
     - deomo
 
 before_script:
+  - ./gradlew clean
+  - ./gradlew build jacocoTestReport assembleAndroidTest
   - android list targets
   - echo no | android create avd --force -n test -t $ANDROID_TARGET --abi $ANDROID_ABI
   - emulator -avd test -no-skin -no-audio -no-window &
   - android-wait-for-emulator
   - adb devices
   - adb shell setprop dalvik.vm.dexopt-flags v=n,o=v
-  - adb shell svc power stayon true # Keep emulator awake and disable animations:
+  - adb shell input keyevent 82 &
+  - adb shell svc power stayon true
   - adb shell settings put global window_animation_scale 0 &
   - adb shell settings put global transition_animation_scale 0 &
   - adb shell settings put global animator_duration_scale 0 &
   - sleep 30
 
 script:
-  - ./execute print-delayed &
-  - ./gradlew clean
-  - ./gradlew build jacocoTestReport assembleAndroidTest
   - ./gradlew connectedCheck
 
 # after_success:

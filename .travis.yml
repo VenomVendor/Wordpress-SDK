@@ -52,7 +52,7 @@ before_install:
 branches:
   only:
     - release/sdk
-    - fix/travis
+    - fix/hooks
 
 before_script:
   - ./gradlew clean
@@ -74,4 +74,4 @@ script:
 
 after_success:
   - codecov
-  - ~/jpm/bin/codacy-coverage-reporter -l Java -r build/reports/jacoco/test/jacocoTestReport.xml
+  - ~/jpm/bin/codacy-coverage-reporter -l Java -r build/reports/jacoco/jacocoTestReport/jacocoTestReport.xml

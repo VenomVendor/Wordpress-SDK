@@ -8,12 +8,13 @@ env:
     - ANDROID_ABI=armeabi-v7a
 android:
   components:
-  - tools
-  - build-tools-25.0.2
+  - tools # to get the new `repository-11.xml`
+  - tools # see https://github.com/travis-ci/travis-ci/issues/6040#issuecomment-219367943)
   - platform-tools
+  - build-tools-25.0.2
+  - android-25
   - extra-google-m2repository
   - extra-android-m2repository
-  - android-25
   - sys-img-${ANDROID_ABI}-${ANDROID_TARGET}
 
 notifications:
@@ -30,8 +31,8 @@ before_install:
   - uname -a
 
   # Install NDK
-  - echo y | $ANDROID_HOME/tools/bin/sdkmanager "cmake;3.6.3155560"
-  - echo y | $ANDROID_HOME/tools/bin/sdkmanager "ndk-bundle"
+  - echo y | $ANDROID_HOME/../android-sdk/tools/bin/sdkmanager "cmake;3.6.3155560"
+  - echo y | $ANDROID_HOME/../android-sdk/tools/bin/sdkmanager "ndk-bundle"
   - export ANDROID_NDK_HOME=$ANDROID_HOME/ndk-bundle
 
 branches:

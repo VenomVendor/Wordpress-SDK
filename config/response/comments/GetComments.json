@@ -1,0 +1,60 @@
+[
+  {
+    "id": 20,
+    "post": 1,
+    "parent": 1,
+    "author": 135,
+    "author_name": "xxxxx",
+    "author_url": "",
+    "date": "2016-10-03T19:47:36",
+    "date_gmt": "2016-10-03T19:47:36",
+    "content": {
+      "rendered": "<p>Cool \ud83d\udc52<\/p>\n"
+    },
+    "link": "https:\/\/demo.wp-api.org\/2016\/05\/10\/hello-world\/#comment-20",
+    "status": "approved",
+    "type": "comment",
+    "author_avatar_urls": {
+      "24": "http:\/\/1.gravatar.com\/avatar\/a2e1f0c1b55cba041ad89ef714d525b2?s=24&d=mm&r=g",
+      "48": "http:\/\/1.gravatar.com\/avatar\/a2e1f0c1b55cba041ad89ef714d525b2?s=48&d=mm&r=g",
+      "96": "http:\/\/1.gravatar.com\/avatar\/a2e1f0c1b55cba041ad89ef714d525b2?s=96&d=mm&r=g"
+    },
+    "meta": [],
+    "_links": {
+      "self": [
+        {
+          "href": "https:\/\/demo.wp-api.org\/wp-json\/wp\/v2\/comments\/20"
+        }
+      ],
+      "collection": [
+        {
+          "href": "https:\/\/demo.wp-api.org\/wp-json\/wp\/v2\/comments"
+        }
+      ],
+      "author": [
+        {
+          "embeddable": true,
+          "href": "https:\/\/demo.wp-api.org\/wp-json\/wp\/v2\/users\/135"
+        }
+      ],
+      "up": [
+        {
+          "embeddable": true,
+          "post_type": "post",
+          "href": "https:\/\/demo.wp-api.org\/wp-json\/wp\/v2\/posts\/1"
+        }
+      ],
+      "in-reply-to": [
+        {
+          "embeddable": true,
+          "href": "https:\/\/demo.wp-api.org\/wp-json\/wp\/v2\/comments\/1"
+        }
+      ]
+    },
+    "code": "rest_no_route",
+    "message": "No route was found matching the URL and request method",
+    "data": {
+      "status": 404
+    }
+  }
+]

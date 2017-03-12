@@ -1,0 +1,68 @@
+{
+  "protocolDefault": "http://",
+  "protocolSecure": "https://",
+  "secure": true,
+  "domain": "VenomVendor.com",
+  "path": {
+    "root": "/wp-json/wp/v2/",
+    "token": "token/",
+    "posts": "posts/",
+    "comments": "comments/",
+    "category": "categories/"
+  },
+  "dateError": "GMT+05:30",
+  "perReqNew": 100,
+  "perReq": 20,
+  "filter": {
+    "fetchPost": {
+      "id": "include",
+      "publishedAfter": "after",
+      "publishedBefore": "before",
+      "page": "page",
+      "search": "search",
+      "offset": "offset",
+      "resultSize": "per_page",
+      "slug": "slug",
+      "category": "categories"
+    },
+    "fetchComment": {
+      "id": "include",
+      "publishedAfter": "after",
+      "publishedBefore": "before",
+      "page": "page",
+      "search": "search",
+      "offset": "offset",
+      "resultSize": "per_page",
+      "postId": "post",
+      "userId": "author",
+      "replies": "include",
+      "inReplyTo": "parent"
+    }
+  },
+  "create": {
+    "newComment": {
+      "postId": "post",
+      "userId": "author",
+      "email": "author_email",
+      "name": "author_name",
+      "comment": "content",
+      "userAgent": "author_user_agent",
+      "replyTo": "parent"
+    }
+  },
+  "update": {
+    "updateParams": {
+      "postId": "post",
+      "userId": "author",
+      "email": "author_email",
+      "name": "author_name",
+      "comment": "content"
+    }
+  },
+  "delete": {
+    "oldComment": {
+      "force": "force",
+      "password": "password"
+    }
+  }
+}

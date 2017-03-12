@@ -10,3 +10,5 @@ Minimal Wordpress SDK for Android.
 
 ## Code Coverage
 <a href="https://codecov.io/gh/VenomVendor/Wordpress-SDK"><img src="https://codecov.io/gh/VenomVendor/Wordpress-SDK/branch/release%2Fsdk/graphs/tree.svg" width="100" /><a/>
+
+Read more at [Wordpress-SDK](https://venomvendor.github.io/Wordpress-SDK/)

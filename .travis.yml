@@ -1,0 +1,77 @@
+language: android
+jdk: oraclejdk8
+sudo: required
+
+env:
+  global:
+    - ANDROID_TARGET=android-21
+    - ANDROID_ABI=armeabi-v7a
+    - ADB_INSTALL_TIMEOUT=20
+
+cache:
+  directories:
+    - $HOME/.m2
+    - $HOME/.gradle
+
+before_cache:
+  - rm -f $HOME/.gradle/caches/modules-2/modules-2.lock
+
+android:
+  components:
+  - platform-tools
+  - tools
+  - tools
+  - build-tools-25.0.2
+  - android-21
+  - extra-android-m2repository
+  - sys-img-${ANDROID_ABI}-${ANDROID_TARGET}
+
+notifications:
+  email: false
+
+before_install:
+  - pip install --user codecov
+  # for gradle output style
+  - export TERM=dumb
+
+  # environment info
+  - ./gradlew -v
+  - uname -a
+
+  # Install NDK
+  - sudo add-apt-repository ppa:ubuntu-toolchain-r/test -y
+  - sudo apt-get update
+  - sudo apt-get install libstdc++6
+  - echo y | $ANDROID_HOME/../android-sdk/tools/bin/sdkmanager "cmake;3.6.3155560"
+  - echo y | $ANDROID_HOME/../android-sdk/tools/bin/sdkmanager "ndk-bundle"
+  - export ANDROID_NDK_HOME=$ANDROID_HOME/ndk-bundle
+  - curl -sL https://github.com/jpm4j/jpm4j.installers/raw/master/dist/biz.aQute.jpm.run.jar >jpm4j.jar
+  - java -jar jpm4j.jar -u init
+  - ~/jpm/bin/jpm install com.codacy:codacy-coverage-reporter:assembly
+
+branches:
+  only:
+    - release/sdk
+    - fix/hooks
+
+before_script:
+  - ./gradlew clean
+  - android list targets
+  - echo no | android create avd --force -n test -t $ANDROID_TARGET --abi $ANDROID_ABI
+  - emulator -avd test -no-skin -no-audio -no-window &
+  - android-wait-for-emulator
+  - adb devices
+  - adb shell setprop dalvik.vm.dexopt-flags v=n,o=v
+  - adb shell input keyevent 82 &
+  - adb shell svc power stayon true
+  - adb shell settings put global window_animation_scale 0 &
+  - adb shell settings put global transition_animation_scale 0 &
+  - adb shell settings put global animator_duration_scale 0 &
+  - sleep 30
+
+script:
+  - ./gradlew build jacocoTestReport assembleAndroidTest connectedCheck
+
+after_success:
+  - codecov
+  - ~/jpm/bin/codacy-coverage-reporter -l Java -r build/reports/jacoco/jacocoTestReport/jacocoTestReport.xml

@@ -1,0 +1,47 @@
+apply plugin: 'com.android.library'
+apply plugin: 'jsonschema2pojo'
+
+ext {
+    sdkDir = "$projectDir".replace("$project.rootDir/", "")
+    endPoint = "$sdkDir/config/request/Factory.json"
+}
+
+task deleteFiles {
+    doLast {
+        println 'find . -name *.DS_Store -exec rm {} +'.execute([], project.rootDir).text.trim();
+        copy {
+            from "$projectDir/config/request/Factory.json"
+            into "$projectDir/src/androidTest/assets/"
+        }
+    }
+}
+
+/**
+ * https://goo.gl/690KyF
+ */
+jsonSchema2Pojo {
+    source = files("$projectDir/config/")
+    targetDirectory = file("$projectDir/src/main/java")
+    targetPackage = 'com.venomvendor.sdk.wordpress.network'
+    generateBuilders = false
+    usePrimitives = true
+    propertyWordDelimiters = ['-', ' ', '_'] as char[]
+    useLongIntegers = false
+    useDoubleNumbers = false
+    includeHashcodeAndEquals = false
+    includeToString = false
+    annotationStyle = 'jackson'
+    includeJsr303Annotations = false
+    sourceType = 'json'
+    removeOldOutput = true
+    outputEncoding = 'UTF-8'
+    useJodaDates = false
+    useCommonsLang3 = false
+    initializeCollections = true
+    includeAdditionalProperties = false
+    serializable = true
+    parcelable = true
+    targetVersion = 1.7
+    includeAccessors = true
+}
+tasks.deleteFiles.execute();

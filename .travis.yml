@@ -7,6 +7,7 @@ env:
     - ANDROID_TARGET=android-21
     - ANDROID_ABI=armeabi-v7a
     - ADB_INSTALL_TIMEOUT=20
+    - secure: "AYq0ni34ZhmYP3PLEDehO2SqEylr8PxBxZFw8uiRTwRy7BPHEAe6ZItSI0+RHZDsOJExFg2B2XuBFIbQ4x+n7JSgQLaoepi1Gq9o2xQTK/8Oc4pYPDcFfMHN4ttwNi2h9++8SGQ5Hemc5GQ4aNpKDI7LZrZF4sBxwQpigMiSrToQUR5zwFrpUu9c3wBlrhZ16jQ2iMxE6xOnLfpnC+4Kfm6G5au2oWW5O4CJ916aT7kEThC/608e13KkypyyzDdZXGTHBztuUv/ieI2G7bdrxi8d6YWNpd2ZDXsIfWCbHo3uUHPxhCo7DJUjp4glDgBGjBx83zTtcYthh7xJktIHVJ8vIwgOu0ZZMxftojFTicPBPy7VT9Q3NcX2v2SWBYVEZ5FZOxOwwZyNXyERfTP3MwnQixcWiGu3V2AY1Tb9j0UVKM5YRbwqzsOYb6YqkZhSKFTmARFDlEIZmQl653wPA4JGighkia1KF9/ytGI3gPkY6MU4IHzwah9xJYQiRtp43YnxDkYowTcjvR5RoQ5ANYfIps8TywiANyI1/IyVLIuW5WwvhY7PpdxMBb9AoMrTYDh9foeu/kkphe7fLn8iNYWBPxUgxv9NXs5ivpOuIyLfOhjcjN7zcojlEqglaMDoJhSWYZ1YECdOLHPQ1flGQ48jbolTLKqfiKQXWskcwnI="
 
 cache:
   directories:
@@ -29,6 +30,16 @@ android:
 notifications:
   email: false
 
+addons:
+  coverity_scan:
+    project:
+      name: "VenomVendor/Wordpress-SDK"
+      description: "Minimal Wordpress SDK for Android."
+    notification_email: info@venomvendor.com
+    build_command_prepend: "./gradlew clean"
+    build_command: "./gradlew build jacocoTestReport assembleAndroidTest connectedCheck"
+    branch_pattern: sdk
+
 before_install:
   - pip install --user codecov
   # for gradle output style
@@ -48,6 +59,7 @@ before_install:
   - curl -sL https://github.com/jpm4j/jpm4j.installers/raw/master/dist/biz.aQute.jpm.run.jar >jpm4j.jar
   - java -jar jpm4j.jar -u init
   - ~/jpm/bin/jpm install com.codacy:codacy-coverage-reporter:assembly
+  - echo -n | openssl s_client -connect scan.coverity.com:443 | sed -ne '/-BEGIN CERTIFICATE-/,/-END CERTIFICATE-/p' | sudo tee -a /etc/ssl/certs/ca-
 
 branches:
   only:

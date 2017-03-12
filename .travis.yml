@@ -5,15 +5,16 @@ sudo: required
 
 env:
   global:
-    - ANDROID_TARGET=android-25
+    - ANDROID_TARGET=google_apis-25
     - ANDROID_ABI=armeabi-v7a
+    - ANDROID_TAG=google_apis
     - ADB_INSTALL_TIMEOUT=20
-    - GRADLE_USER_HOME="${TRAVIS_BUILD_DIR}/gradle"
+    # - GRADLE_USER_HOME="${TRAVIS_BUILD_DIR}/gradle"
 
-cache:
-  directories:
-    - ${TRAVIS_BUILD_DIR}/gradle/caches/
-    - ${TRAVIS_BUILD_DIR}/gradle/wrapper/dists/
+# cache:
+#   directories:
+#     - ${TRAVIS_BUILD_DIR}/gradle/caches/
+#     - ${TRAVIS_BUILD_DIR}/gradle/wrapper/dists/
 
 android:
   components:
@@ -52,7 +53,9 @@ branches:
     - deomo
 
 before_script:
+  - android list targets
   - echo no | android create avd --force -n test -t $ANDROID_TARGET --abi $ANDROID_ABI
+  - echo no | android create avd --force -n test -t $ANDROID_TARGET --abi $ANDROID_ABI --tag $ANDROID_TAG
   - emulator -avd test -no-skin -no-audio -no-window &
   - android-wait-for-emulator
   - adb devices

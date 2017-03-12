@@ -5,7 +5,6 @@
  * Copyright(c):	2017 - Present, VenomVendor.
  * License		:	Apache License Version 2.0
  */
-
 package com.venomvendor.sdk.wordpress;
 
 import android.content.Context;
@@ -13,6 +12,7 @@ import android.support.test.InstrumentationRegistry;
 import android.support.test.runner.AndroidJUnit4;
 
 import com.venomvendor.sdk.wordpress.network.core.APIFactory;
+import com.venomvendor.sdk.wordpress.network.exceptions.WordpressException;
 import com.venomvendor.sdk.wordpress.network.request.Factory;
 
 import org.junit.BeforeClass;
@@ -30,13 +30,19 @@ import static junit.framework.Assert.assertEquals;
  * Instrumentation test, which will execute on an Android device.
  */
 @RunWith(AndroidJUnit4.class)
-public class WordpressSDKDeviceTest {
-    private static final String DOMAIN = "VenomVendor.com";
-    private static final boolean IS_SECURE = true;
-
+public class WordpressSDKDeviceTest extends BaseTest {
     @BeforeClass
     public static void setUp() {
         WordpressSDK.initialize(DOMAIN, IS_SECURE);
+    }
+
+    @Test
+    public void reInitilize() {
+        try {
+            WordpressSDK.initialize(DOMAIN, IS_SECURE);
+        } catch (WordpressException ex) {
+            assertEquals(ex.getMessage(), "SDK already initialized");
+        }
     }
 
     @Test

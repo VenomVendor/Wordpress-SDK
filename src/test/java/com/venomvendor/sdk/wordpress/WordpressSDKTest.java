@@ -37,6 +37,7 @@ public class WordpressSDKTest {
             WordpressSDK.initialize(null, true);
         } catch (WordpressException ex) {
             assertThat(ex.getMessage(), StringContains.containsString("Wrong domain name"));
+            assertThat(ex.getMessage(), StringContains.containsString("set your domain where"));
         }
     }
 
@@ -46,6 +47,7 @@ public class WordpressSDKTest {
             WordpressSDK.initialize("www.VenomVendor.com", true);
         } catch (WordpressException ex) {
             assertThat(ex.getMessage(), StringContains.containsString("Wrong domain name"));
+            assertThat(ex.getMessage(), StringContains.containsString("Do not prefix"));
         }
     }
 
@@ -55,6 +57,7 @@ public class WordpressSDKTest {
             WordpressSDK.initialize("http://VenomVendor.com", true);
         } catch (WordpressException ex) {
             assertThat(ex.getMessage(), StringContains.containsString("Wrong domain name"));
+            assertThat(ex.getMessage(), StringContains.containsString("Do not prefix"));
         }
     }
 
@@ -64,6 +67,7 @@ public class WordpressSDKTest {
             WordpressSDK.initialize("https://VenomVendor.com", true);
         } catch (WordpressException ex) {
             assertThat(ex.getMessage(), StringContains.containsString("Wrong domain name"));
+            assertThat(ex.getMessage(), StringContains.containsString("Do not prefix"));
         }
     }
 

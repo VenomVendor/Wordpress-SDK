@@ -5,9 +5,8 @@ sudo: required
 
 env:
   global:
-    - ANDROID_TARGET=android-25
+    - ANDROID_TARGET=android-19
     - ANDROID_ABI=armeabi-v7a
-    - ANDROID_TAG=google_apis
     - ADB_INSTALL_TIMEOUT=20
     - GRADLE_USER_HOME="${TRAVIS_BUILD_DIR}/gradle"
 
@@ -25,10 +24,9 @@ android:
   - tools
   - tools
   - build-tools-25.0.2
-  - android-25
+  - android-19
   - extra-google-m2repository
   - extra-android-m2repository
-  - addon-google_apis-google-25
   - sys-img-${ANDROID_ABI}-${ANDROID_TARGET}
 
 notifications:
@@ -58,7 +56,7 @@ branches:
 
 before_script:
   - android list targets
-  - echo no | android create avd --force -n test -t $ANDROID_TARGET --abi $ANDROID_ABI --tag $ANDROID_TAG
+  - echo no | android create avd --force -n test -t $ANDROID_TARGET --abi $ANDROID_ABI
   - emulator -avd test -no-skin -no-audio -no-window &
   - android-wait-for-emulator
   - adb devices

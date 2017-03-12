@@ -8,12 +8,11 @@ env:
     - ANDROID_ABI=armeabi-v7a
     - ADB_INSTALL_TIMEOUT=20
     - GRADLE_USER_HOME="${TRAVIS_BUILD_DIR}/gradle"
-    - GRADLE_OPTS="-Xms2048M -Xmx=2048M"
 
 cache:
   directories:
-    - ${TRAVIS_BUILD_DIR}/gradle/caches/
-    - ${TRAVIS_BUILD_DIR}/gradle/wrapper/dists/
+    - $HOME/.m2
+    - $HOME/.gradle
 
 before_cache:
   - rm -f $HOME/.gradle/caches/modules-2/modules-2.lock
@@ -51,7 +50,7 @@ before_install:
 branches:
   only:
     - release/sdk
-    - deomo
+    - fix/travis
 
 before_script:
   - ./gradlew clean

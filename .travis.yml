@@ -35,7 +35,6 @@ before_install:
   - echo y | $ANDROID_HOME/../android-sdk/tools/bin/sdkmanager "ndk-bundle"
   - export ANDROID_NDK_HOME=$ANDROID_HOME/ndk-bundle
   - sudo apt-get install libstdc++6
-  - sudo apt-get dist-upgrade
 
 branches:
   only:

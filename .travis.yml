@@ -7,7 +7,12 @@ env:
   global:
     - ANDROID_TARGET=android-25
     - ANDROID_ABI=armeabi-v7a
-    - ADB_INSTALL_TIMEOUT=8
+    - ADB_INSTALL_TIMEOUT=20
+
+cache:
+  directories:
+    - ${TRAVIS_BUILD_DIR}/gradle/caches/
+    - ${TRAVIS_BUILD_DIR}/gradle/wrapper/dists/
 
 android:
   components:
@@ -46,16 +51,16 @@ branches:
     - deomo
 
 before_script:
-  - ./gradlew clean && ./gradlew build jacocoTestReport assembleAndroidTest
   - echo no | android create avd --force -n test -t $ANDROID_TARGET --abi $ANDROID_ABI
-  - emulator -avd test -no-skin -no-audio -no-window -gpu off &
+  - emulator -avd test -no-skin -no-audio -no-window &
   - android-wait-for-emulator
-  - adb shell setprop dalvik.vm.dexopt-flags v=n,o=v
   - adb devices
+  - adb shell setprop dalvik.vm.dexopt-flags v=n,o=v
   - adb shell input keyevent 82 &
 
 script:
- - ./gradlew connectedCheck
+  - ./gradlew clean && ./gradlew build jacocoTestReport assembleAndroidTest
+ # - ./gradlew connectedCheck
 
-after_success:
-  - codecov
+# after_success:
+  # - codecov

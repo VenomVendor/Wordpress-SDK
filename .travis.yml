@@ -29,6 +29,7 @@ before_install:
 branches:
   only:
     - release/sdk
+    - deomo
 
 before_script:
   - ./gradlew clean && ./gradlew build jacocoTestReport assembleAndroidTest

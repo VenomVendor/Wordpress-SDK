@@ -54,7 +54,6 @@ branches:
 
 before_script:
   - android list targets
-  - echo no | android create avd --force -n test -t $ANDROID_TARGET --abi $ANDROID_ABI
   - echo no | android create avd --force -n test -t $ANDROID_TARGET --abi $ANDROID_ABI --tag $ANDROID_TAG
   - emulator -avd test -no-skin -no-audio -no-window &
   - android-wait-for-emulator

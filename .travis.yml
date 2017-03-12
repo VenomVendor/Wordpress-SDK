@@ -8,6 +8,7 @@ env:
     - ANDROID_TARGET=android-25
     - ANDROID_ABI=armeabi-v7a
     - ADB_INSTALL_TIMEOUT=20
+    - GRADLE_USER_HOME="${TRAVIS_BUILD_DIR}/gradle"
 
 cache:
   directories:
@@ -56,11 +57,17 @@ before_script:
   - android-wait-for-emulator
   - adb devices
   - adb shell setprop dalvik.vm.dexopt-flags v=n,o=v
-  - adb shell input keyevent 82 &
+  - adb shell svc power stayon true # Keep emulator awake and disable animations:
+  - adb shell settings put global window_animation_scale 0 &
+  - adb shell settings put global transition_animation_scale 0 &
+  - adb shell settings put global animator_duration_scale 0 &
+  - sleep 30
 
 script:
-  - ./gradlew clean && ./gradlew build jacocoTestReport assembleAndroidTest
- # - ./gradlew connectedCheck
+  - ./execute print-delayed &
+  - ./gradlew clean
+  - ./gradlew build jacocoTestReport assembleAndroidTest
+  - ./gradlew connectedCheck
 
 # after_success:
   # - codecov

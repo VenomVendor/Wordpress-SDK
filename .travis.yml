@@ -1,6 +1,7 @@
 language: android
 jdk: oraclejdk8
-sudo: false
+compiler: gcc
+sudo: required
 
 env:
   global:
@@ -33,6 +34,9 @@ before_install:
   - echo y | $ANDROID_HOME/../android-sdk/tools/bin/sdkmanager "cmake;3.6.3155560"
   - echo y | $ANDROID_HOME/../android-sdk/tools/bin/sdkmanager "ndk-bundle"
   - export ANDROID_NDK_HOME=$ANDROID_HOME/ndk-bundle
+  - sudo add-apt-repository ppa:ubuntu-toolchain-r/test --yes
+  - sudo apt-get update
+  - sudo apt-get install libstdc++6.3.0
 
 branches:
   only:

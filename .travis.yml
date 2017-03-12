@@ -70,4 +70,4 @@ script:
   - ./gradlew build jacocoTestReport assembleAndroidTest connectedCheck
 
  after_success:
-   - codecov
+  - codecov

@@ -69,5 +69,5 @@ before_script:
 script:
   - ./gradlew build jacocoTestReport assembleAndroidTest connectedCheck
 
- after_success:
+after_success:
   - codecov

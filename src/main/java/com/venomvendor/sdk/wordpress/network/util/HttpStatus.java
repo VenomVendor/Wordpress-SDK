@@ -46,10 +46,10 @@ public class HttpStatus {
     private final static String _409 = "Conflict";
     private final static String _410 = "Gone";
     private final static String _411 = "Length Required";
-    private final static String _412 = "Precon dition Failed";
+    private final static String _412 = "Precondition Failed";
     private final static String _413 = "Request Entity Too Large";
     private final static String _414 = "Request URI Too Long";
-    private final static String _415 = "Unsupp­orted Media Type";
+    private final static String _415 = "Unsupported Media Type";
     private final static String _416 = "Requested Range Not Satisfiable";
     private final static String _417 = "Expectation Failed";
     private final static String _422 = "Unprocessable Entity";

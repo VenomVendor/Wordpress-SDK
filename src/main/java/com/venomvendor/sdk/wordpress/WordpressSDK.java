@@ -43,7 +43,6 @@ public final class WordpressSDK {
         }
         try {
             init(domain, isHttps);
-            mInitialized = true;
         } catch (IOException ex) {
             throw new WordpressException("Error decoding encrypted json. " + ex.getMessage());
         }
@@ -55,16 +54,21 @@ public final class WordpressSDK {
         byte[] decodedBytes = Base64.decode(endPoints(), Base64.DEFAULT);
         String endpointJson = new String(decodedBytes, Util.UTF_8.name());
 
-        Factory endpoints;
+        initConfig(domain, isSecure, endpointJson);
+    }
+
+    @VisibleForTesting
+    public static void initConfig(String domain, boolean isSecure, String endpointJson)
+            throws IOException {
         try {
-            endpoints = getObjectMapper().readValue(endpointJson, Factory.class);
+            Factory endpoints = getObjectMapper().readValue(endpointJson, Factory.class);
             endpoints.setDomain(domain);
             endpoints.setSecure(isSecure);
+            APIFactory.getInstance().setFactory(endpoints);
+            mInitialized = true;
         } catch (IOException ex) {
             throw new IOException("Invalid json " + endpointJson + "\n" + ex.getMessage());
         }
-
-        APIFactory.getInstance().setFactory(endpoints);
 
         if (BuildConfig.DEBUG) {
             Log.d(TAG, endpointJson);
@@ -72,7 +76,6 @@ public final class WordpressSDK {
         }
     }
 
-    @VisibleForTesting
     @NonNull
     public static ObjectMapper getObjectMapper() {
         ObjectMapper objectMapper = new ObjectMapper();

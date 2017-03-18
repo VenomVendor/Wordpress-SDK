@@ -10,10 +10,8 @@ package com.venomvendor.sdk.wordpress.network.connections.request;
 import android.support.annotation.NonNull;
 import android.util.Log;
 
-import com.fasterxml.jackson.annotation.JsonInclude;
-import com.fasterxml.jackson.databind.DeserializationFeature;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.venomvendor.sdk.wordpress.BuildConfig;
+import com.venomvendor.sdk.wordpress.WordpressSDK;
 import com.venomvendor.sdk.wordpress.network.core.APIFactory;
 
 import java.io.IOException;
@@ -48,7 +46,8 @@ final class ConnectionHandler {
 
             retrofitBuilder.client(builder.build());
             retrofitBuilder.baseUrl(APIFactory.getInstance().getBaseUrl());
-            retrofitBuilder.addConverterFactory(JacksonConverterFactory.create(getObjectMapper()));
+            retrofitBuilder.addConverterFactory(JacksonConverterFactory.create(WordpressSDK
+                    .getObjectMapper()));
             mRetrofit = retrofitBuilder.build();
         }
 
@@ -60,16 +59,6 @@ final class ConnectionHandler {
             mRestClient = getRetrofit().create(WPRestClient.class);
         }
         return mRestClient;
-    }
-
-    @NonNull
-    private static ObjectMapper getObjectMapper() {
-        ObjectMapper objectMapper = new ObjectMapper();
-        objectMapper.setSerializationInclusion(JsonInclude.Include.NON_NULL);
-        objectMapper.enable(DeserializationFeature.ACCEPT_SINGLE_VALUE_AS_ARRAY);
-        objectMapper.enable(DeserializationFeature.ACCEPT_EMPTY_STRING_AS_NULL_OBJECT);
-        objectMapper.disable(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES);
-        return objectMapper;
     }
 
     private static class HeaderInterceptor implements Interceptor {

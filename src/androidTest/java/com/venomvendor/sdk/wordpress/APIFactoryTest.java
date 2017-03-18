@@ -8,7 +8,6 @@
 package com.venomvendor.sdk.wordpress;
 
 import android.support.annotation.NonNull;
-import android.support.test.runner.AndroidJUnit4;
 
 import com.venomvendor.sdk.wordpress.network.core.APIFactory;
 import com.venomvendor.sdk.wordpress.network.exceptions.WordpressException;
@@ -17,13 +16,14 @@ import com.venomvendor.sdk.wordpress.network.request.Factory;
 import org.junit.Assert;
 import org.junit.BeforeClass;
 import org.junit.Test;
-import org.junit.runner.RunWith;
 
-@RunWith(AndroidJUnit4.class)
-public class APIFactoryTest extends BaseTest {
+public class APIFactoryTest extends WPRootTest {
+
     @BeforeClass
     public static void setUp() {
-        WordpressSDK.initialize(DOMAIN, IS_SECURE);
+        if (!isSetUpDone) {
+            initSDK();
+        }
     }
 
     @Test

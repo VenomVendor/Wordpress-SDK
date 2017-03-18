@@ -7,7 +7,7 @@ buildscript {
         jcenter()
     }
     dependencies {
-        classpath 'com.android.tools.build:gradle:2.3.0'
+        classpath 'com.android.tools.build:gradle:2.4.0-alpha1'
         classpath 'org.jsonschema2pojo:jsonschema2pojo-gradle-plugin:latest.integration'
         classpath 'com.github.dcendents:android-maven-gradle-plugin:1.5'
         classpath 'com.jfrog.bintray.gradle:gradle-bintray-plugin:1.7.3'
@@ -77,6 +77,10 @@ android {
     lintOptions {
         abortOnError false
     }
+
+    testOptions {
+        unitTests.returnDefaultValues = true
+    }
 }
 
 dependencies {
@@ -99,15 +103,8 @@ dependencies {
     compile "com.fasterxml.jackson.core:jackson-annotations:${jackson}"
     compile "com.fasterxml.jackson.core:jackson-databind:${jackson}"
 
-    // Test
-    androidTestCompile("com.android.support.test.espresso:espresso-core:${espresso}", {
-        exclude group: 'com.android.support', module: 'support-annotations'
-    })
-    androidTestCompile "junit:junit:${junit}"
+    // Unit Test
     testCompile "junit:junit:${junit}"
-
-    // Hamcrest library
-    androidTestCompile "org.hamcrest:hamcrest-library:${hamcrest}"
     testCompile "org.hamcrest:hamcrest-library:${hamcrest}"
 }
 

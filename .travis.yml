@@ -1,12 +1,8 @@
 language: android
 jdk: oraclejdk8
-sudo: required
 
 env:
   global:
-    - ANDROID_TARGET=android-21
-    - ANDROID_ABI=armeabi-v7a
-    - ADB_INSTALL_TIMEOUT=20
     - secure: "AYq0ni34ZhmYP3PLEDehO2SqEylr8PxBxZFw8uiRTwRy7BPHEAe6ZItSI0+RHZDsOJExFg2B2XuBFIbQ4x+n7JSgQLaoepi1Gq9o2xQTK/8Oc4pYPDcFfMHN4ttwNi2h9++8SGQ5Hemc5GQ4aNpKDI7LZrZF4sBxwQpigMiSrToQUR5zwFrpUu9c3wBlrhZ16jQ2iMxE6xOnLfpnC+4Kfm6G5au2oWW5O4CJ916aT7kEThC/608e13KkypyyzDdZXGTHBztuUv/ieI2G7bdrxi8d6YWNpd2ZDXsIfWCbHo3uUHPxhCo7DJUjp4glDgBGjBx83zTtcYthh7xJktIHVJ8vIwgOu0ZZMxftojFTicPBPy7VT9Q3NcX2v2SWBYVEZ5FZOxOwwZyNXyERfTP3MwnQixcWiGu3V2AY1Tb9j0UVKM5YRbwqzsOYb6YqkZhSKFTmARFDlEIZmQl653wPA4JGighkia1KF9/ytGI3gPkY6MU4IHzwah9xJYQiRtp43YnxDkYowTcjvR5RoQ5ANYfIps8TywiANyI1/IyVLIuW5WwvhY7PpdxMBb9AoMrTYDh9foeu/kkphe7fLn8iNYWBPxUgxv9NXs5ivpOuIyLfOhjcjN7zcojlEqglaMDoJhSWYZ1YECdOLHPQ1flGQ48jbolTLKqfiKQXWskcwnI="
 
 cache:
@@ -23,9 +19,8 @@ android:
   - tools
   - tools
   - build-tools-25.0.2
-  - android-21
+  - android-25
   - extra-android-m2repository
-  - sys-img-${ANDROID_ABI}-${ANDROID_TARGET}
 
 notifications:
   email: false
@@ -37,7 +32,7 @@ addons:
       description: "Minimal Wordpress SDK for Android."
     notification_email: info@venomvendor.com
     build_command_prepend: "./gradlew clean"
-    build_command: "./gradlew build jacocoTestReport assembleAndroidTest connectedCheck"
+    build_command: "./gradlew build jacocoTestReport test"
     branch_pattern: sdk
 
 before_install:
@@ -68,21 +63,9 @@ branches:
 
 before_script:
   - ./gradlew clean
-  - android list targets
-  - echo no | android create avd --force -n test -t $ANDROID_TARGET --abi $ANDROID_ABI
-  - emulator -avd test -no-skin -no-audio -no-window &
-  - android-wait-for-emulator
-  - adb devices
-  - adb shell setprop dalvik.vm.dexopt-flags v=n,o=v
-  - adb shell input keyevent 82 &
-  - adb shell svc power stayon true
-  - adb shell settings put global window_animation_scale 0 &
-  - adb shell settings put global transition_animation_scale 0 &
-  - adb shell settings put global animator_duration_scale 0 &
-  - sleep 30
 
 script:
-  - ./gradlew build jacocoTestReport assembleAndroidTest connectedCheck
+  - ./gradlew build jacocoTestReport test
 
 after_success:
   - codecov

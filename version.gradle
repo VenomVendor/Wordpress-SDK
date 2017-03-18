@@ -10,7 +10,6 @@ ext {
     retrofit = '2.2.0'
     jackson = '2.8.5'
 
-    espresso = '2.2.2'
     junit = '4.12'
     hamcrest = '1.3'
 

@@ -16,7 +16,6 @@ import com.venomvendor.sdk.wordpress.network.core.APIFactory;
 import com.venomvendor.sdk.wordpress.network.params.BaseParams;
 import com.venomvendor.sdk.wordpress.network.params.CommentParams;
 import com.venomvendor.sdk.wordpress.network.response.categories.GetCategory;
-import com.venomvendor.sdk.wordpress.network.util.HttpStatus;
 
 import java.util.List;
 
@@ -103,8 +102,7 @@ public class CategoryHandler<T> extends APIHandler<T> implements CategoryRequest
         if (response.length == 1) {
             GetCategory res = response[0];
             if (res.getMessage() != null) {
-                String error = res.getMessage() + ". " + res.getData().getStatus() + ": "
-                        + HttpStatus.getStatusEquivalent(res.getData().getStatus());
+                String error = "Status Code :" + res.getData().getStatus() + " " + res.getMessage();
                 handleError(error, existingListeners);
                 return false;
             }

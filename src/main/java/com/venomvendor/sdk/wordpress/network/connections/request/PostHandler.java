@@ -16,7 +16,6 @@ import com.venomvendor.sdk.wordpress.network.core.APIFactory;
 import com.venomvendor.sdk.wordpress.network.params.BaseParams;
 import com.venomvendor.sdk.wordpress.network.params.PostsParams.Builder;
 import com.venomvendor.sdk.wordpress.network.response.posts.GetPost;
-import com.venomvendor.sdk.wordpress.network.util.HttpStatus;
 
 import java.util.List;
 
@@ -101,8 +100,7 @@ public class PostHandler<T> extends APIHandler<T> implements PostRequests<T> {
         if (response.length == 1) {
             GetPost res = response[0];
             if (res.getMessage() != null) {
-                String error = res.getMessage() + ". " + res.getData().getStatus() + ": "
-                        + HttpStatus.getStatusEquivalent(res.getData().getStatus());
+                String error = "Status Code :" + res.getData().getStatus() + " " + res.getMessage();
                 handleError(error, existingListeners);
                 return false;
             }

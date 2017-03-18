@@ -16,7 +16,6 @@ import com.venomvendor.sdk.wordpress.network.core.APIFactory;
 import com.venomvendor.sdk.wordpress.network.params.BaseParams;
 import com.venomvendor.sdk.wordpress.network.params.CommentParams.Builder;
 import com.venomvendor.sdk.wordpress.network.response.comments.GetComment;
-import com.venomvendor.sdk.wordpress.network.util.HttpStatus;
 
 import java.util.List;
 
@@ -102,8 +101,7 @@ public class CommentHandler<T> extends APIHandler<T> implements CommentRequests<
         if (response.length == 1) {
             GetComment res = response[0];
             if (res.getMessage() != null) {
-                String error = res.getMessage() + ". " + res.getData().getStatus() + ": "
-                        + HttpStatus.getStatusEquivalent(res.getData().getStatus());
+                String error = "Status Code :" + res.getData().getStatus() + " " + res.getMessage();
                 handleError(error, existingListeners);
                 return false;
             }

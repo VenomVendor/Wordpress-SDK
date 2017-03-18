@@ -47,8 +47,8 @@ final class ConnectionHandler {
 
             retrofitBuilder.client(builder.build());
             retrofitBuilder.baseUrl(APIFactory.getInstance().getBaseUrl());
-            retrofitBuilder.addConverterFactory(JacksonConverterFactory.create(WordpressSDK
-                    .getObjectMapper()));
+            retrofitBuilder.addConverterFactory(JacksonConverterFactory.create(WordpressSDK.
+                    getObjectMapper()));
             mRetrofit = retrofitBuilder.build();
         }
 
@@ -91,7 +91,8 @@ final class ConnectionHandler {
             String bodyString = response.body().string().trim();
             String responseLog = String.format(Locale.ENGLISH,
                     "Received response from %s in %.1fms %n%s %n%s",
-                    response.request().url(), (t2 - t1) / 1e6d, bodyString, response.headers());
+                    response.request().url(), (t2 - t1) / 1e6d, bodyString,
+                    response.headers());
 
             Log.d(TAG, responseLog);
 

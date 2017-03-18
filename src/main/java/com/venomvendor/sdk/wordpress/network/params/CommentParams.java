@@ -11,19 +11,23 @@ import android.support.annotation.NonNull;
 
 import com.venomvendor.sdk.wordpress.network.request.FetchComment;
 
+/**
+ * Request params to get comments
+ */
 public class CommentParams extends BaseParams {
+
     private CommentParams(@NonNull Builder builder) {
         FetchComment filter = FACTORY.getFilter().getFetchComment();
         createNonNull(filter.getPostId(), builder.postId);
         createNonNull(filter.getUserId(), builder.userId);
-        createNonNull(filter.getId(), builder.id);
         createNonNull(filter.getInReplyTo(), builder.inReplyTo);
-        createNonNull(filter.getResultSize(), builder.resultSize);
-        createNonNull(filter.getPage(), builder.page);
-        createNonNull(filter.getSearch(), builder.search);
-        createNonNull(filter.getPublishedAfter(), builder.publishedAfter);
-        createNonNull(filter.getPublishedBefore(), builder.publishedBefore);
-        createNonNull(filter.getOffset(), builder.offset);
+        createNonNull(filter.getId(), builder.getId());
+        createNonNull(filter.getResultSize(), builder.getResultSize());
+        createNonNull(filter.getPage(), builder.getPage());
+        createNonNull(filter.getSearch(), builder.getSearch());
+        createNonNull(filter.getPublishedAfter(), builder.getPublishedAfter());
+        createNonNull(filter.getPublishedBefore(), builder.getPublishedBefore());
+        createNonNull(filter.getOffset(), builder.getOffset());
     }
 
     @Override
@@ -31,29 +35,50 @@ public class CommentParams extends BaseParams {
         return params instanceof CommentParams && super.equals(params);
     }
 
+    /**
+     * Comment params builder
+     */
     public static class Builder extends BaseBuilder {
         private String userId;
         private String inReplyTo;
         private String postId;
 
+        /**
+         * Get comments from this user
+         *
+         * @param userId result for the user
+         */
         @NonNull
-        public Builder userId(String userId) {
+        public Builder setUserId(String userId) {
             this.userId = userId;
             return this;
         }
 
+        /**
+         * Get comment that was replied to this comment
+         *
+         * @param inReplyTo id of the parent comment
+         */
         @NonNull
-        public Builder inReplyTo(String inReplyTo) {
+        public Builder setInReplyTo(String inReplyTo) {
             this.inReplyTo = inReplyTo;
             return this;
         }
 
+        /**
+         * Get comment that was replied to this post
+         *
+         * @param postId id of the post
+         */
         @NonNull
-        public BaseBuilder postId(String postId) {
+        public BaseBuilder setPostId(String postId) {
             this.postId = postId;
             return this;
         }
 
+        /**
+         * Build params for comment
+         */
         @NonNull
         public CommentParams build() {
             return new CommentParams(this);

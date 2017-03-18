@@ -5,7 +5,6 @@
  * Copyright(c):	2017 - Present, VenomVendor.
  * License		:	Apache License Version 2.0
  */
-
 package com.venomvendor.sdk.wordpress;
 
 import com.fasterxml.jackson.databind.DeserializationConfig;
@@ -29,7 +28,6 @@ import static org.junit.Assert.assertTrue;
  * Unit test cases for SDK
  */
 public class WordpressSDKTest extends WPRootTest {
-
     @BeforeClass
     public static void setUp() {
         if (!isSetUpDone) {
@@ -43,6 +41,15 @@ public class WordpressSDKTest extends WPRootTest {
             WordpressSDK.initConfig(DOMAIN, IS_SECURE, getJson());
         } catch (WordpressException | IOException ex) {
             assertEquals(ex.getMessage(), "API Already configured.");
+        }
+    }
+
+    @Test
+    public void reInitilizeSDK() {
+        try {
+            WordpressSDK.initialize(DOMAIN, IS_SECURE);
+        } catch (WordpressException ex) {
+            assertEquals(ex.getMessage(), "SDK already initialized");
         }
     }
 

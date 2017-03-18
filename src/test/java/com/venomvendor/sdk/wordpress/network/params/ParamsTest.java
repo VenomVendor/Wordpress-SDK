@@ -33,11 +33,11 @@ public class ParamsTest extends WPRootTest {
         postParams.setPage(5);
         postParams.setOffset(10);
         postParams.setResultSize(20);
-        postParams.search("Video");
-        postParams.publishedBefore("2017-03-18T13:18:35");
-        postParams.publishedAfter("2017-03-16T13:18:35");
+        postParams.setSearch("Video");
+        postParams.setPublishedBefore("2017-03-18T13:18:35");
+        postParams.setPublishedAfter("2017-03-16T13:18:35");
 
-        postParams.publishedBefore(null);
+        postParams.setPublishedBefore(null);
 
         PostsParams params = postParams.build();
 
@@ -53,6 +53,7 @@ public class ParamsTest extends WPRootTest {
         Assert.assertNull(params.get("before"));
 
         Assert.assertEquals(params.clone(), params);
+        Assert.assertTrue(params.clone().equals(params));
     }
 
     @Test
@@ -62,15 +63,15 @@ public class ParamsTest extends WPRootTest {
         commentParams.setPage(5);
         commentParams.setOffset(10);
         commentParams.setResultSize(20);
-        commentParams.search("Mario");
-        commentParams.publishedBefore("2017-03-18T13:18:35");
-        commentParams.publishedAfter("2017-03-16T13:18:35");
+        commentParams.setSearch("Mario");
+        commentParams.setPublishedBefore("2017-03-18T13:18:35");
+        commentParams.setPublishedAfter("2017-03-16T13:18:35");
 
-        commentParams.postId("12345");
-        commentParams.inReplyTo("653");
-        commentParams.userId("007");
+        commentParams.setPostId("12345");
+        commentParams.setInReplyTo("653");
+        commentParams.setUserId("007");
 
-        commentParams.publishedAfter(null);
+        commentParams.setPublishedAfter(null);
 
         CommentParams params = commentParams.build();
 
@@ -88,5 +89,6 @@ public class ParamsTest extends WPRootTest {
         Assert.assertNull(params.get("after"));
 
         Assert.assertEquals(params.clone(), params);
+        Assert.assertTrue(params.clone().equals(params));
     }
 }

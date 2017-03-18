@@ -5,6 +5,7 @@
  * Copyright(c):	2017 - Present, VenomVendor.
  * License		:	Apache License Version 2.0
  */
+
 package com.venomvendor.sdk.wordpress.network.connections.request.listener;
 
 import android.support.annotation.NonNull;
@@ -12,16 +13,25 @@ import android.support.annotation.NonNull;
 import com.venomvendor.sdk.wordpress.network.connections.response.ResponseHandler;
 import com.venomvendor.sdk.wordpress.network.params.BaseParams;
 
-public interface WordpressRequests<T> extends ListenerHandler<T> {
-    void getRecentPosts(@NonNull ResponseHandler<T> listener);
+/**
+ * Get List of categories from server
+ *
+ * @param <T> Type of Collection
+ */
+public interface CategoryRequests<T> extends ListenerHandler<T> {
 
-    void getPosts(BaseParams params, @NonNull ResponseHandler<T> listener);
-
-    void getRecentComments(@NonNull ResponseHandler<T> listener);
-
-    void getComments(BaseParams params, @NonNull ResponseHandler<T> listener);
-
+    /**
+     * Get list of recent categories
+     *
+     * @param listener callback
+     */
     void getAllCategories(@NonNull ResponseHandler<T> listener);
 
+    /**
+     * Get list of categories with filter applied
+     *
+     * @param params   filters
+     * @param listener callback
+     */
     void getCategories(BaseParams params, @NonNull ResponseHandler<T> listener);
 }

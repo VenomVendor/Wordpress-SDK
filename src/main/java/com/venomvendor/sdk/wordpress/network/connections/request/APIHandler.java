@@ -5,6 +5,7 @@
  * Copyright(c):	2017 - Present, VenomVendor.
  * License		:	Apache License Version 2.0
  */
+
 package com.venomvendor.sdk.wordpress.network.connections.request;
 
 import android.os.Build.VERSION;
@@ -13,7 +14,7 @@ import android.support.annotation.NonNull;
 import android.util.ArrayMap;
 import android.util.Base64;
 
-import com.venomvendor.sdk.wordpress.network.connections.request.listener.WordpressRequests;
+import com.venomvendor.sdk.wordpress.network.connections.request.listener.ListenerHandler;
 import com.venomvendor.sdk.wordpress.network.connections.response.ResponseHandler;
 import com.venomvendor.sdk.wordpress.network.exceptions.WordpressException;
 
@@ -28,7 +29,7 @@ import java.util.Map;
 import okhttp3.Request;
 import okhttp3.internal.Util;
 
-abstract class APIHandler<T> implements WordpressRequests<T> {
+abstract class APIHandler<T> implements ListenerHandler<T> {
     final Map<String, List<ResponseHandler<T>>> mListenerQueue;
 
     APIHandler() {
@@ -52,11 +53,15 @@ abstract class APIHandler<T> implements WordpressRequests<T> {
         List<ResponseHandler<T>> existingListeners = mListenerQueue.get(listenerKey);
         if (existingListeners == null) {
             existingListeners = new ArrayList<>(1);
-            existingListeners.add(listener);
+            if (listener != null) {
+                existingListeners.add(listener);
+            }
             mListenerQueue.put(listenerKey, existingListeners);
             return true;
         }
-        existingListeners.add(listener);
+        if (listener != null) {
+            existingListeners.add(listener);
+        }
         return false;
     }
 
@@ -83,32 +88,31 @@ abstract class APIHandler<T> implements WordpressRequests<T> {
     }
 
     @Override
-    public void remove(@NonNull ResponseHandler<T> listener) {
+    public boolean remove(@NonNull ResponseHandler<T> listener) {
         for (List<ResponseHandler<T>> responseHandlers : mListenerQueue.values()) {
             Iterator<ResponseHandler<T>> innerListeners = responseHandlers.iterator();
-            boolean removed = false;
+            while (innerListeners.hasNext()) {
+                if (innerListeners.next() == listener) {
+                    innerListeners.remove();
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
+    @Override
+    public boolean removeAll(@NonNull ResponseHandler<T> listener) {
+        boolean removed = false;
+        for (List<ResponseHandler<T>> responseHandlers : mListenerQueue.values()) {
+            Iterator<ResponseHandler<T>> innerListeners = responseHandlers.iterator();
             while (innerListeners.hasNext()) {
                 if (innerListeners.next() == listener) {
                     innerListeners.remove();
                     removed = true;
-                    break;
-                }
-            }
-            if (removed) {
-                break;
-            }
-        }
-    }
-
-    @Override
-    public void removeAll(@NonNull ResponseHandler<T> listener) {
-        for (List<ResponseHandler<T>> responseHandlers : mListenerQueue.values()) {
-            Iterator<ResponseHandler<T>> innerListeners = responseHandlers.iterator();
-            while (innerListeners.hasNext()) {
-                if (innerListeners.next() == listener) {
-                    innerListeners.remove();
                 }
             }
         }
+        return removed;
     }
 }

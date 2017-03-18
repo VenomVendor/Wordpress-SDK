@@ -5,6 +5,7 @@
  * Copyright(c):	2017 - Present, VenomVendor.
  * License		:	Apache License Version 2.0
  */
+
 package com.venomvendor.sdk.wordpress.network.params;
 
 import android.support.annotation.IntRange;
@@ -122,7 +123,6 @@ public class BaseParams extends HashMap<String, String> {
             return resultSize;
         }
 
-
         /**
          * Set number of results in response
          *
@@ -152,7 +152,6 @@ public class BaseParams extends HashMap<String, String> {
             this.mPublishedAfter = publishedAfter;
             return this;
         }
-
 
         /**
          * Get Date published before

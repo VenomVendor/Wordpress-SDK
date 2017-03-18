@@ -5,6 +5,7 @@
  * Copyright(c):	2013 - Present, VenomVendor.
  * License		:	Apache License Version 2.0
  */
+
 package com.venomvendor.sdk.wordpress.network.util;
 
 public class HttpStatus {

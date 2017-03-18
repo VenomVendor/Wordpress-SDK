@@ -7,6 +7,8 @@ Minimal Wordpress SDK for Android.
 [![Codacy](https://api.codacy.com/project/badge/Grade/8faaef1c15744e79a7a9f843a921bfb6)](https://www.codacy.com/app/VenomVendor/Wordpress-SDK?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=VenomVendor/Wordpress-SDK&amp;utm_campaign=Badge_Grade)
 [![Code Factor](https://www.codefactor.io/repository/github/venomvendor/wordpress-sdk/badge)](https://www.codefactor.io/repository/github/venomvendor/wordpress-sdk)
 
-
 ## Code Coverage
 <a href="https://codecov.io/gh/VenomVendor/Wordpress-SDK"><img src="https://codecov.io/gh/VenomVendor/Wordpress-SDK/branch/release%2Fsdk/graphs/tree.svg" width="100" /><a/>
+
+## Java Docs
+<a href="https://venomvendor.github.io/Wordpress-SDK/docs/">Java Documentation<a/>

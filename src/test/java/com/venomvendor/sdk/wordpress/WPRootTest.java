@@ -22,10 +22,10 @@ import static junit.framework.Assert.assertEquals;
 /**
  * Base class for all test cases
  */
-class WPRootTest {
+public class WPRootTest {
     static final String DOMAIN = "VenomVendor.com";
     static final boolean IS_SECURE = true;
-    static boolean isSetUpDone;
+    public static boolean isSetUpDone;
 
     /**
      * Read & return's endpoint json
@@ -51,7 +51,7 @@ class WPRootTest {
     /**
      * Initializes SDK
      */
-    static void initSDK() {
+    public static void initSDK() {
         try {
             // unInitializedTest
             APIFactory.getInstance().getFactory();
@@ -59,11 +59,19 @@ class WPRootTest {
             assertEquals(ex.getMessage(), "API not yet configured.");
         }
 
+        String invalidJson = "{ key : value }";
+        try {
+            // Wrong Initialization test.
+            WordpressSDK.initConfig(DOMAIN, IS_SECURE, invalidJson);
+        } catch (WordpressException ex) {
+            assertEquals(ex.getMessage(), "Invalid json " + invalidJson);
+        }
+
         try {
             WordpressSDK.initConfig(DOMAIN, IS_SECURE, getJson());
+            isSetUpDone = true;
         } catch (IOException ex) {
             System.out.println(ex.getMessage());
         }
-        isSetUpDone = true;
     }
 }

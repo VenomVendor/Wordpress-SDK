@@ -63,16 +63,18 @@ public final class WordpressSDK {
     }
 
     @VisibleForTesting
-    public static void initConfig(String domain, boolean isSecure, String endpointJson)
-            throws IOException {
+    public static void initConfig(String domain, boolean isSecure, String endpointJson) {
         try {
             Factory endpoints = getObjectMapper().readValue(endpointJson, Factory.class);
             endpoints.setDomain(domain);
             endpoints.setSecure(isSecure);
             APIFactory.getInstance().setFactory(endpoints);
             mInitialized = true;
-        } catch (IOException ex) {
-            throw new IOException("Invalid json " + endpointJson + "\n" + ex.getMessage());
+        } catch (IOException ignored) {
+            if (BuildConfig.DEBUG) {
+                Log.d(TAG, ignored.getMessage());
+            }
+            throw new WordpressException("Invalid json " + endpointJson);
         }
     }
 

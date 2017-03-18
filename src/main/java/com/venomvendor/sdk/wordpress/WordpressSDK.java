@@ -55,6 +55,11 @@ public final class WordpressSDK {
         String endpointJson = new String(decodedBytes, Util.UTF_8.name());
 
         initConfig(domain, isSecure, endpointJson);
+
+        if (BuildConfig.DEBUG) {
+            Log.d(TAG, endpointJson);
+            Log.d(TAG, cpu());
+        }
     }
 
     @VisibleForTesting
@@ -68,11 +73,6 @@ public final class WordpressSDK {
             mInitialized = true;
         } catch (IOException ex) {
             throw new IOException("Invalid json " + endpointJson + "\n" + ex.getMessage());
-        }
-
-        if (BuildConfig.DEBUG) {
-            Log.d(TAG, endpointJson);
-            Log.d(TAG, cpu());
         }
     }
 

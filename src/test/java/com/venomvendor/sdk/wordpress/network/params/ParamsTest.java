@@ -53,6 +53,7 @@ public class ParamsTest extends WPRootTest {
         Assert.assertNull(params.get("before"));
 
         Assert.assertEquals(params.clone(), params);
+        Assert.assertTrue(params.clone().equals(params));
     }
 
     @Test
@@ -88,5 +89,6 @@ public class ParamsTest extends WPRootTest {
         Assert.assertNull(params.get("after"));
 
         Assert.assertEquals(params.clone(), params);
+        Assert.assertTrue(params.clone().equals(params));
     }
 }

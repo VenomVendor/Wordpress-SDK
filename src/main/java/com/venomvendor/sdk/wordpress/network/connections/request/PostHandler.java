@@ -34,16 +34,22 @@ public class PostHandler<T> extends APIHandler<T> implements PostRequests<T> {
         super();
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
-    public void getRecentPosts(@NonNull ResponseHandler<T> listener) {
+    public void getRecentPosts(@NonNull ResponseHandler<GetPost[]> listener) {
         getPosts(new Builder().build(), listener);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
-    public void getPosts(BaseParams params, @NonNull ResponseHandler<T> listener) {
+    public void getPosts(BaseParams params, @NonNull ResponseHandler<GetPost[]> listener) {
         Call<GetPost[]> call = ConnectionHandler.getRestClient()
                 .getPosts(APIFactory.getInstance().getPostsUrl(), params);
-        if (isNewRequest(call.request(), listener)) {
+        if (isNewRequest(call.request(), (ResponseHandler<T>) listener)) {
             getDataFromServer(call);
         }
     }

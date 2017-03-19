@@ -13,15 +13,23 @@ import android.support.annotation.NonNull;
 import android.support.annotation.StringDef;
 import android.util.ArrayMap;
 
+import com.venomvendor.sdk.wordpress.network.connections.request.listener.CategoryRequests;
+import com.venomvendor.sdk.wordpress.network.connections.request.listener.CommentRequests;
+import com.venomvendor.sdk.wordpress.network.connections.request.listener.ListenerHandler;
+import com.venomvendor.sdk.wordpress.network.connections.request.listener.PostRequests;
+import com.venomvendor.sdk.wordpress.network.exceptions.WordpressException;
+
 import java.lang.annotation.Retention;
 import java.util.HashMap;
 import java.util.Map;
 
 import static java.lang.annotation.RetentionPolicy.SOURCE;
 
+/**
+ * Handles all network operations
+ */
 public class NetworkHandler {
-
-    private static Map<String, APIHandler> mNetworkMap;
+    private static Map<String, ListenerHandler> mNetworkMap;
 
     static {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
@@ -35,43 +43,69 @@ public class NetworkHandler {
         super();
     }
 
+    /**
+     * Get Instance of current network operation
+     * <p><b>Ex: To Get RecentPosts</b></p>
+     * <pre>
+     *     PostRequests req = (PostRequests) NetworkHandler.getInstance(PostRequests.IDENTIFIER);
+     *     req.getRecentPosts(new ResponseHandler&lt;GetPost[]>() {
+     *         {@literal @}Override
+     *         public void onResponse(Response&lt;GetPost[]> response, WordpressException ex) {
+     *             if (response != null) {
+     *                 // handle response
+     *             } else {
+     *                 Log.d(TAG, ex.getMessage());
+     *             }
+     *         });
+     *     });
+     * </pre>
+     *
+     * @param identifier must be one of {@link Requests}
+     * @return Instance of {@link ListenerHandler} if available else throws
+     * {@link WordpressException}
+     */
     @NonNull
-    public static APIHandler getInstance(@Requests String identifier) {
-        APIHandler instance = mNetworkMap.get(identifier);
+    public static ListenerHandler getInstance(@Requests String identifier) {
+        ListenerHandler instance = mNetworkMap.get(getKey(identifier));
 
         if (instance != null) {
             return instance;
         }
         switch (identifier) {
-            case RequestFor.POSTS:
+            case PostRequests.IDENTIFIER:
                 instance = new PostHandler();
                 break;
-            case RequestFor.COMMENTS:
+            case CommentRequests.IDENTIFIER:
                 instance = new CommentHandler();
                 break;
-            case RequestFor.CATEGORIES:
+            case CategoryRequests.IDENTIFIER:
                 instance = new CategoryHandler();
                 break;
             default:
-                throw new IllegalArgumentException("Unknown request type");
+                throw new WordpressException("Unknown request type");
         }
 
-        mNetworkMap.put(identifier, instance);
+        mNetworkMap.put(getKey(identifier), instance);
         return instance;
+    }
+
+    /**
+     * Generate unique Key.
+     *
+     * @param identifier One @{@link Requests}
+     * @return unique key
+     */
+    @NonNull
+    private static String getKey(@Requests String identifier) {
+        return "REQUEST_" + identifier;
     }
 
     @Retention(SOURCE)
     @StringDef({
-            RequestFor.POSTS,
-            RequestFor.COMMENTS,
-            RequestFor.CATEGORIES
+            CategoryRequests.IDENTIFIER,
+            CommentRequests.IDENTIFIER,
+            PostRequests.IDENTIFIER
     })
     @interface Requests {
-    }
-
-    public class RequestFor {
-        public static final String POSTS = "POSTS";
-        public static final String COMMENTS = "COMMENTS";
-        public static final String CATEGORIES = "CATEGORIES";
     }
 }

@@ -34,16 +34,22 @@ public class CategoryHandler<T> extends APIHandler<T> implements CategoryRequest
         super();
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
-    public void getAllCategories(@NonNull ResponseHandler<T> listener) {
+    public void getAllCategories(@NonNull ResponseHandler<GetCategory[]> listener) {
         getCategories(new CommentParams.Builder().build(), listener);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
-    public void getCategories(BaseParams params, @NonNull ResponseHandler<T> listener) {
+    public void getCategories(BaseParams params, @NonNull ResponseHandler<GetCategory[]> listener) {
         Call<GetCategory[]> call = ConnectionHandler.getRestClient()
                 .getCategories(APIFactory.getInstance().getCategoryUrl(), params);
-        if (isNewRequest(call.request(), listener)) {
+        if (isNewRequest(call.request(), (ResponseHandler<T>) listener)) {
             getDataFromServer(call);
         }
     }

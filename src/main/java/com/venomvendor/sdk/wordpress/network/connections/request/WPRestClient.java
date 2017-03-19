@@ -25,6 +25,7 @@ import retrofit2.http.Url;
  * Rest Client which has all endpoints
  */
 interface WPRestClient {
+
     /**
      * Fetches list of posts
      *

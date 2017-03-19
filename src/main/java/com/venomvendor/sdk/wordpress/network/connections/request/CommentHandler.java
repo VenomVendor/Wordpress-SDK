@@ -34,16 +34,22 @@ public class CommentHandler<T> extends APIHandler<T> implements CommentRequests<
         super();
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
-    public void getRecentComments(@NonNull ResponseHandler<T> listener) {
+    public void getRecentComments(@NonNull ResponseHandler<GetComment[]> listener) {
         getComments(new Builder().build(), listener);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
-    public void getComments(BaseParams params, @NonNull ResponseHandler<T> listener) {
+    public void getComments(BaseParams params, @NonNull ResponseHandler<GetComment[]> listener) {
         Call<GetComment[]> call = ConnectionHandler.getRestClient()
                 .getComments(APIFactory.getInstance().getCommentsUrl(), params);
-        if (isNewRequest(call.request(), listener)) {
+        if (isNewRequest(call.request(), (ResponseHandler<T>) listener)) {
             getDataFromServer(call);
         }
     }

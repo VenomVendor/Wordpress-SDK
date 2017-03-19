@@ -12,6 +12,7 @@ import android.support.annotation.NonNull;
 
 import com.venomvendor.sdk.wordpress.network.connections.response.ResponseHandler;
 import com.venomvendor.sdk.wordpress.network.params.BaseParams;
+import com.venomvendor.sdk.wordpress.network.response.categories.GetCategory;
 
 /**
  * Get List of categories from server
@@ -20,12 +21,14 @@ import com.venomvendor.sdk.wordpress.network.params.BaseParams;
  */
 public interface CategoryRequests<T> extends ListenerHandler<T> {
 
+    public static final String IDENTIFIER = "CategoryRequests";
+
     /**
      * Get list of recent categories
      *
      * @param listener callback
      */
-    void getAllCategories(@NonNull ResponseHandler<T> listener);
+    void getAllCategories(@NonNull ResponseHandler<GetCategory[]> listener);
 
     /**
      * Get list of categories with filter applied
@@ -33,5 +36,5 @@ public interface CategoryRequests<T> extends ListenerHandler<T> {
      * @param params   filters
      * @param listener callback
      */
-    void getCategories(BaseParams params, @NonNull ResponseHandler<T> listener);
+    void getCategories(BaseParams params, @NonNull ResponseHandler<GetCategory[]> listener);
 }

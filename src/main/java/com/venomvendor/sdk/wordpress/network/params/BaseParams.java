@@ -62,7 +62,7 @@ public class BaseParams extends HashMap<String, String> {
          * @return current page between 1 to {@link Integer#MAX_VALUE}
          */
         @Nullable
-        protected String getPage() {
+        String getPage() {
             return mPage;
         }
 
@@ -72,7 +72,7 @@ public class BaseParams extends HashMap<String, String> {
          * @param page current page
          */
         @NonNull
-        public BaseBuilder setPage(@IntRange(from = 1) int page) {
+        BaseBuilder setPage(@IntRange(from = 1) int page) {
             this.mPage = String.valueOf(page);
             return this;
         }
@@ -81,7 +81,7 @@ public class BaseParams extends HashMap<String, String> {
          * Get offset results
          */
         @Nullable
-        protected String getOffset() {
+        String getOffset() {
             return mOffset;
         }
 
@@ -91,7 +91,7 @@ public class BaseParams extends HashMap<String, String> {
          * @param offset between 1 to {@link Integer#MAX_VALUE}
          */
         @NonNull
-        public BaseBuilder setOffset(@IntRange(from = 1) int offset) {
+        BaseBuilder setOffset(@IntRange(from = 1) int offset) {
             this.mOffset = String.valueOf(offset);
             return this;
         }
@@ -110,7 +110,7 @@ public class BaseParams extends HashMap<String, String> {
          * @param id unique id of post or comment
          */
         @NonNull
-        public BaseBuilder setId(@IntRange(from = 1) int id) {
+        BaseBuilder setId(@IntRange(from = 1) int id) {
             this.mId = String.valueOf(id);
             return this;
         }
@@ -119,7 +119,7 @@ public class BaseParams extends HashMap<String, String> {
          * Get number of results.
          */
         @NonNull
-        protected String getResultSize() {
+        String getResultSize() {
             return resultSize;
         }
 
@@ -129,7 +129,7 @@ public class BaseParams extends HashMap<String, String> {
          * @param resultSize number of results between 1 & 100
          */
         @NonNull
-        public BaseBuilder setResultSize(@IntRange(from = 1, to = MAX_RESULTS) int resultSize) {
+        BaseBuilder setResultSize(@IntRange(from = 1, to = MAX_RESULTS) int resultSize) {
             this.resultSize = String.valueOf(resultSize);
             return this;
         }
@@ -138,7 +138,7 @@ public class BaseParams extends HashMap<String, String> {
          * Get Date published after
          */
         @Nullable
-        protected String getPublishedAfter() {
+        String getPublishedAfter() {
             return mPublishedAfter;
         }
 
@@ -148,7 +148,7 @@ public class BaseParams extends HashMap<String, String> {
          * @param publishedAfter Date format in ISO 8601
          */
         @NonNull
-        public BaseBuilder setPublishedAfter(String publishedAfter) {
+        BaseBuilder setPublishedAfter(String publishedAfter) {
             this.mPublishedAfter = publishedAfter;
             return this;
         }
@@ -157,7 +157,7 @@ public class BaseParams extends HashMap<String, String> {
          * Get Date published before
          */
         @Nullable
-        protected String getPublishedBefore() {
+        String getPublishedBefore() {
             return mPublishedBefore;
         }
 
@@ -167,7 +167,7 @@ public class BaseParams extends HashMap<String, String> {
          * @param publishedBefore Date format in ISO 8601
          */
         @NonNull
-        public BaseBuilder setPublishedBefore(String publishedBefore) {
+        BaseBuilder setPublishedBefore(String publishedBefore) {
             this.mPublishedBefore = publishedBefore;
             return this;
         }
@@ -178,7 +178,7 @@ public class BaseParams extends HashMap<String, String> {
          * @return null or searched query
          */
         @Nullable
-        protected String getSearch() {
+        String getSearch() {
             return mSearch;
         }
 
@@ -188,7 +188,7 @@ public class BaseParams extends HashMap<String, String> {
          * @param search search query
          */
         @NonNull
-        public BaseBuilder setSearch(String search) {
+        BaseBuilder setSearch(String search) {
             this.mSearch = search;
             return this;
         }

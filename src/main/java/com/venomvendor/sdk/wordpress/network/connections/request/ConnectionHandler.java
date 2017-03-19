@@ -34,6 +34,13 @@ final class ConnectionHandler {
     private ConnectionHandler() {
     }
 
+    /**
+     * Get single instance of {@link Retrofit}
+     * with additional {@link OkHttpClient} & {@link HeaderInterceptor}
+     * If debug mode is enabled {@link LoggingInterceptor} is added
+     *
+     * @return instance
+     */
     private static Retrofit getRetrofit() {
         // Create REST adapter.
         if (mRetrofit == null) {
@@ -47,14 +54,20 @@ final class ConnectionHandler {
 
             retrofitBuilder.client(builder.build());
             retrofitBuilder.baseUrl(APIFactory.getInstance().getBaseUrl());
-            retrofitBuilder.addConverterFactory(JacksonConverterFactory.create(WordpressSDK.
-                    getObjectMapper()));
+            retrofitBuilder.addConverterFactory(
+                    JacksonConverterFactory.create(WordpressSDK.getObjectMapper())
+            );
             mRetrofit = retrofitBuilder.build();
         }
 
         return mRetrofit;
     }
 
+    /**
+     * Create RestClient for all network operations
+     *
+     * @return WPRestClient
+     */
     static WPRestClient getRestClient() {
         if (mRestClient == null) {
             mRestClient = getRetrofit().create(WPRestClient.class);
@@ -62,6 +75,9 @@ final class ConnectionHandler {
         return mRestClient;
     }
 
+    /**
+     * Modify headers in runtime.
+     */
     private static class HeaderInterceptor implements Interceptor {
         @Override
         public Response intercept(@NonNull Chain chain) throws IOException {
@@ -74,6 +90,10 @@ final class ConnectionHandler {
         }
     }
 
+    /**
+     * Enables logging of request & response.
+     * Modification of response can be done here.
+     */
     private static class LoggingInterceptor implements Interceptor {
         private static final String TAG = "LoggingInterceptor";
 

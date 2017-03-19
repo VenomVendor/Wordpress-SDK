@@ -12,6 +12,7 @@ import android.support.annotation.NonNull;
 
 import com.venomvendor.sdk.wordpress.network.connections.response.ResponseHandler;
 import com.venomvendor.sdk.wordpress.network.params.BaseParams;
+import com.venomvendor.sdk.wordpress.network.response.posts.GetPost;
 
 /**
  * Get List of posts from server
@@ -20,12 +21,14 @@ import com.venomvendor.sdk.wordpress.network.params.BaseParams;
  */
 public interface PostRequests<T> extends ListenerHandler<T> {
 
+    public static final String IDENTIFIER = "PostRequests";
+
     /**
      * Get list of recent posts
      *
      * @param listener callback
      */
-    void getRecentPosts(@NonNull ResponseHandler<T> listener);
+    void getRecentPosts(@NonNull ResponseHandler<GetPost[]> listener);
 
     /**
      * Get list of posts with filter applied
@@ -33,5 +36,5 @@ public interface PostRequests<T> extends ListenerHandler<T> {
      * @param params   filters
      * @param listener callback
      */
-    void getPosts(BaseParams params, @NonNull ResponseHandler<T> listener);
+    void getPosts(BaseParams params, @NonNull ResponseHandler<GetPost[]> listener);
 }

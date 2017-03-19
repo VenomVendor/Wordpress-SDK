@@ -16,15 +16,16 @@ public class PostsParams extends BaseParams {
 
     private PostsParams(@NonNull Builder builder) {
         FetchPost filter = FACTORY.getFilter().getFetchPost();
-        createNonNull(filter.getCategory(), builder.category);
-        createNonNull(filter.getSlug(), builder.slug);
-        createNonNull(filter.getId(), builder.getId());
-        createNonNull(filter.getPage(), builder.getPage());
-        createNonNull(filter.getOffset(), builder.getOffset());
-        createNonNull(filter.getSearch(), builder.getSearch());
-        createNonNull(filter.getResultSize(), builder.getResultSize());
-        createNonNull(filter.getPublishedAfter(), builder.getPublishedAfter());
-        createNonNull(filter.getPublishedBefore(), builder.getPublishedBefore());
+        createNonNull(filter.getCategory(), builder.mCategory);
+        createNonNull(filter.getSlug(), builder.mSlug);
+
+        createNonNull(filter.getId(), builder.mId);
+        createNonNull(filter.getPage(), builder.mPage);
+        createNonNull(filter.getOffset(), builder.mOffset);
+        createNonNull(filter.getSearch(), builder.mSearch);
+        createNonNull(filter.getResultSize(), builder.mResultSize);
+        createNonNull(filter.getPublishedAfter(), builder.mPublishedAfter);
+        createNonNull(filter.getPublishedBefore(), builder.mPublishedBefore);
     }
 
     @Override
@@ -36,18 +37,11 @@ public class PostsParams extends BaseParams {
      * Post params builder
      */
     public static class Builder extends BaseBuilder {
-        private String slug;
-        private String category;
+        private String mSlug;
+        private String mCategory;
 
-        /**
-         * Get post only for this category
-         *
-         * @param category category name
-         */
-        @NonNull
-        public Builder setCategory(String category) {
-            this.category = category;
-            return this;
+        public String getSlug() {
+            return mSlug;
         }
 
         /**
@@ -55,10 +49,21 @@ public class PostsParams extends BaseParams {
          *
          * @param slug id of the slug
          */
-        @NonNull
-        public Builder setSlug(String slug) {
-            this.slug = slug;
-            return this;
+        public void setSlug(String slug) {
+            this.mSlug = slug;
+        }
+
+        public String getCategory() {
+            return mCategory;
+        }
+
+        /**
+         * Get post only for this category
+         *
+         * @param category category name
+         */
+        public void setCategory(String category) {
+            this.mCategory = category;
         }
 
         /**

@@ -9,6 +9,65 @@ Minimal Wordpress SDK for Android.
 
 ---
 
+## Initialization
+
+```java
+WordpressSDK.initialize("VenomVendor.com/wp", false);
+```
+
+### Get Recent Posts
+```java
+PostRequests postReq = (PostRequests) NetworkHandler.getInstance(PostRequests.IDENTIFIER);
+postReq.getRecentPosts(new ResponseHandler<GetPost[]>() {
+    @Override
+    public void onResponse(@Nullable Response<GetPost[]> response,
+                           @Nullable WordpressException ex) {
+        if (response != null) {
+            GetPost[] allPosts = response.body();
+            for (GetPost post : allPosts) {
+                Log.d(TAG, post.getTitle().getRendered());
+            }
+        } else if (ex != null) {
+            Log.d(TAG, ex.getMessage());
+        } else {
+            Log.d(TAG, "Unknown Error");
+        }
+    }
+});
+```
+
+### Get Posts
+```java
+PostRequests postReq = (PostRequests) NetworkHandler.getInstance(PostRequests.IDENTIFIER);
+
+PostsParams.Builder params = new PostsParams.Builder();
+params.setPage(1);
+params.setOffset(10);
+params.setResultSize(20);
+params.setSearch("Mario");
+params.setCategory("Mobile");
+params.setSlug("some-slug");
+params.setPublishedBefore("2017-03-18T13:18:35");
+params.setPublishedAfter("2016-01-01T13:18:35");
+
+postReq.getPosts(postParams.build(), new ResponseHandler<GetPost[]>() {
+    @Override
+    public void onResponse(@Nullable Response<GetPost[]> response,
+                           @Nullable WordpressException ex) {
+        if (response != null) {
+            GetPost[] allPosts = response.body();
+            for (GetPost post : allPosts) {
+                Log.d(TAG, post.getTitle().getRendered());
+            }
+        } else if (ex != null) {
+            Log.d(TAG, ex.getMessage());
+        } else {
+            Log.d(TAG, "Unknown Error");
+        }
+    }
+});
+```
+
 ## Setup
 [Refer Sample Factory.json](https://github.com/VenomVendor/Wordpress-SDK/blob/release/sdk/config/request/Factory.json)
 ```json
@@ -81,65 +140,8 @@ Minimal Wordpress SDK for Android.
 }
 ```
 
-## Initialization
-
-```java
-WordpressSDK.initialize("VenomVendor.com/wp", false);
-```
-
-### Get Recent Posts
-```java
-PostRequests postReq = (PostRequests) NetworkHandler.getInstance(PostRequests.IDENTIFIER);
-postReq.getRecentPosts(new ResponseHandler<GetPost[]>() {
-    @Override
-    public void onResponse(@Nullable Response<GetPost[]> response,
-                           @Nullable WordpressException ex) {
-        if (response != null) {
-            GetPost[] allPosts = response.body();
-            for (GetPost post : allPosts) {
-                Log.d(TAG, post.getTitle().getRendered());
-            }
-        } else if (ex != null) {
-            Log.d(TAG, ex.getMessage());
-        } else {
-            Log.d(TAG, "Unknown Error");
-        }
-    }
-});
-```
-
-### Get Posts
-```java
-PostRequests postReq = (PostRequests) NetworkHandler.getInstance(PostRequests.IDENTIFIER);
-PostsParams.Builder postParams = new PostsParams.Builder();
-postParams.setPage(1);
-postParams.setOffset(10);
-postParams.setResultSize(20);
-postParams.setSearch("Mario");
-postParams.setCategory("Mobile");
-postParams.setSlug("some-slug");
-postParams.setPublishedBefore("2017-03-18T13:18:35");
-postParams.setPublishedAfter("2016-01-01T13:18:35");
-postReq.getPosts(postParams.build(), new ResponseHandler<GetPost[]>() {
-    @Override
-    public void onResponse(@Nullable Response<GetPost[]> response,
-                           @Nullable WordpressException ex) {
-        if (response != null) {
-            GetPost[] allPosts = response.body();
-            for (GetPost post : allPosts) {
-                Log.d(TAG, post.getTitle().getRendered());
-            }
-        } else if (ex != null) {
-            Log.d(TAG, ex.getMessage());
-        } else {
-            Log.d(TAG, "Unknown Error");
-        }
-    }
-});
-```
-
 ## Code Coverage
-<a href="https://codecov.io/gh/VenomVendor/Wordpress-SDK"><img src="https://codecov.io/gh/VenomVendor/Wordpress-SDK/branch/release%2Fsdk/graphs/tree.svg" width="100" /><a/>
+<a href="https://codecov.io/gh/VenomVendor/Wordpress-SDK"><img src="https://codecov.io/gh/VenomVendor/Wordpress-SDK/branch/release%2Fsdk/graphs/tree.svg" width="250" /><a/>
 
 ## Java Docs
-<a href="https://venomvendor.github.io/Wordpress-SDK/docs/">Java Documentation<a/>
+<a target="_blank" href="https://venomvendor.github.io/Wordpress-SDK/docs/">Click here for Java documentation<a/>

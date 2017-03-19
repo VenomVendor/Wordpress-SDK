@@ -28,6 +28,7 @@ import static org.junit.Assert.assertTrue;
  * Unit test cases for SDK
  */
 public class WordpressSDKTest extends WPRootTest {
+
     @BeforeClass
     public static void setUp() {
         if (!isSetUpDone) {

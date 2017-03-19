@@ -23,9 +23,10 @@ import static junit.framework.Assert.assertEquals;
  * Base class for all test cases
  */
 public class WPRootTest {
-    static final String DOMAIN = "VenomVendor.com";
-    static final boolean IS_SECURE = true;
-    public static boolean isSetUpDone;
+
+    static final String DOMAIN = "VenomVendor.com/wp";
+    static final boolean IS_SECURE = false;
+    protected static boolean isSetUpDone;
 
     /**
      * Read & return's endpoint json
@@ -51,7 +52,8 @@ public class WPRootTest {
     /**
      * Initializes SDK
      */
-    public static void initSDK() {
+    @Ignore
+    protected static void initSDK() {
         try {
             // unInitializedTest
             APIFactory.getInstance().getFactory();

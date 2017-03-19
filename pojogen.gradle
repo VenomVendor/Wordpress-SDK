@@ -2,8 +2,7 @@ apply plugin: 'com.android.library'
 apply plugin: 'jsonschema2pojo'
 
 ext {
-    sdkDir = "$projectDir".replace("$project.rootDir/", "")
-    endPoint = "$sdkDir/config/request/Factory.json"
+    endPoint = file('.').absolutePath + "/config/request/Factory.json"
 }
 
 task deleteFiles {

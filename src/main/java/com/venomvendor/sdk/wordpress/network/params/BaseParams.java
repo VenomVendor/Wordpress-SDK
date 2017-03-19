@@ -46,43 +46,23 @@ public class BaseParams extends HashMap<String, String> {
     /**
      * Common Request params builder
      */
-    static class BaseBuilder {
-        private String mPage;
-        private String mOffset;
-        private String mId;
-        private String mSearch;
-        private String mPublishedAfter;
-        private String mPublishedBefore;
+    public static class BaseBuilder {
+        String mPage;
+        String mOffset;
+        String mId;
+        String mSearch;
+        String mPublishedAfter;
+        String mPublishedBefore;
         @NonNull
-        private String resultSize = String.valueOf(MIN_RESULTS);
-
-        /**
-         * Get current page.
-         *
-         * @return current page between 1 to {@link Integer#MAX_VALUE}
-         */
-        @Nullable
-        String getPage() {
-            return mPage;
-        }
+        String mResultSize = String.valueOf(MIN_RESULTS);
 
         /**
          * Set Current page min value is 1
          *
          * @param page current page
          */
-        @NonNull
-        BaseBuilder setPage(@IntRange(from = 1) int page) {
+        public void setPage(@IntRange(from = 1) int page) {
             this.mPage = String.valueOf(page);
-            return this;
-        }
-
-        /**
-         * Get offset results
-         */
-        @Nullable
-        String getOffset() {
-            return mOffset;
         }
 
         /**
@@ -90,18 +70,8 @@ public class BaseParams extends HashMap<String, String> {
          *
          * @param offset between 1 to {@link Integer#MAX_VALUE}
          */
-        @NonNull
-        BaseBuilder setOffset(@IntRange(from = 1) int offset) {
+        public void setOffset(@IntRange(from = 1) int offset) {
             this.mOffset = String.valueOf(offset);
-            return this;
-        }
-
-        /**
-         * Get post/comment id.
-         */
-        @Nullable
-        protected String getId() {
-            return mId;
         }
 
         /**
@@ -109,18 +79,8 @@ public class BaseParams extends HashMap<String, String> {
          *
          * @param id unique id of post or comment
          */
-        @NonNull
-        BaseBuilder setId(@IntRange(from = 1) int id) {
+        public void setId(@IntRange(from = 1) int id) {
             this.mId = String.valueOf(id);
-            return this;
-        }
-
-        /**
-         * Get number of results.
-         */
-        @NonNull
-        String getResultSize() {
-            return resultSize;
         }
 
         /**
@@ -128,18 +88,8 @@ public class BaseParams extends HashMap<String, String> {
          *
          * @param resultSize number of results between 1 & 100
          */
-        @NonNull
-        BaseBuilder setResultSize(@IntRange(from = 1, to = MAX_RESULTS) int resultSize) {
-            this.resultSize = String.valueOf(resultSize);
-            return this;
-        }
-
-        /**
-         * Get Date published after
-         */
-        @Nullable
-        String getPublishedAfter() {
-            return mPublishedAfter;
+        public void setResultSize(@IntRange(from = 1, to = MAX_RESULTS) int resultSize) {
+            this.mResultSize = String.valueOf(resultSize);
         }
 
         /**
@@ -147,18 +97,8 @@ public class BaseParams extends HashMap<String, String> {
          *
          * @param publishedAfter Date format in ISO 8601
          */
-        @NonNull
-        BaseBuilder setPublishedAfter(String publishedAfter) {
+        public void setPublishedAfter(String publishedAfter) {
             this.mPublishedAfter = publishedAfter;
-            return this;
-        }
-
-        /**
-         * Get Date published before
-         */
-        @Nullable
-        String getPublishedBefore() {
-            return mPublishedBefore;
         }
 
         /**
@@ -166,20 +106,8 @@ public class BaseParams extends HashMap<String, String> {
          *
          * @param publishedBefore Date format in ISO 8601
          */
-        @NonNull
-        BaseBuilder setPublishedBefore(String publishedBefore) {
+        public void setPublishedBefore(String publishedBefore) {
             this.mPublishedBefore = publishedBefore;
-            return this;
-        }
-
-        /**
-         * Get current search string.
-         *
-         * @return null or searched query
-         */
-        @Nullable
-        String getSearch() {
-            return mSearch;
         }
 
         /**
@@ -187,10 +115,8 @@ public class BaseParams extends HashMap<String, String> {
          *
          * @param search search query
          */
-        @NonNull
-        BaseBuilder setSearch(String search) {
+        public void setSearch(String search) {
             this.mSearch = search;
-            return this;
         }
     }
 }

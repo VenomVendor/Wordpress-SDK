@@ -1,8 +1,11 @@
 {
-  "protocolDefault": "http://",
-  "protocolSecure": "https://",
+  "dateError": "GMT+05:30",
+  "perReq": 20,
+  "perReqNew": 100,
   "secure": true,
   "domain": "VenomVendor.com",
+  "protocolDefault": "http://",
+  "protocolSecure": "https://",
   "path": {
     "root": "/wp-json/wp/v2/",
     "token": "token/",
@@ -10,9 +13,6 @@
     "comments": "comments/",
     "category": "categories/"
   },
-  "dateError": "GMT+05:30",
-  "perReqNew": 100,
-  "perReq": 20,
   "filter": {
     "fetchPost": {
       "id": "include",

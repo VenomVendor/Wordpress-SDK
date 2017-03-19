@@ -19,16 +19,17 @@ public class CommentParams extends BaseParams {
 
     private CommentParams(@NonNull Builder builder) {
         FetchComment filter = FACTORY.getFilter().getFetchComment();
-        createNonNull(filter.getPostId(), builder.postId);
-        createNonNull(filter.getUserId(), builder.userId);
-        createNonNull(filter.getInReplyTo(), builder.inReplyTo);
-        createNonNull(filter.getId(), builder.getId());
-        createNonNull(filter.getResultSize(), builder.getResultSize());
-        createNonNull(filter.getPage(), builder.getPage());
-        createNonNull(filter.getSearch(), builder.getSearch());
-        createNonNull(filter.getPublishedAfter(), builder.getPublishedAfter());
-        createNonNull(filter.getPublishedBefore(), builder.getPublishedBefore());
-        createNonNull(filter.getOffset(), builder.getOffset());
+        createNonNull(filter.getPostId(), builder.mPostId);
+        createNonNull(filter.getUserId(), builder.mUserId);
+        createNonNull(filter.getInReplyTo(), builder.mInReplyTo);
+
+        createNonNull(filter.getId(), builder.mId);
+        createNonNull(filter.getPage(), builder.mPage);
+        createNonNull(filter.getOffset(), builder.mOffset);
+        createNonNull(filter.getSearch(), builder.mSearch);
+        createNonNull(filter.getResultSize(), builder.mResultSize);
+        createNonNull(filter.getPublishedAfter(), builder.mPublishedAfter);
+        createNonNull(filter.getPublishedBefore(), builder.mPublishedBefore);
     }
 
     @Override
@@ -40,19 +41,17 @@ public class CommentParams extends BaseParams {
      * Comment params builder
      */
     public static class Builder extends BaseBuilder {
-        private String userId;
-        private String inReplyTo;
-        private String postId;
+        private String mUserId;
+        private String mInReplyTo;
+        private String mPostId;
 
         /**
          * Get comments from this user
          *
          * @param userId result for the user
          */
-        @NonNull
-        public Builder setUserId(String userId) {
-            this.userId = userId;
-            return this;
+        public void setUserId(String userId) {
+            this.mUserId = userId;
         }
 
         /**
@@ -60,10 +59,8 @@ public class CommentParams extends BaseParams {
          *
          * @param inReplyTo id of the parent comment
          */
-        @NonNull
-        public Builder setInReplyTo(String inReplyTo) {
-            this.inReplyTo = inReplyTo;
-            return this;
+        public void setInReplyTo(String inReplyTo) {
+            this.mInReplyTo = inReplyTo;
         }
 
         /**
@@ -71,10 +68,8 @@ public class CommentParams extends BaseParams {
          *
          * @param postId id of the post
          */
-        @NonNull
-        public BaseBuilder setPostId(String postId) {
-            this.postId = postId;
-            return this;
+        public void setPostId(String postId) {
+            this.mPostId = postId;
         }
 
         /**

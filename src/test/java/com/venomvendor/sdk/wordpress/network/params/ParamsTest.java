@@ -17,6 +17,7 @@ import org.junit.Test;
  * Test cases for request params.
  */
 public class ParamsTest extends WPRootTest {
+
     @BeforeClass
     public static void setUp() {
         if (!isSetUpDone) {

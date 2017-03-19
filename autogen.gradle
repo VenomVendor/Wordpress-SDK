@@ -12,15 +12,17 @@ buildscript {
 }
 
 task configGen {
-    String gitChanged = 'git status --porcelain'.execute([], project.rootDir).text.trim();
-    gitChanged += 'git ls-files --others --exclude-standard'.execute([], project.rootDir).text.trim();
+    String gitChanged = 'git status --porcelain'.execute([], file('.')).text.trim();
+    gitChanged += 'git ls-files --others --exclude-standard'.execute([], file('.')).text.trim();
     List<String> allLines = gitChanged.readLines();
-
-    String apiLoc = "$sdkDir/src/main/jni/api.h";
+    String apiLoc = file('.').absolutePath + "/src/main/jni/api.h";
 
     boolean enableAutoGen = false;
+    String endPointRef = endPoint.replaceAll(file('.').absolutePath + "/", "")
+    String apiLocRef = apiLoc.replaceAll(file('.').absolutePath + "/", "")
+
     for (String eachLine : allLines) {
-        if (eachLine.contains(endPoint) || eachLine.contains(apiLoc)) {
+        if (eachLine.contains(apiLocRef) || eachLine.contains(endPointRef)) {
             enableAutoGen = true;
             break;
         }

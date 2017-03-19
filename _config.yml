@@ -1,1 +1,4 @@
-theme: jekyll-theme-architect
+theme: jekyll-theme-cayman
+description: Minimal Wordpress SDK for Android.
+show_downloads: true
+google_analytics: UA-36597975-3

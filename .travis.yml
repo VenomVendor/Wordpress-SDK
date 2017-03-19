@@ -4,6 +4,8 @@ jdk: oraclejdk8
 env:
   global:
     - secure: "AYq0ni34ZhmYP3PLEDehO2SqEylr8PxBxZFw8uiRTwRy7BPHEAe6ZItSI0+RHZDsOJExFg2B2XuBFIbQ4x+n7JSgQLaoepi1Gq9o2xQTK/8Oc4pYPDcFfMHN4ttwNi2h9++8SGQ5Hemc5GQ4aNpKDI7LZrZF4sBxwQpigMiSrToQUR5zwFrpUu9c3wBlrhZ16jQ2iMxE6xOnLfpnC+4Kfm6G5au2oWW5O4CJ916aT7kEThC/608e13KkypyyzDdZXGTHBztuUv/ieI2G7bdrxi8d6YWNpd2ZDXsIfWCbHo3uUHPxhCo7DJUjp4glDgBGjBx83zTtcYthh7xJktIHVJ8vIwgOu0ZZMxftojFTicPBPy7VT9Q3NcX2v2SWBYVEZ5FZOxOwwZyNXyERfTP3MwnQixcWiGu3V2AY1Tb9j0UVKM5YRbwqzsOYb6YqkZhSKFTmARFDlEIZmQl653wPA4JGighkia1KF9/ytGI3gPkY6MU4IHzwah9xJYQiRtp43YnxDkYowTcjvR5RoQ5ANYfIps8TywiANyI1/IyVLIuW5WwvhY7PpdxMBb9AoMrTYDh9foeu/kkphe7fLn8iNYWBPxUgxv9NXs5ivpOuIyLfOhjcjN7zcojlEqglaMDoJhSWYZ1YECdOLHPQ1flGQ48jbolTLKqfiKQXWskcwnI="
+    - secure: "ia8P2QNUFkMJLUpYEGeDQ/WARcm7rAcvt0Ie37hyVcOKV5uGn6ntpp7RK6CrogA6tMudHoHR6foalh/Jq0yXyw+szM1A/+KuZx7IA/4nA//pyNBlXiDUVkgFU7datgeoVW0oz8mi2kmfe3xHXcNFkU9J199zwba1jtJRM+jrW2zGCC0nJpOjTDaIInit6+7fXh7AAtXb4OeIXLrtAzHGZNCZWmuub57LjybrpSFSVyWHWJHdQjg/EbUvhiQAsRFjB19lZjtxNAlGRRrZ0wCFMXm5BPCspueyr4+PeVHXEDIOpV9NTt7KHF5QEkbsHwn0ywZXfqw0MFmarMT5atDkVa3E+OVRJvkmeKBtebr10v8Ps118MT50CKMW9htTEjVMchH5cR+ZX1VWm4L7mDP1YMFR32cxbh9eKjUDndSIUUg0d1uD0vWwQlkpWDJ0f2qe/kENHjOysB+nGaJu4Sjji1ToiQTbf4t5dn1QFkC3nXHENFIk/REhG+eczM4krWebroRYcutrCYsSfi5FLJRhCxfRESgR+fE9IMljBH0BZF8UgnQAahLDwC3sNshyGrfblIzlIvNLfNR3Pj2Mt/nkE7B8/tcBrKBA9/g+Y8L1tKKpHS73Jmv4CwIZJNjM4aBRpRlz6iotGg7aD7gvflNfhGWGkW+Pl4QNudp1jZmTPgQ="
+    - secure: "0hHxsqFy/r5CaOWxKmLWT64iPYLSzNhpu0V+ZzcEoVqKRvLSNYHz9sekqcXtNLxD8/zsClEroQ25w5KlJL3Z9NP9q9y2vNzLotBwf/YfZOUVIBvINmv3QcBwV0XeO1h2Uaned6DnbmezYaaVC8PJ+xkAqN424/fcQM9pzxGhwCQEHu2xHKkfy6j1Ju5wnNg+29po8ZOnQ6diXC4tMJaNzpLduTsAh6hN8+LVw85A/KzBvHXOQKTcvP9V8JiYnzQ9/5VcRWYa9QtRjS726cTw1FUZ6iWAb7P9dLISA+sTHoPa7O87BuQW/D6YolTxAR5zkSk1h1VO8S6A1kH1iR9EqOhaf27wg1pnp2SjuR12x89Leut5SmPJYnFpJKLYG/Q9260+EyiqPypPPbkfqCShRsjVh2dJCLdJPnc/gRLSH8FR0cfu8BkpMjPLGPgCNW1yfwgbzQHdMtMPxHy7jztVta4tagPkV2cViOep4gV6xSF0xjcRLcxSldDIr86I8hLdk/0ViTcDd0Ur2vMmrQ4IiW0zXJKwcBNWBsFbu7Zx+GlC75Z4X4ijgMknui5Mc6LgA91oqK3zGMP+FlGVEecUNbYc63zQ51gwIcGoHBwUy9BcinBqfTcuMnp9yvURKBOQ9TOGRfXeeRI87V3r1pW79hJzsMjK9cxCXw8H+j6Pr4I="
 
 cache:
   directories:
@@ -33,7 +35,7 @@ addons:
     notification_email: info@venomvendor.com
     build_command_prepend: "./gradlew clean"
     build_command: "./gradlew build jacocoTestReport test"
-    branch_pattern: sdk
+    branch_pattern: release/sdk
 
 before_install:
   - pip install --user codecov
@@ -59,13 +61,12 @@ before_install:
 branches:
   only:
     - release/sdk
-    - fix/hooks
 
 before_script:
   - ./gradlew clean
 
 script:
-  - ./gradlew build jacocoTestReport test
+  - ./gradlew build test jacocoTestReport coveralls
 
 after_success:
   - codecov

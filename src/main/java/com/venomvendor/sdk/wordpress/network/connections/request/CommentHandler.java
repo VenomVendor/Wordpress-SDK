@@ -5,16 +5,17 @@
  * Copyright(c):	2017 - Present, VenomVendor.
  * License		:	Apache License Version 2.0
  */
+
 package com.venomvendor.sdk.wordpress.network.connections.request;
 
 import android.support.annotation.NonNull;
 
+import com.venomvendor.sdk.wordpress.network.connections.request.listener.CommentRequests;
 import com.venomvendor.sdk.wordpress.network.connections.response.ResponseHandler;
 import com.venomvendor.sdk.wordpress.network.core.APIFactory;
 import com.venomvendor.sdk.wordpress.network.params.BaseParams;
 import com.venomvendor.sdk.wordpress.network.params.CommentParams.Builder;
 import com.venomvendor.sdk.wordpress.network.response.comments.GetComment;
-import com.venomvendor.sdk.wordpress.network.util.HttpStatus;
 
 import java.util.List;
 
@@ -23,29 +24,46 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-abstract class CommentHandler<T> extends CategoryHandler<T> {
+/**
+ * Manages all post calls & callbacks
+ *
+ * @param <T> Callback object {@link GetComment}
+ */
+public class CommentHandler<T> extends APIHandler<T> implements CommentRequests<T> {
     CommentHandler() {
         super();
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
-    public void getRecentComments(@NonNull ResponseHandler<T> listener) {
+    public void getRecentComments(@NonNull ResponseHandler<GetComment[]> listener) {
         getComments(new Builder().build(), listener);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
-    public void getComments(BaseParams params, @NonNull ResponseHandler<T> listener) {
+    public void getComments(BaseParams params, @NonNull ResponseHandler<GetComment[]> listener) {
         Call<GetComment[]> call = ConnectionHandler.getRestClient()
                 .getComments(APIFactory.getInstance().getCommentsUrl(), params);
-        if (isNewRequest(call.request(), listener)) {
+        if (isNewRequest(call.request(), (ResponseHandler<T>) listener)) {
             getDataFromServer(call);
         }
     }
 
+    /**
+     * Fetches comment from server.
+     *
+     * @param call Request
+     */
     private void getDataFromServer(@NonNull Call<GetComment[]> call) {
         call.enqueue(new Callback<GetComment[]>() {
             @Override
-            public void onResponse(@NonNull Call<GetComment[]> call, @NonNull Response<GetComment[]> response) {
+            public void onResponse(@NonNull Call<GetComment[]> call,
+                                   @NonNull Response<GetComment[]> response) {
                 handleResponse(call.request(), response);
             }
 
@@ -56,8 +74,15 @@ abstract class CommentHandler<T> extends CategoryHandler<T> {
         });
     }
 
+    /**
+     * Handles response from server & notifies the callbacks.
+     *
+     * @param request  Request url & data
+     * @param response Response from server
+     */
     @SuppressWarnings("unchecked")
-    private void handleResponse(@NonNull Request request, @NonNull Response<GetComment[]> response) {
+    private void handleResponse(@NonNull Request request,
+                                @NonNull Response<GetComment[]> response) {
         String listenerKey = getListenerKey(request);
         List<ResponseHandler<T>> existingListeners = mListenerQueue.get(listenerKey);
         if (existingListeners != null) {
@@ -70,12 +95,19 @@ abstract class CommentHandler<T> extends CategoryHandler<T> {
         }
     }
 
-    private boolean hasNoError(@NonNull GetComment[] response, @NonNull List<ResponseHandler<T>> existingListeners) {
+    /**
+     * Checks if response has error within data & handles if error is present
+     *
+     * @param response          response object form server.
+     * @param existingListeners callbacks
+     * @return true if there are no errors.
+     */
+    private boolean hasNoError(@NonNull GetComment[] response,
+                               @NonNull List<ResponseHandler<T>> existingListeners) {
         if (response.length == 1) {
             GetComment res = response[0];
             if (res.getMessage() != null) {
-                String error = res.getMessage() + ". " + res.getData().getStatus() + ": "
-                        + HttpStatus.getStatusEquivalent(res.getData().getStatus());
+                String error = "Status Code :" + res.getData().getStatus() + " " + res.getMessage();
                 handleError(error, existingListeners);
                 return false;
             }

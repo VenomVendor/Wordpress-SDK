@@ -5,16 +5,17 @@
  * Copyright(c):	2017 - Present, VenomVendor.
  * License		:	Apache License Version 2.0
  */
+
 package com.venomvendor.sdk.wordpress.network.connections.request;
 
 import android.support.annotation.NonNull;
 
+import com.venomvendor.sdk.wordpress.network.connections.request.listener.CategoryRequests;
 import com.venomvendor.sdk.wordpress.network.connections.response.ResponseHandler;
 import com.venomvendor.sdk.wordpress.network.core.APIFactory;
 import com.venomvendor.sdk.wordpress.network.params.BaseParams;
 import com.venomvendor.sdk.wordpress.network.params.CommentParams;
 import com.venomvendor.sdk.wordpress.network.response.categories.GetCategory;
-import com.venomvendor.sdk.wordpress.network.util.HttpStatus;
 
 import java.util.List;
 
@@ -23,41 +24,66 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-abstract class CategoryHandler<T> extends APIHandler<T> {
+/**
+ * Manages all post calls & callbacks
+ *
+ * @param <T> Callback object {@link GetCategory}
+ */
+public class CategoryHandler<T> extends APIHandler<T> implements CategoryRequests<T> {
     CategoryHandler() {
         super();
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
-    public void getAllCategories(@NonNull ResponseHandler<T> listener) {
+    public void getAllCategories(@NonNull ResponseHandler<GetCategory[]> listener) {
         getCategories(new CommentParams.Builder().build(), listener);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
-    public void getCategories(BaseParams params, @NonNull ResponseHandler<T> listener) {
+    public void getCategories(BaseParams params, @NonNull ResponseHandler<GetCategory[]> listener) {
         Call<GetCategory[]> call = ConnectionHandler.getRestClient()
                 .getCategories(APIFactory.getInstance().getCategoryUrl(), params);
-        if (isNewRequest(call.request(), listener)) {
+        if (isNewRequest(call.request(), (ResponseHandler<T>) listener)) {
             getDataFromServer(call);
         }
     }
 
+    /**
+     * Fetches Categories from server.
+     *
+     * @param call Request
+     */
     private void getDataFromServer(@NonNull Call<GetCategory[]> call) {
         call.enqueue(new Callback<GetCategory[]>() {
             @Override
-            public void onResponse(@NonNull Call<GetCategory[]> call, @NonNull Response<GetCategory[]> response) {
+            public void onResponse(@NonNull Call<GetCategory[]> call,
+                                   @NonNull Response<GetCategory[]> response) {
                 handleResponse(call.request(), response);
             }
 
             @Override
-            public void onFailure(@NonNull Call<GetCategory[]> call, @NonNull Throwable throwable) {
+            public void onFailure(@NonNull Call<GetCategory[]> call,
+                                  @NonNull Throwable throwable) {
                 handlerFailure(call.request(), throwable);
             }
         });
     }
 
+    /**
+     * Handles response from server & notifies the callbacks.
+     *
+     * @param request  Request url & data
+     * @param response Response from server
+     */
     @SuppressWarnings("unchecked")
-    private void handleResponse(@NonNull Request request, @NonNull Response<GetCategory[]> response) {
+    private void handleResponse(@NonNull Request request,
+                                @NonNull Response<GetCategory[]> response) {
         String listenerKey = getListenerKey(request);
         List<ResponseHandler<T>> existingListeners = mListenerQueue.get(listenerKey);
         if (existingListeners != null) {
@@ -70,12 +96,19 @@ abstract class CategoryHandler<T> extends APIHandler<T> {
         }
     }
 
-    private boolean hasNoError(@NonNull GetCategory[] response, @NonNull List<ResponseHandler<T>> existingListeners) {
+    /**
+     * Checks if response has error within data & handles if error is present
+     *
+     * @param response          response object form server.
+     * @param existingListeners callbacks
+     * @return true if there are no errors.
+     */
+    private boolean hasNoError(@NonNull GetCategory[] response,
+                               @NonNull List<ResponseHandler<T>> existingListeners) {
         if (response.length == 1) {
             GetCategory res = response[0];
             if (res.getMessage() != null) {
-                String error = res.getMessage() + ". " + res.getData().getStatus() + ": "
-                        + HttpStatus.getStatusEquivalent(res.getData().getStatus());
+                String error = "Status Code :" + res.getData().getStatus() + " " + res.getMessage();
                 handleError(error, existingListeners);
                 return false;
             }

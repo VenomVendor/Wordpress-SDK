@@ -5,10 +5,10 @@
  * Copyright(c):	2017 - Present, VenomVendor.
  * License		:	Apache License Version 2.0
  */
+
 package com.venomvendor.sdk.wordpress;
 
 import android.support.annotation.NonNull;
-import android.support.annotation.VisibleForTesting;
 import android.util.Base64;
 import android.util.Log;
 
@@ -20,6 +20,7 @@ import com.venomvendor.sdk.wordpress.network.exceptions.WordpressException;
 import com.venomvendor.sdk.wordpress.network.request.Factory;
 
 import java.io.IOException;
+import java.io.UnsupportedEncodingException;
 
 import okhttp3.internal.Util;
 
@@ -30,6 +31,14 @@ public final class WordpressSDK {
     private WordpressSDK() {
     }
 
+    /**
+     * Initializes SDK, this should be called before using any methods of SDK
+     *
+     * @param domain  Url of domain. Ex: <b>example.com</b>
+     * @param isHttps is SSL enabled.
+     * @throws WordpressException if domain name is <b>null</b> or starts with any of the following
+     *                            <b>www</b> | <b>http:</b> | <b>https:</b>
+     */
     @SuppressWarnings("ConstantConditions")
     public static void initialize(@NonNull String domain, boolean isHttps) {
         if (domain == null || domain.startsWith("www")
@@ -48,7 +57,15 @@ public final class WordpressSDK {
         }
     }
 
-    private static void init(String domain, boolean isSecure) throws IOException {
+    /**
+     * Initializes SDK by decrypting configuration from auto generated JNI
+     *
+     * @param domain   Url of domain. Ex: <b>example.com</b>
+     * @param isSecure is SSL enabled.
+     * @throws UnsupportedEncodingException if decoding fails
+     * @see Factory
+     */
+    private static void init(String domain, boolean isSecure) throws UnsupportedEncodingException {
         System.loadLibrary("wordpress-android");
 
         byte[] decodedBytes = Base64.decode(endPoints(), Base64.DEFAULT);
@@ -62,8 +79,15 @@ public final class WordpressSDK {
         }
     }
 
-    @VisibleForTesting
-    public static void initConfig(String domain, boolean isSecure, String endpointJson) {
+    /**
+     * Initializes SDK by decrypting configuration
+     *
+     * @param domain       Url of domain. Ex: <b>example.com</b>
+     * @param isSecure     is SSL enabled.
+     * @param endpointJson plain configuration containing endpoints & params
+     * @see Factory
+     */
+    private static void initConfig(String domain, boolean isSecure, String endpointJson) {
         try {
             Factory endpoints = getObjectMapper().readValue(endpointJson, Factory.class);
             endpoints.setDomain(domain);
@@ -78,6 +102,11 @@ public final class WordpressSDK {
         }
     }
 
+    /**
+     * Creates {@link ObjectMapper} for converting JSON to Objects
+     *
+     * @return customized {@link ObjectMapper}
+     */
     @NonNull
     public static ObjectMapper getObjectMapper() {
         ObjectMapper objectMapper = new ObjectMapper();
@@ -88,10 +117,19 @@ public final class WordpressSDK {
         return objectMapper;
     }
 
-    @VisibleForTesting
+    /**
+     * Get encrypted/encoded endpoints & params string
+     *
+     * @return Base64 encoded string
+     */
     @NonNull
-    public static native String endPoints();
+    private static native String endPoints();
 
+    /**
+     * Get architecture of device
+     *
+     * @return JNI architecture being consumed
+     */
     @NonNull
     private static native String cpu();
 }

@@ -5,16 +5,17 @@
  * Copyright(c):	2017 - Present, VenomVendor.
  * License		:	Apache License Version 2.0
  */
+
 package com.venomvendor.sdk.wordpress.network.connections.request;
 
 import android.support.annotation.NonNull;
 
+import com.venomvendor.sdk.wordpress.network.connections.request.listener.PostRequests;
 import com.venomvendor.sdk.wordpress.network.connections.response.ResponseHandler;
 import com.venomvendor.sdk.wordpress.network.core.APIFactory;
 import com.venomvendor.sdk.wordpress.network.params.BaseParams;
 import com.venomvendor.sdk.wordpress.network.params.PostsParams.Builder;
 import com.venomvendor.sdk.wordpress.network.response.posts.GetPost;
-import com.venomvendor.sdk.wordpress.network.util.HttpStatus;
 
 import java.util.List;
 
@@ -23,29 +24,46 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-abstract class PostHandler<T> extends CommentHandler<T> {
+/**
+ * Manages all post calls & callbacks
+ *
+ * @param <T> Callback object {@link GetPost}
+ */
+public class PostHandler<T> extends APIHandler<T> implements PostRequests<T> {
     PostHandler() {
         super();
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
-    public void getRecentPosts(@NonNull ResponseHandler<T> listener) {
+    public void getRecentPosts(@NonNull ResponseHandler<GetPost[]> listener) {
         getPosts(new Builder().build(), listener);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
-    public void getPosts(BaseParams params, @NonNull ResponseHandler<T> listener) {
+    public void getPosts(BaseParams params, @NonNull ResponseHandler<GetPost[]> listener) {
         Call<GetPost[]> call = ConnectionHandler.getRestClient()
                 .getPosts(APIFactory.getInstance().getPostsUrl(), params);
-        if (isNewRequest(call.request(), listener)) {
+        if (isNewRequest(call.request(), (ResponseHandler<T>) listener)) {
             getDataFromServer(call);
         }
     }
 
+    /**
+     * Fetches Posts from server.
+     *
+     * @param call Request
+     */
     private void getDataFromServer(@NonNull Call<GetPost[]> call) {
         call.enqueue(new Callback<GetPost[]>() {
             @Override
-            public void onResponse(@NonNull Call<GetPost[]> call, @NonNull Response<GetPost[]> response) {
+            public void onResponse(@NonNull Call<GetPost[]> call,
+                                   @NonNull Response<GetPost[]> response) {
                 handleResponse(call.request(), response);
             }
 
@@ -56,6 +74,12 @@ abstract class PostHandler<T> extends CommentHandler<T> {
         });
     }
 
+    /**
+     * Handles response from server & notifies the callbacks.
+     *
+     * @param request  Request url & data
+     * @param response Response from server
+     */
     @SuppressWarnings("unchecked")
     private void handleResponse(@NonNull Request request, @NonNull Response<GetPost[]> response) {
         String listenerKey = getListenerKey(request);
@@ -70,12 +94,19 @@ abstract class PostHandler<T> extends CommentHandler<T> {
         }
     }
 
-    private boolean hasNoError(@NonNull GetPost[] response, @NonNull List<ResponseHandler<T>> existingListeners) {
+    /**
+     * Checks if response has error within data & handles if error is present
+     *
+     * @param response          response object form server.
+     * @param existingListeners callbacks
+     * @return true if there are no errors.
+     */
+    private boolean hasNoError(@NonNull GetPost[] response,
+                               @NonNull List<ResponseHandler<T>> existingListeners) {
         if (response.length == 1) {
             GetPost res = response[0];
             if (res.getMessage() != null) {
-                String error = res.getMessage() + ". " + res.getData().getStatus() + ": "
-                        + HttpStatus.getStatusEquivalent(res.getData().getStatus());
+                String error = "Status Code :" + res.getData().getStatus() + " " + res.getMessage();
                 handleError(error, existingListeners);
                 return false;
             }

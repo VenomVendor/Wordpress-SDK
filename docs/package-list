@@ -5,4 +5,3 @@ com.venomvendor.sdk.wordpress.network.connections.response
 com.venomvendor.sdk.wordpress.network.core
 com.venomvendor.sdk.wordpress.network.exceptions
 com.venomvendor.sdk.wordpress.network.params
-com.venomvendor.sdk.wordpress.network.util

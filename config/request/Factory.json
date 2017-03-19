@@ -1,15 +1,9 @@
 {
-  // if DB has time sync error.
   "dateError": "GMT+05:30",
-  // results per request
   "perReq": 20,
-  // results for first request
   "perReqNew": 100,
-  // will be overridden in runtime
   "secure": true,
-  // will be overridden in runtime
   "domain": "VenomVendor.com",
-  /* Do not modify below */
   "protocolDefault": "http://",
   "protocolSecure": "https://",
   "path": {

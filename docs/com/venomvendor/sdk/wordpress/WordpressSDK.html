@@ -18,7 +18,7 @@
     catch(err) {
     }
 //-->
-var methods = {"i0":9,"i1":9};
+var methods = {"i0":9,"i1":9,"i2":9};
 var tabs = {65535:["t0","All Methods"],1:["t1","Static Methods"],8:["t4","Concrete Methods"]};
 var altColor = "altColor";
 var rowColor = "rowColor";
@@ -136,6 +136,14 @@ extends java.lang.Object</pre>
 </tr>
 <tr id="i1" class="rowColor">
 <td class="colFirst"><code>static void</code></td>
+<td class="colLast"><code><span class="memberNameLink"><a href="../../../../com/venomvendor/sdk/wordpress/WordpressSDK.html#initConfig-java.lang.String-boolean-java.lang.String-">initConfig</a></span>(java.lang.String&nbsp;domain,
+          boolean&nbsp;isSecure,
+          java.lang.String&nbsp;endpointJson)</code>
+<div class="block">Initializes SDK by decrypting configuration</div>
+</td>
+</tr>
+<tr id="i2" class="altColor">
+<td class="colFirst"><code>static void</code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../com/venomvendor/sdk/wordpress/WordpressSDK.html#initialize-java.lang.String-boolean-">initialize</a></span>(java.lang.String&nbsp;domain,
           boolean&nbsp;isHttps)</code>
 <div class="block">Initializes SDK, this should be called before using any methods of SDK</div>
@@ -179,6 +187,24 @@ extends java.lang.Object</pre>
 <dt><span class="throwsLabel">Throws:</span></dt>
 <dd><code><a href="../../../../com/venomvendor/sdk/wordpress/network/exceptions/WordpressException.html" title="class in com.venomvendor.sdk.wordpress.network.exceptions">WordpressException</a></code> - if domain name is <b>null</b> or starts with any of the following
                             <b>www</b> | <b>http:</b> | <b>https:</b></dd>
+</dl>
+</li>
+</ul>
+<a name="initConfig-java.lang.String-boolean-java.lang.String-">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>initConfig</h4>
+<pre>public static&nbsp;void&nbsp;initConfig(java.lang.String&nbsp;domain,
+                              boolean&nbsp;isSecure,
+                              java.lang.String&nbsp;endpointJson)</pre>
+<div class="block">Initializes SDK by decrypting configuration</div>
+<dl>
+<dt><span class="paramLabel">Parameters:</span></dt>
+<dd><code>domain</code> - Url of domain. Ex: <b>example.com</b></dd>
+<dd><code>isSecure</code> - is SSL enabled.</dd>
+<dd><code>endpointJson</code> - plain configuration containing endpoints &amp; params</dd>
 </dl>
 </li>
 </ul>

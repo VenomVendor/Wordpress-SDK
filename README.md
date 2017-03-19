@@ -1,4 +1,4 @@
-# Wordpress-SDK
+# Wordpress-SDK | Android
 Minimal Wordpress SDK for Android.
 
 [![Build Status](https://travis-ci.org/VenomVendor/Wordpress-SDK.svg?branch=release%2Fsdk)](https://travis-ci.org/VenomVendor/Wordpress-SDK)
@@ -9,8 +9,22 @@ Minimal Wordpress SDK for Android.
 
 ---
 
-## Initialization
+## Installation
+In `build.gradle` add the following dependencies
 
+```coffeescript
+repositories {
+    maven {
+        url  'http://dl.bintray.com/venomvendor/maven'
+    }
+}
+
+dependencies {
+    compile 'com.venomvendor:Wordpress-SDK:1.0.0-beta'
+}
+```
+
+### Initialization
 ```java
 WordpressSDK.initialize("VenomVendor.com/wp", false);
 ```
@@ -69,7 +83,7 @@ postReq.getPosts(postParams.build(), new ResponseHandler<GetPost[]>() {
 ```
 
 ## Setup
-[Refer Sample Factory.json](https://github.com/VenomVendor/Wordpress-SDK/blob/release/sdk/config/request/Factory.json)
+[Refer Sample ***Factory.json*** with comments](https://github.com/VenomVendor/Wordpress-SDK/blob/d2894b651c58cf9d6cb6d8153ced10b122c5c93f/config/request/Factory.json)
 ```json
 {
   "dateError": "GMT+05:30",

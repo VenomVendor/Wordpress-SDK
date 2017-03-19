@@ -9,6 +9,7 @@
 package com.venomvendor.sdk.wordpress;
 
 import android.support.annotation.NonNull;
+import android.support.annotation.VisibleForTesting;
 import android.util.Base64;
 import android.util.Log;
 
@@ -87,7 +88,8 @@ public final class WordpressSDK {
      * @param endpointJson plain configuration containing endpoints & params
      * @see Factory
      */
-    private static void initConfig(String domain, boolean isSecure, String endpointJson) {
+    @VisibleForTesting
+    public static void initConfig(String domain, boolean isSecure, String endpointJson) {
         try {
             Factory endpoints = getObjectMapper().readValue(endpointJson, Factory.class);
             endpoints.setDomain(domain);

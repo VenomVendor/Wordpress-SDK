@@ -17,8 +17,6 @@ import com.venomvendor.sdk.wordpress.network.request.Factory;
 
 /**
  * Holds all private data to perform network operations
- *
- * @see Factory
  */
 public class APIFactory {
     private static final APIFactory mInstance = new APIFactory();
@@ -37,7 +35,7 @@ public class APIFactory {
     }
 
     /**
-     * Return copy of {@link Factory} if factory is initilized
+     * Return copy of factory if factory is initilized
      *
      * @throws WordpressException in uninitialized
      */
@@ -51,7 +49,7 @@ public class APIFactory {
 
 
     /**
-     * Update the current factory, this has all the necessary params & endpoint for requests
+     * Update the current factory, this has all the necessary params &amp; endpoint for requests
      * <i>Factory can be updated only once.</i>
      *
      * @param factory Factory to be updated

@@ -85,8 +85,7 @@ public final class WordpressSDK {
      *
      * @param domain       Url of domain. Ex: <b>example.com</b>
      * @param isSecure     is SSL enabled.
-     * @param endpointJson plain configuration containing endpoints & params
-     * @see Factory
+     * @param endpointJson plain configuration containing endpoints &amp; params
      */
     @VisibleForTesting
     public static void initConfig(String domain, boolean isSecure, String endpointJson) {
@@ -105,9 +104,9 @@ public final class WordpressSDK {
     }
 
     /**
-     * Creates {@link ObjectMapper} for converting JSON to Objects
+     * Creates ObjectMapper for converting JSON to Objects
      *
-     * @return customized {@link ObjectMapper}
+     * @return customized ObjectMapper
      */
     @NonNull
     public static ObjectMapper getObjectMapper() {

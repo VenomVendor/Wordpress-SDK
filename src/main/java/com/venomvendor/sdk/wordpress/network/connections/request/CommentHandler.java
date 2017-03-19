@@ -25,9 +25,9 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 /**
- * Manages all post calls & callbacks
+ * Manages all post calls &amp; callbacks
  *
- * @param <T> Callback object {@link GetComment}
+ * @param <T> Callback object
  */
 public class CommentHandler<T> extends APIHandler<T> implements CommentRequests<T> {
     CommentHandler() {

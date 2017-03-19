@@ -86,7 +86,7 @@ public class BaseParams extends HashMap<String, String> {
         /**
          * Set number of results in response
          *
-         * @param resultSize number of results between 1 & 100
+         * @param resultSize number of results between 1 &amp; 100
          */
         public void setResultSize(@IntRange(from = 1, to = MAX_RESULTS) int resultSize) {
             this.mResultSize = String.valueOf(resultSize);

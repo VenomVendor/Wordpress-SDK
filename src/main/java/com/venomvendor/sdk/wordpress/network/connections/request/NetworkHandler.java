@@ -48,9 +48,9 @@ public class NetworkHandler {
      * <p><b>Ex: To Get RecentPosts</b></p>
      * <pre>
      *     PostRequests req = (PostRequests) NetworkHandler.getInstance(PostRequests.IDENTIFIER);
-     *     req.getRecentPosts(new ResponseHandler&lt;GetPost[]>() {
+     *     req.getRecentPosts(new ResponseHandler&lt;GetPost[]&gt;() {
      *         {@literal @}Override
-     *         public void onResponse(Response&lt;GetPost[]> response, WordpressException ex) {
+     *         public void onResponse(Response&lt;GetPost[]&gt; response, WordpressException ex) {
      *             if (response != null) {
      *                 // handle response
      *             } else {

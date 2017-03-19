@@ -2,7 +2,7 @@ apply plugin: 'com.github.dcendents.android-maven'
 apply plugin: 'com.jfrog.bintray'
 
 ext {
-    libraryVersion = '1.0.0-alpha'
+    libraryVersion = '1.0.0-beta'
 
     bintrayRepo = 'maven'
     bintrayName = 'Wordpress-SDK'

@@ -27,6 +27,9 @@ import okhttp3.ResponseBody;
 import retrofit2.Retrofit;
 import retrofit2.converter.jackson.JacksonConverterFactory;
 
+/**
+ * Handles all network connections.
+ */
 final class ConnectionHandler {
     private static Retrofit mRetrofit;
     private static WPRestClient mRestClient;

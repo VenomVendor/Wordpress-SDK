@@ -6,6 +6,7 @@ Minimal Wordpress SDK for Android.
 [![Codacy](https://api.codacy.com/project/badge/Grade/8faaef1c15744e79a7a9f843a921bfb6)](https://www.codacy.com/app/VenomVendor/Wordpress-SDK?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=VenomVendor/Wordpress-SDK&amp;utm_campaign=Badge_Grade)
 [![Codebeat](https://codebeat.co/badges/35ec2b4c-4898-4288-a2fc-c4849bce2a50)](https://codebeat.co/projects/github-com-venomvendor-wordpress-sdk-release-sdk)
 [![Code Coverage](https://codecov.io/gh/VenomVendor/Wordpress-SDK/branch/release%2Fsdk/graph/badge.svg)](https://codecov.io/gh/VenomVendor/Wordpress-SDK)
+[![Documentation Status](https://readthedocs.org/projects/wordpress-sdk/badge/?version=latest)](http://wordpress-sdk.readthedocs.io/en/latest/?badge=latest)
 
 ---
 
@@ -170,4 +171,4 @@ postReq.getPosts(postParams.build(), new ResponseHandler<GetPost[]>() {
 <a href="https://codecov.io/gh/VenomVendor/Wordpress-SDK"><img src="https://codecov.io/gh/VenomVendor/Wordpress-SDK/branch/release%2Fsdk/graphs/tree.svg" width="250" /><a/>
 
 ## Java Docs
-<a target="_blank" href="https://venomvendor.github.io/Wordpress-SDK/docs/">Click here for Java documentation<a/>
+<a target="_blank" href="https://venomvendor.github.io/Wordpress-SDK/docs/javadocs/v1.0.0/">Click here for Java documentation<a/>

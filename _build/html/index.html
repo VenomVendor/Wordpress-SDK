@@ -1,0 +1,293 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+
+    <title>Wordpress-SDK | Android &#8212; Wordpress-SDK | Android  documentation</title>
+
+    <link rel="stylesheet" href="_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    './',
+        VERSION:     '',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true,
+        SOURCELINK_SUFFIX: '.txt'
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+
+  <link rel="stylesheet" href="_static/custom.css" type="text/css" />
+
+
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head>
+  <body role="document">
+
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+
+  <div class="section" id="wordpress-sdk-android">
+<span id="wordpress-sdk-android"></span><h1>Wordpress-SDK | Android<a class="headerlink" href="#wordpress-sdk-android" title="Permalink to this headline">¶</a></h1>
+<p>Minimal Wordpress SDK for Android.</p>
+<p><a class="reference external" href="https://travis-ci.org/VenomVendor/Wordpress-SDK"><img alt="Build Status" src="https://travis-ci.org/VenomVendor/Wordpress-SDK.svg?branch=release%2Fsdk" /></a>
+<a class="reference external" href="https://www.codefactor.io/repository/github/venomvendor/wordpress-sdk"><img alt="Code Factor" src="https://www.codefactor.io/repository/github/venomvendor/wordpress-sdk/badge" /></a>
+<a class="reference external" href="https://www.codacy.com/app/VenomVendor/Wordpress-SDK?utm_source=github.com&amp;amp;utm_medium=referral&amp;amp;utm_content=VenomVendor/Wordpress-SDK&amp;amp;utm_campaign=Badge_Grade"><img alt="Codacy" src="https://api.codacy.com/project/badge/Grade/8faaef1c15744e79a7a9f843a921bfb6" /></a>
+<a class="reference external" href="https://codebeat.co/projects/github-com-venomvendor-wordpress-sdk-release-sdk"><img alt="Codebeat" src="https://codebeat.co/badges/35ec2b4c-4898-4288-a2fc-c4849bce2a50" /></a>
+<a class="reference external" href="https://codecov.io/gh/VenomVendor/Wordpress-SDK"><img alt="Code Coverage" src="https://codecov.io/gh/VenomVendor/Wordpress-SDK/branch/release%2Fsdk/graph/badge.svg" /></a></p>
+<hr class="docutils" />
+<div class="section" id="installation">
+<span id="installation"></span><h2>Installation<a class="headerlink" href="#installation" title="Permalink to this headline">¶</a></h2>
+<p>In <code class="docutils literal"><span class="pre">build.gradle</span></code> add the following dependencies</p>
+<div class="highlight-coffeescript"><div class="highlight"><pre><span></span><span class="nx">repositories</span> <span class="p">{</span>
+    <span class="nx">maven</span> <span class="p">{</span>
+        <span class="nx">url</span>  <span class="s">&#39;http://dl.bintray.com/venomvendor/maven&#39;</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+
+<span class="nx">dependencies</span> <span class="p">{</span>
+    <span class="nx">compile</span> <span class="s">&#39;com.venomvendor:Wordpress-SDK:1.0.0-beta&#39;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<div class="section" id="initialization">
+<span id="initialization"></span><h3>Initialization<a class="headerlink" href="#initialization" title="Permalink to this headline">¶</a></h3>
+<div class="highlight-java"><div class="highlight"><pre><span></span><span class="n">WordpressSDK</span><span class="o">.</span><span class="na">initialize</span><span class="o">(</span><span class="s">&quot;VenomVendor.com/wp&quot;</span><span class="o">,</span> <span class="kc">false</span><span class="o">);</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="available-apis">
+<span id="available-apis"></span><h3>Available APIs<a class="headerlink" href="#available-apis" title="Permalink to this headline">¶</a></h3>
+<div class="highlight-java"><div class="highlight"><pre><span></span><span class="cm">/* Request for posts */</span>
+<span class="n">PostRequests</span> <span class="n">postReq</span> <span class="o">=</span> <span class="o">(</span><span class="n">PostRequests</span><span class="o">)</span> <span class="n">NetworkHandler</span><span class="o">.</span><span class="na">getInstance</span><span class="o">(</span><span class="n">PostRequests</span><span class="o">.</span><span class="na">IDENTIFIER</span><span class="o">);</span>
+
+<span class="cm">/* Request for comments */</span>
+<span class="n">CommentRequests</span> <span class="n">commentReq</span> <span class="o">=</span> <span class="o">(</span><span class="n">CommentRequests</span><span class="o">)</span> <span class="n">NetworkHandler</span><span class="o">.</span><span class="na">getInstance</span><span class="o">(</span><span class="n">CommentRequests</span><span class="o">.</span><span class="na">IDENTIFIER</span><span class="o">);</span>
+
+<span class="cm">/* Request for categories */</span>
+<span class="n">CategoryRequests</span> <span class="n">CategoryReq</span> <span class="o">=</span> <span class="o">(</span><span class="n">CategoryRequests</span><span class="o">)</span> <span class="n">NetworkHandler</span><span class="o">.</span><span class="na">getInstance</span><span class="o">(</span><span class="n">CategoryRequests</span><span class="o">.</span><span class="na">IDENTIFIER</span><span class="o">);</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="get-recent-posts">
+<span id="get-recent-posts"></span><h3>Get Recent Posts<a class="headerlink" href="#get-recent-posts" title="Permalink to this headline">¶</a></h3>
+<div class="highlight-java"><div class="highlight"><pre><span></span><span class="n">PostRequests</span> <span class="n">postReq</span> <span class="o">=</span> <span class="o">(</span><span class="n">PostRequests</span><span class="o">)</span> <span class="n">NetworkHandler</span><span class="o">.</span><span class="na">getInstance</span><span class="o">(</span><span class="n">PostRequests</span><span class="o">.</span><span class="na">IDENTIFIER</span><span class="o">);</span>
+<span class="n">postReq</span><span class="o">.</span><span class="na">getRecentPosts</span><span class="o">(</span><span class="k">new</span> <span class="n">ResponseHandler</span><span class="o">&lt;</span><span class="n">GetPost</span><span class="o">[]&gt;()</span> <span class="o">{</span>
+    <span class="nd">@Override</span>
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">onResponse</span><span class="o">(</span><span class="nd">@Nullable</span> <span class="n">Response</span><span class="o">&lt;</span><span class="n">GetPost</span><span class="o">[]&gt;</span> <span class="n">response</span><span class="o">,</span>
+                           <span class="nd">@Nullable</span> <span class="n">WordpressException</span> <span class="n">ex</span><span class="o">)</span> <span class="o">{</span>
+        <span class="k">if</span> <span class="o">(</span><span class="n">response</span> <span class="o">!=</span> <span class="kc">null</span><span class="o">)</span> <span class="o">{</span>
+            <span class="n">GetPost</span><span class="o">[]</span> <span class="n">allPosts</span> <span class="o">=</span> <span class="n">response</span><span class="o">.</span><span class="na">body</span><span class="o">();</span>
+            <span class="k">for</span> <span class="o">(</span><span class="n">GetPost</span> <span class="n">post</span> <span class="o">:</span> <span class="n">allPosts</span><span class="o">)</span> <span class="o">{</span>
+                <span class="n">Log</span><span class="o">.</span><span class="na">d</span><span class="o">(</span><span class="n">TAG</span><span class="o">,</span> <span class="n">post</span><span class="o">.</span><span class="na">getTitle</span><span class="o">().</span><span class="na">getRendered</span><span class="o">());</span>
+            <span class="o">}</span>
+        <span class="o">}</span> <span class="k">else</span> <span class="k">if</span> <span class="o">(</span><span class="n">ex</span> <span class="o">!=</span> <span class="kc">null</span><span class="o">)</span> <span class="o">{</span>
+            <span class="n">Log</span><span class="o">.</span><span class="na">d</span><span class="o">(</span><span class="n">TAG</span><span class="o">,</span> <span class="n">ex</span><span class="o">.</span><span class="na">getMessage</span><span class="o">());</span>
+        <span class="o">}</span> <span class="k">else</span> <span class="o">{</span>
+            <span class="n">Log</span><span class="o">.</span><span class="na">d</span><span class="o">(</span><span class="n">TAG</span><span class="o">,</span> <span class="s">&quot;Unknown Error&quot;</span><span class="o">);</span>
+        <span class="o">}</span>
+    <span class="o">}</span>
+<span class="o">});</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="get-posts">
+<span id="get-posts"></span><h3>Get Posts<a class="headerlink" href="#get-posts" title="Permalink to this headline">¶</a></h3>
+<div class="highlight-java"><div class="highlight"><pre><span></span><span class="n">PostRequests</span> <span class="n">postReq</span> <span class="o">=</span> <span class="o">(</span><span class="n">PostRequests</span><span class="o">)</span> <span class="n">NetworkHandler</span><span class="o">.</span><span class="na">getInstance</span><span class="o">(</span><span class="n">PostRequests</span><span class="o">.</span><span class="na">IDENTIFIER</span><span class="o">);</span>
+
+<span class="n">PostsParams</span><span class="o">.</span><span class="na">Builder</span> <span class="n">params</span> <span class="o">=</span> <span class="k">new</span> <span class="n">PostsParams</span><span class="o">.</span><span class="na">Builder</span><span class="o">();</span>
+<span class="n">params</span><span class="o">.</span><span class="na">setPage</span><span class="o">(</span><span class="mi">1</span><span class="o">);</span>
+<span class="n">params</span><span class="o">.</span><span class="na">setOffset</span><span class="o">(</span><span class="mi">10</span><span class="o">);</span>
+<span class="n">params</span><span class="o">.</span><span class="na">setResultSize</span><span class="o">(</span><span class="mi">20</span><span class="o">);</span>
+<span class="n">params</span><span class="o">.</span><span class="na">setSearch</span><span class="o">(</span><span class="s">&quot;Mario&quot;</span><span class="o">);</span>
+<span class="n">params</span><span class="o">.</span><span class="na">setCategory</span><span class="o">(</span><span class="s">&quot;Mobile&quot;</span><span class="o">);</span>
+<span class="n">params</span><span class="o">.</span><span class="na">setSlug</span><span class="o">(</span><span class="s">&quot;some-slug&quot;</span><span class="o">);</span>
+<span class="n">params</span><span class="o">.</span><span class="na">setPublishedBefore</span><span class="o">(</span><span class="s">&quot;2017-03-18T13:18:35&quot;</span><span class="o">);</span>
+<span class="n">params</span><span class="o">.</span><span class="na">setPublishedAfter</span><span class="o">(</span><span class="s">&quot;2016-01-01T13:18:35&quot;</span><span class="o">);</span>
+
+<span class="n">postReq</span><span class="o">.</span><span class="na">getPosts</span><span class="o">(</span><span class="n">postParams</span><span class="o">.</span><span class="na">build</span><span class="o">(),</span> <span class="k">new</span> <span class="n">ResponseHandler</span><span class="o">&lt;</span><span class="n">GetPost</span><span class="o">[]&gt;()</span> <span class="o">{</span>
+    <span class="nd">@Override</span>
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">onResponse</span><span class="o">(</span><span class="nd">@Nullable</span> <span class="n">Response</span><span class="o">&lt;</span><span class="n">GetPost</span><span class="o">[]&gt;</span> <span class="n">response</span><span class="o">,</span>
+                           <span class="nd">@Nullable</span> <span class="n">WordpressException</span> <span class="n">ex</span><span class="o">)</span> <span class="o">{</span>
+        <span class="k">if</span> <span class="o">(</span><span class="n">response</span> <span class="o">!=</span> <span class="kc">null</span><span class="o">)</span> <span class="o">{</span>
+            <span class="n">GetPost</span><span class="o">[]</span> <span class="n">allPosts</span> <span class="o">=</span> <span class="n">response</span><span class="o">.</span><span class="na">body</span><span class="o">();</span>
+            <span class="k">for</span> <span class="o">(</span><span class="n">GetPost</span> <span class="n">post</span> <span class="o">:</span> <span class="n">allPosts</span><span class="o">)</span> <span class="o">{</span>
+                <span class="n">Log</span><span class="o">.</span><span class="na">d</span><span class="o">(</span><span class="n">TAG</span><span class="o">,</span> <span class="n">post</span><span class="o">.</span><span class="na">getTitle</span><span class="o">().</span><span class="na">getRendered</span><span class="o">());</span>
+            <span class="o">}</span>
+        <span class="o">}</span> <span class="k">else</span> <span class="k">if</span> <span class="o">(</span><span class="n">ex</span> <span class="o">!=</span> <span class="kc">null</span><span class="o">)</span> <span class="o">{</span>
+            <span class="n">Log</span><span class="o">.</span><span class="na">d</span><span class="o">(</span><span class="n">TAG</span><span class="o">,</span> <span class="n">ex</span><span class="o">.</span><span class="na">getMessage</span><span class="o">());</span>
+        <span class="o">}</span> <span class="k">else</span> <span class="o">{</span>
+            <span class="n">Log</span><span class="o">.</span><span class="na">d</span><span class="o">(</span><span class="n">TAG</span><span class="o">,</span> <span class="s">&quot;Unknown Error&quot;</span><span class="o">);</span>
+        <span class="o">}</span>
+    <span class="o">}</span>
+<span class="o">});</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="setup">
+<span id="setup"></span><h2>Setup<a class="headerlink" href="#setup" title="Permalink to this headline">¶</a></h2>
+<p><a class="reference external" href="https://github.com/VenomVendor/Wordpress-SDK/blob/d2894b651c58cf9d6cb6d8153ced10b122c5c93f/config/request/Factory.json">Refer Sample <strong><em>Factory.json</em></strong> with comments</a></p>
+<div class="highlight-json"><div class="highlight"><pre><span></span><span class="p">{</span>
+  <span class="nt">&quot;dateError&quot;</span><span class="p">:</span> <span class="s2">&quot;GMT+05:30&quot;</span><span class="p">,</span>
+  <span class="nt">&quot;perReq&quot;</span><span class="p">:</span> <span class="mi">20</span><span class="p">,</span>
+  <span class="nt">&quot;perReqNew&quot;</span><span class="p">:</span> <span class="mi">100</span><span class="p">,</span>
+  <span class="nt">&quot;secure&quot;</span><span class="p">:</span> <span class="kc">true</span><span class="p">,</span>
+  <span class="nt">&quot;domain&quot;</span><span class="p">:</span> <span class="s2">&quot;VenomVendor.com&quot;</span><span class="p">,</span>
+  <span class="nt">&quot;protocolDefault&quot;</span><span class="p">:</span> <span class="s2">&quot;http://&quot;</span><span class="p">,</span>
+  <span class="nt">&quot;protocolSecure&quot;</span><span class="p">:</span> <span class="s2">&quot;https://&quot;</span><span class="p">,</span>
+  <span class="nt">&quot;path&quot;</span><span class="p">:</span> <span class="p">{</span>
+    <span class="nt">&quot;root&quot;</span><span class="p">:</span> <span class="s2">&quot;/wp-json/wp/v2/&quot;</span><span class="p">,</span>
+    <span class="nt">&quot;token&quot;</span><span class="p">:</span> <span class="s2">&quot;token/&quot;</span><span class="p">,</span>
+    <span class="nt">&quot;posts&quot;</span><span class="p">:</span> <span class="s2">&quot;posts/&quot;</span><span class="p">,</span>
+    <span class="nt">&quot;comments&quot;</span><span class="p">:</span> <span class="s2">&quot;comments/&quot;</span><span class="p">,</span>
+    <span class="nt">&quot;category&quot;</span><span class="p">:</span> <span class="s2">&quot;categories/&quot;</span>
+  <span class="p">},</span>
+  <span class="nt">&quot;filter&quot;</span><span class="p">:</span> <span class="p">{</span>
+    <span class="nt">&quot;fetchPost&quot;</span><span class="p">:</span> <span class="p">{</span>
+      <span class="nt">&quot;id&quot;</span><span class="p">:</span> <span class="s2">&quot;include&quot;</span><span class="p">,</span>
+      <span class="nt">&quot;publishedAfter&quot;</span><span class="p">:</span> <span class="s2">&quot;after&quot;</span><span class="p">,</span>
+      <span class="nt">&quot;publishedBefore&quot;</span><span class="p">:</span> <span class="s2">&quot;before&quot;</span><span class="p">,</span>
+      <span class="nt">&quot;page&quot;</span><span class="p">:</span> <span class="s2">&quot;page&quot;</span><span class="p">,</span>
+      <span class="nt">&quot;search&quot;</span><span class="p">:</span> <span class="s2">&quot;search&quot;</span><span class="p">,</span>
+      <span class="nt">&quot;offset&quot;</span><span class="p">:</span> <span class="s2">&quot;offset&quot;</span><span class="p">,</span>
+      <span class="nt">&quot;resultSize&quot;</span><span class="p">:</span> <span class="s2">&quot;per_page&quot;</span><span class="p">,</span>
+      <span class="nt">&quot;slug&quot;</span><span class="p">:</span> <span class="s2">&quot;slug&quot;</span><span class="p">,</span>
+      <span class="nt">&quot;category&quot;</span><span class="p">:</span> <span class="s2">&quot;categories&quot;</span>
+    <span class="p">},</span>
+    <span class="nt">&quot;fetchComment&quot;</span><span class="p">:</span> <span class="p">{</span>
+      <span class="nt">&quot;id&quot;</span><span class="p">:</span> <span class="s2">&quot;include&quot;</span><span class="p">,</span>
+      <span class="nt">&quot;publishedAfter&quot;</span><span class="p">:</span> <span class="s2">&quot;after&quot;</span><span class="p">,</span>
+      <span class="nt">&quot;publishedBefore&quot;</span><span class="p">:</span> <span class="s2">&quot;before&quot;</span><span class="p">,</span>
+      <span class="nt">&quot;page&quot;</span><span class="p">:</span> <span class="s2">&quot;page&quot;</span><span class="p">,</span>
+      <span class="nt">&quot;search&quot;</span><span class="p">:</span> <span class="s2">&quot;search&quot;</span><span class="p">,</span>
+      <span class="nt">&quot;offset&quot;</span><span class="p">:</span> <span class="s2">&quot;offset&quot;</span><span class="p">,</span>
+      <span class="nt">&quot;resultSize&quot;</span><span class="p">:</span> <span class="s2">&quot;per_page&quot;</span><span class="p">,</span>
+      <span class="nt">&quot;postId&quot;</span><span class="p">:</span> <span class="s2">&quot;post&quot;</span><span class="p">,</span>
+      <span class="nt">&quot;userId&quot;</span><span class="p">:</span> <span class="s2">&quot;author&quot;</span><span class="p">,</span>
+      <span class="nt">&quot;inReplyTo&quot;</span><span class="p">:</span> <span class="s2">&quot;parent&quot;</span>
+    <span class="p">}</span>
+  <span class="p">},</span>
+  <span class="nt">&quot;create&quot;</span><span class="p">:</span> <span class="p">{</span>
+    <span class="nt">&quot;newComment&quot;</span><span class="p">:</span> <span class="p">{</span>
+      <span class="nt">&quot;postId&quot;</span><span class="p">:</span> <span class="s2">&quot;post&quot;</span><span class="p">,</span>
+      <span class="nt">&quot;userId&quot;</span><span class="p">:</span> <span class="s2">&quot;author&quot;</span><span class="p">,</span>
+      <span class="nt">&quot;email&quot;</span><span class="p">:</span> <span class="s2">&quot;author_email&quot;</span><span class="p">,</span>
+      <span class="nt">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;author_name&quot;</span><span class="p">,</span>
+      <span class="nt">&quot;comment&quot;</span><span class="p">:</span> <span class="s2">&quot;content&quot;</span><span class="p">,</span>
+      <span class="nt">&quot;userAgent&quot;</span><span class="p">:</span> <span class="s2">&quot;author_user_agent&quot;</span><span class="p">,</span>
+      <span class="nt">&quot;replyTo&quot;</span><span class="p">:</span> <span class="s2">&quot;parent&quot;</span>
+    <span class="p">}</span>
+  <span class="p">},</span>
+  <span class="nt">&quot;update&quot;</span><span class="p">:</span> <span class="p">{</span>
+    <span class="nt">&quot;updateParams&quot;</span><span class="p">:</span> <span class="p">{</span>
+      <span class="nt">&quot;postId&quot;</span><span class="p">:</span> <span class="s2">&quot;post&quot;</span><span class="p">,</span>
+      <span class="nt">&quot;userId&quot;</span><span class="p">:</span> <span class="s2">&quot;author&quot;</span><span class="p">,</span>
+      <span class="nt">&quot;email&quot;</span><span class="p">:</span> <span class="s2">&quot;author_email&quot;</span><span class="p">,</span>
+      <span class="nt">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;author_name&quot;</span><span class="p">,</span>
+      <span class="nt">&quot;comment&quot;</span><span class="p">:</span> <span class="s2">&quot;content&quot;</span>
+    <span class="p">}</span>
+  <span class="p">},</span>
+  <span class="nt">&quot;delete&quot;</span><span class="p">:</span> <span class="p">{</span>
+    <span class="nt">&quot;oldComment&quot;</span><span class="p">:</span> <span class="p">{</span>
+      <span class="nt">&quot;force&quot;</span><span class="p">:</span> <span class="s2">&quot;force&quot;</span><span class="p">,</span>
+      <span class="nt">&quot;password&quot;</span><span class="p">:</span> <span class="s2">&quot;password&quot;</span>
+    <span class="p">}</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="code-coverage">
+<span id="code-coverage"></span><h2>Code Coverage<a class="headerlink" href="#code-coverage" title="Permalink to this headline">¶</a></h2>
+<p><a href="https://codecov.io/gh/VenomVendor/Wordpress-SDK"><img src="https://codecov.io/gh/VenomVendor/Wordpress-SDK/branch/release%2Fsdk/graphs/tree.svg" width="250" /><a/></p>
+</div>
+<div class="section" id="java-docs">
+<span id="java-docs"></span><h2>Java Docs<a class="headerlink" href="#java-docs" title="Permalink to this headline">¶</a></h2>
+<p><a target="_blank" href="https://venomvendor.github.io/Wordpress-SDK/docs/">Click here for Java documentation<a/></p>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="sub-index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Wordpress-SDK | Android</a><ul>
+<li><a class="reference internal" href="#installation">Installation</a><ul>
+<li><a class="reference internal" href="#initialization">Initialization</a></li>
+<li><a class="reference internal" href="#available-apis">Available APIs</a></li>
+<li><a class="reference internal" href="#get-recent-posts">Get Recent Posts</a></li>
+<li><a class="reference internal" href="#get-posts">Get Posts</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#setup">Setup</a></li>
+<li><a class="reference internal" href="#code-coverage">Code Coverage</a></li>
+<li><a class="reference internal" href="#java-docs">Java Docs</a></li>
+<li><a class="reference internal" href="search.html"><span class="std std-ref">Search Page</span></a></li>
+</ul>
+</li>
+</ul>
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="sub-index.html">Documentation overview</a><ul>
+  </ul></li>
+</ul>
+</div>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="_sources/README.md.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <form class="search" action="search.html" method="get">
+      <div><input type="text" name="q" /></div>
+      <div><input type="submit" value="Go" /></div>
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2017, VenomVendor.
+
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.5.3</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.10</a>
+
+      |
+      <a href="_sources/README.md.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+
+
+
+  </body>
+</html>

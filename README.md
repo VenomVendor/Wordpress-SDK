@@ -29,6 +29,18 @@ dependencies {
 WordpressSDK.initialize("VenomVendor.com/wp", false);
 ```
 
+### Available APIs
+```java
+/* Request for posts */
+PostRequests postReq = (PostRequests) NetworkHandler.getInstance(PostRequests.IDENTIFIER);
+
+/* Request for comments */
+CommentRequests commentReq = (CommentRequests) NetworkHandler.getInstance(CommentRequests.IDENTIFIER);
+
+/* Request for categories */
+CategoryRequests CategoryReq = (CategoryRequests) NetworkHandler.getInstance(CategoryRequests.IDENTIFIER);
+```
+
 ### Get Recent Posts
 ```java
 PostRequests postReq = (PostRequests) NetworkHandler.getInstance(PostRequests.IDENTIFIER);

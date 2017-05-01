@@ -1,4 +1,4 @@
-apply from: 'autogen.gradle'
+apply from: 'scripts/autogen.gradle'
 ext {
     minSdk = 14
     targetSdk = 25
@@ -9,6 +9,9 @@ ext {
     okhttp = '3.6.0'
     retrofit = '2.2.0'
     jackson = '2.8.5'
+    rxJava = '2.0.8'
+    rxJavaExtensions = '0.16.5'
+    rxAndroid = '2.0.1'
 
     junit = '4.12'
     hamcrest = '1.3'
@@ -17,7 +20,7 @@ ext {
 
     versionCode = computeVerName()
     MAJOR = 1
-    MINOR = 0
+    MINOR = 1
     PATCH = 0
     versionName = "${MAJOR}.${MINOR}.${PATCH}"
 }

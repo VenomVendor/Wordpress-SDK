@@ -3,7 +3,7 @@ buildscript {
         jcenter()
     }
     dependencies {
-        classpath 'com.android.tools.build:gradle:2.4.0-alpha1'
+        classpath 'com.android.tools.build:gradle:2.4.0-alpha6'
         classpath 'org.jsonschema2pojo:jsonschema2pojo-gradle-plugin:0.4.31'
         classpath 'com.github.dcendents:android-maven-gradle-plugin:1.5'
         classpath 'com.jfrog.bintray.gradle:gradle-bintray-plugin:1.7.3'
@@ -14,8 +14,8 @@ plugins {
     id 'com.github.kt3k.coveralls' version '2.6.3'
 }
 
-apply from: 'version.gradle'
-apply from: 'jacoco.gradle'
+apply from: 'scripts/version.gradle'
+apply from: 'scripts/jacoco.gradle'
 apply plugin: 'com.android.library'
 
 repositories {
@@ -104,6 +104,13 @@ dependencies {
     // Annotations
     compile "com.android.support:support-annotations:${support}"
 
+    // RxJava
+    compile "io.reactivex.rxjava2:rxjava:${rxJava}"
+    compile "com.github.akarnokd:rxjava2-extensions:${rxJavaExtensions}"
+
+    // RxAndroid
+    compile "io.reactivex.rxjava2:rxandroid:${rxAndroid}@aar"
+
     // Network Connection
     compile "com.squareup.okhttp3:okhttp:${okhttp}"
     compile "com.squareup.okhttp3:okhttp-urlconnection:${okhttp}"
@@ -124,6 +131,6 @@ dependencies {
 }
 
 if (publish) {
-    apply from: 'publish.gradle'
+    apply from: 'scripts/publish.gradle'
 }
 

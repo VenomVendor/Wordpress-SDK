@@ -1,4 +1,4 @@
-apply from: 'pojogen.gradle'
+apply from: 'scripts/pojogen.gradle'
 import org.apache.commons.codec.binary.Base64
 
 defaultTasks 'configGen'
